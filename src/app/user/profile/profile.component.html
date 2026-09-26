@@ -1,0 +1,31 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row" style="margin-top: 90px;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="background: #f8f9fa;">
+        <div id="contactus">
+            <div style="text-align: center;font-size: 1.3em;font-weight: 700;padding-top: 20px;color:#000;">
+                <div>User Profile <span style="float: right;"> <a (click)="logout()" class="admin-logout">
+                  Logout  <i class="fa fa-sign-out"></i> 
+                </a></span></div>
+            </div>
+            <div class="row profile-page-main-div">
+                <div class="col-md-6">Photo</div>
+                <div class="col-md-6" style="margin-bottom: 10px;"><img [attr.src]="this.profileData[0].photoUrl" alt='user profile image' style="border-radius: 30px;" /></div>
+                <div class="col-md-6">Name</div>
+                <div class="col-md-6">{{this.profileData[0].displayName}}</div>
+                <div class="col-md-6">Email</div>
+                <div class="col-md-6">{{this.profileData[0].email}}</div>
+                <div class="col-md-6">Phone Number</div>
+                <div class="col-md-6">{{this.profileData[0].phoneNumber}}</div>
+                <div class="col-md-6">Provider</div>
+                <div class="col-md-6">{{this.profileData[0].providerId}}</div>               
+                <div style="margin-top: 50px;width: 100%;text-align: center;margin-bottom: 20px">
+                    <button (click)="deleteUser()"  pButton type="button" label="Delete User"
+                         style="background: #000 !important;  border: none !important;"></button>
+                </div>
+            </div>         
+        </div>
+        <div class="col-md-3"></div>
+    </div>

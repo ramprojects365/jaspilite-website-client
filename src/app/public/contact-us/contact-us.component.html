@@ -1,0 +1,90 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row" style="margin-top: 70px;background: #f8f9fa;">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div id="contactus">       
+            <div style="text-align: center;font-size: 2.3em;font-weight: 700;padding-top: 20px;">
+                <div>Contact Us</div>
+            </div>
+            <div class="welcome-down">We (+60105449974) are the largest online food & grocery platform in Malaysia. We have the best selection of Indian groceries so you can prepare staple delicious dishes with ease! You can find everything from grocery, food, beauty products, jewellery, electronics, fresh vegetables, dairy products, cooking gas, fresh milk, Indian homemade products, bakery items, Indian species many more.
+            </div>
+            <div class="content">
+                <div style="text-align:center;font-size: 15px;
+                font-weight: bold;">
+                    <p style="margin-top: 10px;color: #a5a1a1;">Any queries? Fill out the contact form below.</p>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div class="column">
+                        <div class="row">
+                            <div class="col-md-1"><img src="../../assets/img/home/easysearch-address.png"
+                                    alt="Mini Market Delivery App">
+                            </div>
+                            <div class="col-md-7">
+                                <div style="font-weight: 500;font-size: 16px;">Address</div>
+                                <div>Minimart Online Sdn Bhd, Unit D-3A-4, Setiawalk, Puchong, 47160, Malaysia</div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row" style="padding-top: 20px;">
+                            <div class="col-md-1"><img src="../../assets/img/home/easysearch-email.png"
+                                    alt="Yong Soon Fat Chinese Grocery Delivery"></div>
+                            <div class="col-md-7">
+                                <div style="font-weight: 500;font-size: 16px;">Email Address</div>
+                                <div>sales&#64;convoxy.com</div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row" style="padding-top: 20px;">
+                            <div class="col-md-1"><img src="../../assets/img/home/easysearch-support.png"
+                                    alt="Grocery Shopping in Petaling Jaya">
+                            </div>
+                            <div class="col-md-7">
+                                <div style="font-weight: 500;font-size: 16px;">Contact Number</div>
+                                <div>(+60)10 544 9974</div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </div>
+                    <div class="column">                  
+                        <form class="m-t" (ngSubmit)="contactUs(flogin)" #flogin="ngForm">
+                            <div class="form-group">
+                                <label for="name" style="font-weight: 600;font-size: 15px;">Name</label>
+                                <input type="text" style="font-size: 14px;" class="form-control" ngModel id="name"
+                                    name="name" placeholder="Enter your name" #name="ngModel" required>
+                                <span *ngIf="!name.valid && name.touched" style="color:#ffa500">Please enter your
+                                    name.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobilenumber" style="font-weight: 600;font-size: 15px;">Phone
+                                    Number</label>
+                                <input type="number" style="font-size: 14px;" class="form-control" id="mobilenumber"
+                                ngModel  name="mobilenumber" placeholder="Enter your phone number"  #mobilenumber="ngModel" required>
+                                <span *ngIf="!mobilenumber.valid && mobilenumber.touched" style="color:#ffa500">Please enter your
+                                        mobile number.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" style="font-weight: 600;font-size: 15px;">Email</label>
+                                <input type="email" style="font-size: 14px;" class="form-control" id="email"
+                                    name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                    placeholder="Enter your email address"  #email="ngModel" ngModel required>
+                                    <span *ngIf="!email.valid && email.touched" style="color:#ffa500">Please enter your
+                                            email address.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject" style="font-weight: 600;font-size: 15px;">Message</label>
+                                <textarea id="message" style="font-size: 14px;" name="message" class="form-control"
+                                    placeholder="Enter your message" style="height:170px"  #message="ngModel" ngModel required></textarea>
+                                    <span *ngIf="!message.valid && message.touched" style="color:#ffa500">Please enter your
+                                            message.</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary block full-width m-b" [disabled]="!flogin.valid">Send Message</button>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>

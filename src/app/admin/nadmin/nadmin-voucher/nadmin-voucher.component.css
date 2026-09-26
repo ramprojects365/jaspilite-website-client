@@ -1,0 +1,37 @@
+.card {
+    padding: 25px;
+}
+.uploadBtn {
+    border-color: #ddd !important;
+    border: 1px solid;
+    padding-top: 12px;
+}
+.add-submit {
+    color: #fff;
+    background: -webkit-linear-gradient(top,#f53e3e 0,#d84315 100%) !important;
+    border: none;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+}
+.tab-head-style {
+    text-transform: uppercase;
+    color: #9A9A9A;
+}
+.srch-filter {
+    float: right;
+    height: 35px;
+    width: 100%;
+    padding-left: 7px;
+    border: 1px solid #E3E3E3;
+    border-radius: 4px;
+    margin-bottom:4px;
+}
+.datepicker {
+    border: 1px solid #E3E3E3;
+    border-radius: 1.25rem;
+    display: inline-block;
+    padding: 14px;
+}
+
+

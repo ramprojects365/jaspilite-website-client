@@ -1,0 +1,125 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<p-dialog appendTo="body" header="Edit Categories" [(visible)]="displayCategoryAdder" [modal]="true" [responsive]="true"
+    [style]="{width: '650px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+    [baseZIndex]="10000">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox animated fadeInRight">
+                <form role="form" (ngSubmit)="addNewCategory(faddcat)" #faddcat="ngForm">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-6 b-r">
+                                <div class="form-group">
+                                    <label>Category Name</label>
+                                    <input pInputText type="text" placeholder="Enter category name" class="form-control"
+                                        ngModel name="name" #name="ngModel" required>
+                                    <span *ngIf="!name.valid && name.touched" style="color:#ffa500">Please enter full
+                                        name.</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div style="color:silver; margin:1em;">
+                                    Please check if the category you are trying to enter already exists or not.
+                                    Categories
+                                    once
+                                    entered cannot be deleted.
+                                </div>
+                                <div class="form-group">
+                                    <button pButton type="submit" [disabled]="!faddcat.valid" label="Add Category"
+                                        class="float-right ui-button-raised"></button>
+                                    <button (click)="cancelCategoryAdder(faddcat)" pButton type="button" label="Cancel"
+                                        class="float-right ui-button-raised cancelBtn"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</p-dialog>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Existing Categories</h5>
+                <button (click)="showdisplayCategoryAdder()" style="margin-top: -0.6em;" pButton type="submit"
+                    label="Add Category" class="float-right ui-button-raised"></button>
+            </div>
+            <div class="ibox-content">
+                <p-table #dt [columns]="cols" [value]="categories" dataKey="category_id" editMode="row"
+                    [paginator]="true" [rows]="10" [resizableColumns]="true" [responsive]="true">
+                    <ng-template pTemplate="caption">
+                            <div class="row">
+                                    <div class="col-lg-6"></div>
+                                <div class="col-lg-6">
+                            <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                            <input type="text" pInputText size="50" placeholder="Search"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                        </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:4em">#</th>
+                            <th [pSortableColumn]="'category_name'">Name
+                                <p-sortIcon [field]="'category_name'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th [pSortableColumn]="'category_icon'">Icon
+                                <p-sortIcon [field]="'category_icon'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:8em"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="rowData.category_name" required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.category_name}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="rowData.category_icon" required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.category_icon}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+
+                            <td style="text-align:center">
+                                <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                                    class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                                <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
+                                    class="ui-button-success" style="margin-right: .5em"
+                                    (click)="onRowEditSave(rowData)"></button>
+                                <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
+                                    class="cancelBtn" (click)="onRowEditCancel(rowData, ri)"></button>                          
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+
+            </div>
+        </div>
+    </div>
+</div>

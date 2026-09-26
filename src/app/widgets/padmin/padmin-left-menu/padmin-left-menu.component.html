@@ -1,0 +1,28 @@
+<nav class="navbar-default navbar-static-side" role="navigation" style="background-color: #000; height: 100%;">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <img alt="image" class="rounded-circle" src="assets/img/admindashboard/profile_small.jpg" />
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="block m-t-xs font-bold">{{ this.adminUser.displayName }}</span>
+                        <span class="text-muted text-xs block">PADMIN </span>
+                    </a>
+                    <!-- <ul class="dropdown-menu animated fadeInRight m-t-xs" style="background-color: #000;">
+                      
+                        <li><a class="dropdown-item" routerLink="/admin/login">Logout</a></li>
+                    </ul> -->
+                </div>
+             
+            </li>
+      
+       
+            <li>
+                <a routerLink="/admin/padmin/products"><i class="fa fa-cart-arrow-down"></i> <span
+                        class="nav-label">Products</span></a>
+            </li>
+          
+        </ul>
+    </div>
+</nav>
+

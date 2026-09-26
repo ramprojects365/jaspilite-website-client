@@ -1,0 +1,170 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+                <div class="ibox-title">
+                        <button pButton type="button" icon="pi pi-arrow-left" style="margin-right: 1em;"
+                            (click)="router.navigate(['admin/nadmin/dashboard']);"></button>
+                        <h5>Order Details</h5>
+                    </div>         
+            <div class="ibox-content" id="divPrint">
+                <div class="ibox-content">
+                    <div class="row">
+                        <b>Details:</b>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <b>Customer Name:</b> {{sale.displayName}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>Status:</b> {{sale.status}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <b>Phone no:</b> {{sale.phoneNumber}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>Address:</b> {{addressString}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <b>Date:</b> {{sale.date}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>Sales Id: </b>
+                            <span *ngIf="!sale.salesIdString">N/A</span>
+                             {{sale.salesIdString}}
+                        </div>                        
+                    </div>                 
+                </div>
+
+                <p-table #dt [columns]="cols" [value]="saleDetails" dataKey="sales_details_id" editMode="row"
+                    [paginator]="false" [resizableColumns]="true" [responsive]="true">
+                    <ng-template pTemplate="caption">
+                            <div class="row">
+                                    <div class="col-lg-6"></div>
+                                <div class="col-lg-6">
+                            <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                            <input type="text" pInputText size="50" placeholder="Search"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:100%;padding:12px;background:#fff">
+                        </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:4em">#</th>
+                            <th *ngIf="isPrinting==false" [pSortableColumn]="'image'"
+                                style="width:7em;text-align:center">Image
+                                <p-sortIcon [field]="'image'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th [pSortableColumn]="'name'" style="width:15em">Name
+                                <p-sortIcon [field]="'name'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:11em;">SKU / Article</th>
+                            <th>Unit Price</th>
+                            <th style="width:7em;">Quantity</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td *ngIf="isPrinting==false" style="text-align:center">
+                                <img class="small_image" [attr.src]="rowData.image" alt="Fresh Vegetables"/>
+                            </td>
+
+                            <td>
+                                {{rowData.name}}
+                                <span *ngIf="rowData.articleNumber">(AN: {{rowData.articleNumber}})</span>
+
+                            </td>
+                            <td>
+                             <div>SKU : {{rowData.item_qr_code}} </div>  
+                             <div>ART : {{rowData.articleNumber}} </div>  
+                            </td>
+                           
+                            <td>
+                                {{rowData.item_price}}
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input class="smallText" pInputText type="text" [(ngModel)]="rowData.quantity"
+                                            required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.quantity}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                {{rowData.discount}}
+                            </td>
+                            <td>
+                                {{((rowData.item_price * rowData.quantity)-rowData.discount).toFixed(2)}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer" let-columns>
+                        <tr *ngIf="sale.discount>0">
+                            <td></td>
+                            <td *ngIf="isPrinting==false"></td>
+                            <td></td>
+                            <td></td>
+                            <td *ngIf="sale.status == 'Accepted'"></td>
+                            <td><b>Discount</b></td>
+                            <td>{{sale.discount}}</td>
+                        </tr>
+                        <tr *ngIf="sale.voucher_discount>0">
+                            <td></td>
+                            <td *ngIf="isPrinting==false"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td *ngIf="sale.status == 'Accepted'"></td>
+                            <td *ngIf="sale.status == 'Accepted'"><b>Voucher Discount</b></td>
+                            <td>{{sale.voucher_discount}}</td>
+                        </tr>
+                        <tr *ngIf="sale.delivery_charge>0">
+                            <td></td>
+                            <td *ngIf="isPrinting==false"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td *ngIf="sale.status == 'Accepted'"></td>
+                            <td *ngIf="sale.status == 'Accepted'"></td>
+                            <td><b>Delivery Charge</b></td>
+                            <td>{{sale.delivery_charge}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td *ngIf="isPrinting==false"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td *ngIf="sale.status == 'Accepted'"></td>
+                            <td *ngIf="sale.status == 'Accepted'"></td>
+                            <td><b>Grand Total</b></td>
+                            <td>
+                                {{grandTotal}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="summary">
+                        Total Items - {{totalItems}}
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

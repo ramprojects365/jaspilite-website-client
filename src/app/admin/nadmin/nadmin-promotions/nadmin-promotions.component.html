@@ -1,0 +1,191 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0;margin: -5px 15px 5px 15px;">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary ">
+                    <i class="fa fa-bars" style="color:#fff;" title="Refresh the browser if it doesn't work"></i> </a>
+                <div class="row dashboard-header">
+                    <div class="col-md-3">
+                        <h3 style="font-size: 14px;font-weight: bold;margin-top: 10px;">PROMOTIONS</h3>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav navbar-top-links">
+                    <li style="margin-right: 0px !important;">
+                        <a (click)="logout()" class="admin-logout">
+                            <i class="fa fa-sign-out"></i> Log Out
+                        </a>
+                    </li>
+                </ul>
+        </nav>
+    </div>
+<p-dialog appendTo="body" header="Edit Promotion" [(visible)]="displayPromotionEditModal" [modal]="true" [responsive]="true"
+    [style]="{width: '850px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+    [baseZIndex]="10000">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox animated fadeInRight">
+                <form role="form" (ngSubmit)="updatePromotion(faddPromo)" #faddPromo="ngForm">
+                    <div class="row" style="padding:20px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Promo Title</label>
+                                <input pInputText type="text" placeholder="Enter promotion title" class="form-control"
+                                    [ngModel]="clonedProduct.title" name="title" #title="ngModel" required>
+                                <span *ngIf="!title.valid && title.touched" style="color:#ffa500">Please enter
+                                    the promo title.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Promo Description</label>
+                                <input pInputText type="text" placeholder="Enter promo description" class="form-control"
+                                    [ngModel]="clonedProduct.description" name="description" #description="ngModel"
+                                    required>
+                                <span *ngIf="!description.valid && description.touched" style="color:#ffa500">Please
+                                    enter
+                                    the promo description.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <div>
+                                    <p-calendar [(ngModel)]="newStartDate" dateFormat="dd/mm/yy" name="eStartDate"
+                                        #eStartDate="ngModel" [showIcon]="true" [monthNavigator]="true"
+                                        [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <div>
+                                    <p-calendar [(ngModel)]="newEndDate" dateFormat="dd/mm/yy" name="eEndDate"
+                                        #eEndDate="ngModel" [showIcon]="true" [monthNavigator]="true"
+                                        [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                                <label>Update Image (480 X 270 size)</label><br>
+                                <p-fileUpload #addFileUpload mode="basic" name="file[]" customUpload="true"
+                                    (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*"
+                                    [auto]="true" maxFileSize="1000000">
+                                </p-fileUpload>
+                            </div>  
+                        <div class="col-md-4 form-group">   
+                                <img style="width: 240px;height: 135px;border-radius: 4px;" [attr.src]="uploadedImage" />                           
+                        </div>                                  
+                        <div class="col-sm-12">
+                            <div class="form-group" style="padding-top: 20px;">
+                                <button pButton type="submit" [disabled]="!faddPromo.valid" label="Update"
+                                    class="float-right ui-button-raised"></button>
+                                <button (click)="cancelPromoEditModal(faddPromo)" pButton type="button" label="Cancel"
+                                    class="float-right ui-button-raised cancelBtn"></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Existing Promotions</h5>
+                <button (click)="addPromotion()" style="margin-top: -0.5em;" pButton type="submit" label="Add Promotion"
+                    class="float-right ui-button-raised"></button>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Shop</label>
+                            <p-dropdown appendTo="body" [options]="userShops" (onChange)="changeShop($event)" selected
+                                [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop" required>
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Branch</label>
+                            <p-dropdown appendTo="body" [options]="userBranches" (onChange)="changeBranch($event)" selected
+                                [style]="{'width':'100%'}" name="userBranch" [(ngModel)]="userBranch" required>
+                            </p-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <p-table #dt [columns]="cols" [value]="promotions" [globalFilterFields]="['title']" dataKey="item_id"
+                    editMode="row" [responsive]="true" [paginator]="true" [rows]="20" [resizableColumns]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-6">
+                                <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                                <input type="text" pInputText size="50" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:2.5em;text-align:center;">#</th>
+                            <th>Title</th>
+                            <th style="text-align:center">Start Date</th>
+                            <th style="text-align:center">End Date</th>
+                            <th style="text-align:center">Discount</th>
+                            <th style="text-align:center">Status</th>
+                            <th style="text-align:center">Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td>
+                                {{rowData.title}}
+                            </td>
+                            <td style="text-align:center">
+                                {{rowData.startdate}}
+                            </td>
+                            <td style="text-align:center">
+                                {{rowData.enddate}}
+                            </td>
+                            <td style="text-align:center">
+                                <span *ngIf="rowData.discount == 0">N/A</span>
+                                <span *ngIf="rowData.discount !== 0">{{rowData.discount}}</span>
+                            </td>
+                            <td style="text-align:center">
+                                <span [ngClass]="{
+                                        'green' : rowData.status === 1,
+                                        'orange' : rowData.status === 0,
+                                        'red' : rowData.status === 2
+                                     }">
+                                    <span *ngIf="rowData.status == 1">Active</span>
+                                    <span *ngIf="rowData.status == 0">Completed</span>
+                                    <span *ngIf="rowData.status == 2">Cancelled</span>
+                                </span>
+                            </td>
+                            <td style="width:14em;text-align:center">
+                                <button *ngIf="rowData.status !== 2" pButton type="button" pInitEditableRow
+                                    icon="pi pi-pencil" class="ui-button-info" (click)="EditPromotionModal(rowData)"
+                                    style="margin-right: 5px;"></button>
+                                    <button *ngIf="rowData.status !== 2 && rowData.discount == 0" pButton type="button" pInitEditableRow
+                                    icon="pi pi-plus" class="ui-button-info" (click)="addPromoProducts(rowData)"
+                                    style="margin-right: 5px;"></button>
+                                <button *ngIf="rowData.status !== 2" pButton type="button" pInitEditableRow
+                                    icon="pi pi-trash" class="ui-button-edit" (click)="cancelPromo(rowData)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

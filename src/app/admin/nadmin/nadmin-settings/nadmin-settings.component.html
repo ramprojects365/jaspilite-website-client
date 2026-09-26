@@ -1,0 +1,90 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0;margin: -5px 15px 5px 15px;">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary ">
+                    <i class="fa fa-bars" style="color:#fff;" title="Refresh the browser if it doesn't work"></i> </a>
+                <div class="row dashboard-header">
+                    <div class="col-md-3">
+                        <h3 style="font-size: 14px;font-weight: bold;margin-top: 10px;">SETTINGS</h3>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav navbar-top-links">
+                    <li style="margin-right: 0px !important;">
+                        <a (click)="logout()" class="admin-logout">
+                            <i class="fa fa-sign-out"></i> Log Out
+                        </a>
+                    </li>
+                </ul>
+        </nav>
+    </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Existing Shops</h5>
+                <button *ngIf="userShops?.length == 0" (click)="router.navigate(['admin/nadmin/addshop']);" style="margin-top: -0.6em;" pButton
+                    type="submit" label="Add Shop" class="float-right ui-button-raised"></button>
+            </div>
+            <div class="ibox-content">
+                <div class="row" style="padding: 15px;">
+                    <div class="col-lg-3" *ngFor="let item of userShops;">
+                        <div class="ibox" style="width: 172px;">
+                            <a (click)="editShop(item)"><span class="label label-success float-right">Edit <i
+                                        class="fa fa-edit"></i></span></a>
+                            <div class="ibox-title" style="background: #f0f1f1!important;">
+                                <h5>{{item.label}}</h5>
+                            </div>
+                            <div class="ibox-content" style="border: 1px solid #f0f1f1;">
+                                <img src="./assets/img/icon-store.svg" class="medium_image" />
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Existing Branches</h5>
+                <button (click)="router.navigate(['admin/nadmin/addbranch']);" style="margin-top: -0.6em;" pButton
+                    type="submit" label="Add Branch" class="float-right ui-button-raised"></button>
+            </div>
+            <div class="ibox-content">
+                <div class="row" *ngIf="userShops?.length > 0">
+                    <div class="form-group col-lg-6">
+                        <label>Shop</label>
+                        <p-dropdown [options]="userShops" (onChange)="changeShop($event)" selected
+                            [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop" required>
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="row" style="padding: 15px;">
+                    <div class="col-lg-3" *ngFor="let item of userBranches;">
+                        <div class="ibox" style="width: 172px;">
+                            <a (click)="editBranch(item)" title="Update the branch details"><span style="padding: 6px;
+                                font-size: 12px;" class="label label-success float-right">Edit Branch  <i
+                                        class="fa fa-edit"></i></span></a>
+                           <div class="ibox-title" style="background: #f0f1f1!important;">
+                                <h5>{{item.label}}</h5>
+                            </div>
+                            <div class="ibox-content" style="border: 1px solid #f0f1f1;">
+                                <img src="{{item.image}}" class="medium_image" />
+                            </div>
+                            <div class="ui-g-12">
+                                <p-checkbox [(ngModel)]="item.active" name="active" label="Enabled Branch"
+                                    binary="true" (onChange)="changeStatus($event, item.value)"></p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,407 @@
+.parallax { 
+    background: linear-gradient( to bottom, rgba(0,0,0, 0),#000000),url(../../../assets/img/home/spices.jpg);
+    height: 315px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;   
+}
+.parallax p {
+    padding: 90px 100px 10px 100px;
+    color: #d0c9c9;
+    font-size: 36px;
+    line-height: 1.2;
+    letter-spacing: 0px;
+    font-weight: 900;
+}
+.mobile-off {
+    display: inline;
+}
+.welcome-down {
+    color: #a5a1a1;
+    padding-top: 10px;
+    font-size: 18px;
+}
+.welcome-div {
+    background: #f8f9fa;
+    text-align: center;
+    padding: 50px 80px 0px 80px;
+}
+.carousel-top {
+    margin-top: 65px;
+}
+.banner-text {
+    position: absolute;
+    top: 155px;
+    left: 160px;
+    color: #fff;
+}
+.banner-title1 {
+    letter-spacing: .05em;
+    font-family: "Kalam", cursive;
+    text-transform: none;
+    font-size: 22px;
+}
+.banner-title2 {
+    font-size: 65px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.banner-title3{
+    font-size: 30px;
+    font-weight: bold;
+}
+.login-btn {
+    color: #fff;
+    border: none;
+    width:90px;
+    height: 42px;
+    font-size: 18px;
+    background: #e05b49  !important;
+}
+.testi-txt {
+    font-size: 16px; 
+    color: #928d8d;
+}
+.content {
+	padding: 2% 5% 5% 5%;
+}
+.nav-head {
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+    font-weight: bold;
+}
+.image-box {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 10px;
+}
+.image-box img {
+    max-width: 100%;
+    transition: all 0.3s;
+    display: block;
+    width: 100%;
+    // height: auto;
+    transform: scale(1);
+}
+
+.image-box:hover img {
+    transform: scale(1.1);
+}
+.middle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    transition: background-color .4s ease;
+    background-color: #333;
+    opacity: .9;
+    text-align: center;
+    color: #fff;
+    padding-top: 20px;
+}
+.cat-text{
+    font-size: 18px;
+}
+  .img-space {
+    padding-left:0px;
+    padding-right:0px;  
+  }
+  .box-part{     
+      border-radius:0;
+      padding: 21px 0px;    
+      height: 300px;
+      border-radius: 4px;
+      box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.15); 
+  }
+  .text{
+    margin: 15px 0px;
+    font-size: 1rem;
+    padding-bottom: 15px;
+    font-weight: bold;
+  }
+  .centered {
+    position: absolute;
+    top: 30%;
+    left: 80.4%;
+    transform: translate(-50%, -50%);
+    font-size: 4vw;
+    color: #ffbc00;
+    letter-spacing: -0.5px;
+}
+.centered-login {
+    position: absolute;
+    top: 44%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    cursor:pointer;
+}
+.login {
+    position: absolute;
+    top: 5%;
+    left: 77%;
+    font-size: 17px;
+    border: 1px solid #ddd;
+    padding: 10px 17px 10px 17px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #000; 
+}
+.login:hover {
+    background: #fff;  
+}
+.right-center {
+    position: absolute;
+    top: 37%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    font-size: 2vw;
+    color: #ff6900;
+    letter-spacing: -0.5px;
+}
+.right-bottom {
+    position: absolute;
+    top: 43%;
+    left: 80.2%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5vw;
+    color: #1e896f;
+    letter-spacing: -0.5px;
+}
+.bottom-bottom{
+    position: absolute;
+    top: 80%;
+    left: 65%;
+}
+.appstore-link{
+    position: absolute;
+    top: 70%;
+    left: 39%;
+}
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 7px 7px 7px 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    border-radius: 4px;
+}
+
+input[type=submit] {
+    background: -webkit-linear-gradient(top,#f53e3e 0,#d84315 100%) !important;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+input[type=submit]:hover {
+    background: #d84315;
+}
+/* Create two columns that float next to eachother */
+.column {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+    padding: 20px;
+}
+.feature {
+    font-size: 20px;
+    line-height: 2em;
+    font-weight: bold;
+}
+.feature-text {
+    font-size: 16px;
+    color: #a5a1a1;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.mobile-text-ack {
+ text-align: center;
+    font-size: 2.5em;
+    font-weight: 700;
+    padding-top: 58px;
+    background: #fff;
+}
+.mobile-text-tst {
+    font-size: 22px;
+    padding-bottom: 30px;
+    font-weight: 700;
+    padding-top: 60px;
+}
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 767px) {
+    .welcome-down {
+        color: #a5a1a1;
+        padding-top: 10px;
+        font-size: 16px;
+    }
+    .welcome-div {
+        background: #f8f9fa;
+        text-align: center;
+        padding: 30px 30px 0px 30px;
+    }
+    .parallax {   
+       display:none;
+    }
+    .mobile-off {
+        display: none;
+    }
+    .banner-text {
+       display:none;
+    }
+    .banner-title1 {
+        letter-spacing: .05em;
+        font-family: "Kalam", cursive;
+        text-transform: none;
+        font-size: 22px;
+    }
+    .banner-title2 {
+        font-size: 65px;
+        font-weight: bold;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .banner-title3{
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .storeBtns {
+        width:0%;
+    }
+    .appstore-link{
+        position: absolute;
+        top: 80%;
+        left: 10%;
+        right:10%;
+    }
+    // .features-text{
+    //     text-align:center;
+    // }
+    .mobile-text-ack {
+        text-align: center;
+           font-size: 1.5em;
+           font-weight: 700;
+           padding-top: 58px;
+           background: #fff;
+       }
+       .mobile-text-tst {
+        padding-bottom: 45px;
+        font-weight: 700;
+        text-align: center;
+    }
+    .column, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+    .right-center {
+        position: absolute;
+        top: 30%;
+        left: 69.3%;
+        transform: translate(-50%, -50%);
+        font-size: 3vw;
+        color: #ff6900;
+        letter-spacing: -0.5px;
+        display: none;
+    }
+    .centered {
+        position: absolute;
+        top: 19%;
+        left: 72.4%;       
+        display: none;
+    }
+    .centered-login {
+        position: absolute;
+        top: 5%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+        cursor:pointer;
+    }
+    .right-bottom {
+        position: absolute;
+        top: 38.5%;
+        left: 68.8%;
+        transform: translate(-50%, -50%);
+        font-size: 2.5vw;
+        color: #1e896f;
+        letter-spacing: -0.5px;
+        display: none;
+    }
+    .bottom-bottom{
+        position: absolute;
+        top: 80%;
+        left: 10%;
+    right: 10%;
+    }
+}
+@media (min-width:768px) and (max-width:991px) {
+    .parallax {   
+        display:none;
+     }
+     .mobile-off {
+        display: none;
+    }
+    .carousel-top {
+        margin-top: 50px;
+    }
+    .banner-text {
+        display:none;
+     }
+    .storeBtns {
+        width:0%;
+    }
+    .centered-login {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor:pointer;
+    }
+    .appstore-link{
+        position: absolute;
+        top: 90%;
+        left: 30%;
+        right:30%;
+    }
+}
+
+@media (min-width:992px) and (max-width:1199px) {
+    .parallax {   
+        display:none;
+     }
+     .mobile-off {
+        display: none;
+    }
+    .carousel-top {
+        margin-top: 60px;
+    }
+    .banner-text {
+        display:none;
+     }
+    .centered-login {
+        position: absolute;
+        top: 5%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+        cursor:pointer;
+    }
+    .appstore-link{
+        position: absolute;
+        top: 90%;
+        left: 35%;
+        right:20%;
+    }
+}
+
+
+

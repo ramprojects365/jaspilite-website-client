@@ -1,0 +1,67 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Available Shops</h5>
+            </div>
+            <div class="ibox-content">
+                <p-table #dt [columns]="cols" [value]="shopsData" sortField="shop_name" sortMode="single"
+                    (onSort)="onSort()">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-6">
+                                <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                                <input type="text" pInputText size="50" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:3rem">#</th>
+                            <th>Shop Name</th>
+                            <th>Branch Name</th>
+                            <th [pSortableColumn]="'isPosEnabled'">POS
+                                <p-sortIcon [field]="'isPosEnabled'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th [pSortableColumn]="'active'">On/Off
+                                <p-sortIcon [field]="'active'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="text-align: center">Details</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-shop let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{rowIndex}}</td>
+                            <td>
+                                <span class="p-text-bold p-ml-2">{{shop.shop_name}}</span>
+                            </td>
+                            <td>
+                                <div> {{shop.branch_id}} - {{shop.branch_name}}</div>
+                                <div>{{shop.image}}</div>
+                            </td>
+                            <td style="text-align: center"> {{shop.isPosEnabled}}
+                            </td>
+                          <td style="text-align:center">                           
+                                    <p-checkbox [(ngModel)]="shop.active" name="active" 
+                                    binary="true" (onChange)="changeStatus($event, shop.branch_id)"></p-checkbox>
+                            </td>
+                            <td style="text-align:center">
+                                <button pButton type="button" icon="pi pi-arrow-right" class="ui-button-edit"
+                                    (click)="showShopDetails(shop)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

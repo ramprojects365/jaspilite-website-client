@@ -1,0 +1,127 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0;margin: -5px 15px 5px 15px;">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary ">
+                    <i class="fa fa-bars" style="color:#fff;" title="Refresh the browser if it doesn't work"></i> </a>
+                <div class="row dashboard-header">
+                    <div class="col-md-3">
+                        <h3 style="font-size: 14px;font-weight: bold;margin-top: 10px;">SALES</h3>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav navbar-top-links">
+                    <li style="margin-right: 0px !important;">
+                        <a (click)="logout()" class="admin-logout">
+                            <i class="fa fa-sign-out"></i> Log Out
+                        </a>
+                    </li>
+                </ul>
+        </nav>
+    </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">      
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label>Shop</label>
+                        <p-dropdown [options]="userShops" (onChange)="changeShop($event)" selected
+                            [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Branch</label>
+
+                        <p-dropdown [options]="userBranches" (onChange)="changeBranch($event)" selected
+                            [style]="{'width':'100%'}" name="userBranch" [(ngModel)]="userBranch" required>
+                        </p-dropdown>
+                    </div>
+                </div>
+                <p-table #dt [columns]="cols" [value]="sales" dataKey="sales_id" editMode="row" [paginator]="true"
+                    [rows]="10" [resizableColumns]="true" [responsive]="true"> 
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                        <div class="col-lg-6">
+                            <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                            <input type="text" pInputText size="50" placeholder="Search"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                        </div>
+                    </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:4em">#</th>
+                            <th [pSortableColumn]="'displayName'">Name
+                                <p-sortIcon [field]="'displayName'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th [pSortableColumn]="'salesIdString'">Sales ID
+                                <p-sortIcon [field]="'salesIdString'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th [pSortableColumn]="'date'">Date
+                                <p-sortIcon [field]="'date'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th>Discount</th>
+                            <th>Delivery</th>
+                            <th>Total</th>
+                            <th [pSortableColumn]="'status'">Status
+                                <p-sortIcon [field]="'status'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:6em">Details</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td>
+                                {{rowData.displayName}}
+                            </td>
+                            <td>    
+                                <span *ngIf="!rowData.salesIdString">N/A</span>
+                                {{rowData.salesIdString}}
+                            </td>
+                            <td>
+                                {{rowData.date}}
+                            </td>
+                            <td>
+                                {{rowData.discount}}
+                            </td>
+                            <td>
+                                {{rowData.delivery_charge}}
+                            </td>
+                            <td>
+                                {{rowData.total}}
+                            </td>
+                            <td>
+                                <span [ngClass]="{
+                                    'green' : rowData.status === 'Delivered',
+                                    'orange' : rowData.status === 'Accepted',
+                                    'red' : rowData.status === 'Cancelled'
+                                 }">
+                                    {{rowData.status}}
+                                </span>
+                            </td>
+                            <td style="text-align:center">
+                                <button pButton type="button" pInitEditableRow icon="pi pi-search"
+                                    class="ui-button-edit" (click)="showDetails(rowData)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

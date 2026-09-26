@@ -1,0 +1,121 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <button pButton type="button" icon="pi pi-arrow-left" style="margin-right: 1em;"
+                    (click)="router.navigate(['admin/nadmin/promotions']);"></button>
+                <h5>Add Promotions</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form role="form" (ngSubmit)="addPromo(faddpromo)" #faddpromo="ngForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Shop</label>
+                                        <p-dropdown [options]="userShops" (onChange)="changeShop($event)" selected
+                                            [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop" required>
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Branch</label>
+                                        <p-dropdown [options]="userBranches" (onChange)="changeBranch($event)" selected
+                                            [style]="{'width':'100%'}" name="userBranch" [(ngModel)]="userBranch"
+                                            required>
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Promotion Title</label>
+                                        <input pInputText type="text" placeholder="" class="form-control" ngModel
+                                            name="promoTitle" #promoTitle="ngModel" required>
+                                        <span *ngIf="!promoTitle.valid && promoTitle.touched"
+                                            style="color:#ffa500">Please
+                                            enter promo title.</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Promotion Description</label>
+                                        <input pInputText type="text" placeholder="" class="form-control" ngModel
+                                            name="promoDesc" #promoDesc="ngModel" required>
+                                        <span *ngIf="!promoDesc.valid && promoDesc.touched" style="color:#ffa500">Please
+                                            enter promo description.</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Start Date</label>
+                                    <div>
+                                        <p-calendar [(ngModel)]="vStartDate" dateFormat="dd/mm/yy" name="vStartDate"
+                                            [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                                            yearRange="2020:2030"></p-calendar>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>End Date</label>
+                                    <div>
+                                        <p-calendar [(ngModel)]="vEndDate" dateFormat="dd/mm/yy" name="vEndDate"
+                                            [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                                            yearRange="2020:2030"></p-calendar>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Add Image (480 X 200 size)</label><br>
+                                    <p-fileUpload #addFileUpload mode="basic" name="file[]" customUpload="true"
+                                        (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*"
+                                        [auto]="true" maxFileSize="1000000">
+                                    </p-fileUpload>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="col-lg-6">
+                                        <img style="width: 240px;height: 112px;border-radius: 4px;" [attr.src]="uploadedImage" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="radio" name="1" id="1" [(ngModel)]="promoType" [value]="0"> <span
+                                        style="padding-left: 5px;">Total Items </span>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="radio" name="2" id="2" [(ngModel)]="promoType" [value]="1"><span
+                                        style="padding-left: 5px;">Selected Items</span>
+                                </div>
+                            </div>
+                            <div *ngIf="promoType == 0" style="margin-top: 10px;">
+                                <div class="col-md-6" style="padding-left: 0px;">
+                                    <div class="form-group">
+                                        <label>Promotion Percentage (1 to 99 and No Decimal)</label>
+                                        <input pInputText type="number" placeholder="" class="form-control" ngModel
+                                            name="promoPercentage" #promoPercentage="ngModel" required>
+                                        <span *ngIf="!promoPercentage.valid && promoPercentage.touched"
+                                            style="color:#ffa500">Please
+                                            enter promo percentage.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="promoType == 1" style="margin-top: 10px;">
+                                <div>NOTE: You will have to add the promo items in the next screen after you click the ADD PROMO button.</div>
+                         </div>
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <button pButton type="submit" [disabled]="!faddpromo.valid" label="Add Promo"
+                                            class="float-right ui-button-raised"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

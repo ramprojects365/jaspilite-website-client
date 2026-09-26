@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-success float-right">Monthly</span>
+                <h5>Sales</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{totalSales}}</h1>
+                <div class="stat-percent font-bold text-danger">{{ pendingSales }} Pending <i class="fa fa-level-down"></i></div>
+               <small>Total sales</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-info float-right">Monthly</span>
+                <h5>Orders</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{totalOrders}}</h1>
+                <div class="stat-percent font-bold text-info">{{ pendingOrders }} Active<i class="fa fa-level-up"></i></div>
+                <small>Total orders</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-primary float-right">All time</span>
+                <h5>Shops</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{shopsCount}}</h1>
+                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+                <small>New shops</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-danger float-right">All time</span>
+                <h5>Branches</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{branchesCount}}</h1>
+                <div class="stat-percent font-bold text-navy">71% <i class="fa fa-level-up"></i></div>
+                <small>New branches</small>
+            </div>
+        </div>
+    </div>
+</div>

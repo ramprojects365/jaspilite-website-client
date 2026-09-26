@@ -1,0 +1,170 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Active Orders</h5>
+                <!-- <button (click)="showdisplayUserAdder()" style="margin-top: -0.6em;" pButton type="submit"
+                    label="Add User" class="float-right ui-button-raised"></button> -->
+            </div>
+            <div class="ibox-content">
+                <p-table #dt [columns]="cols" [value]="sales" dataKey="sales_id" editMode="row" [paginator]="true"
+                    [rows]="10" [resizableColumns]="true" [responsive]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-6">
+                                <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                                <input type="text" pInputText size="50" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    class="table-search">
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:4em">#</th>
+                            <th style="width:10em" [pSortableColumn]="'displayName'">Name
+                                <p-sortIcon [field]="'displayName'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:7em" [pSortableColumn]="'salesIdString'">Sale Id
+                                <p-sortIcon [field]="'salesIdString'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:8em" [pSortableColumn]="'branch_name'">Branch
+                                <p-sortIcon [field]="'branch_name'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:8em" [pSortableColumn]="'date'">Date
+                                <p-sortIcon [field]="'date'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:7em">Phone/Email</th>
+                            <th style="width:5em;text-align: center;">Delivery</th>
+                            <th style="width:5em;text-align: center;">Sale</th>
+                            <th [pSortableColumn]="'status'" style="width:8em;text-align: center;">Status
+                                <p-sortIcon [field]="'status'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:9em;text-align: center;">Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td>
+                                <div>{{rowData.displayName}}</div>                               
+                            </td>
+                            <td>
+                                <div>{{rowData.salesIdString}}</div>
+                            </td>
+                            <td>
+                                {{rowData.branch_name}}
+                            </td>
+
+                            <td>
+                                {{rowData.date}}
+                            </td>
+                            <td>
+                                <div>{{rowData.phoneNumber}}</div>
+                                <div>({{rowData.email}})</div>
+                            </td>
+                            <td style="width:8em;text-align: center;">
+                                {{rowData.delivery_charge}}
+                            </td>
+                            <td style="width:8em;text-align: center;">
+                                {{rowData.total}}
+                            </td>
+                            <td style="width:8em;text-align: center;">
+                                <span [ngClass]="{
+                                    'green' : rowData.status === 'Delivered',
+                                    'orange' : rowData.status === 'Accepted',
+                                    'red' : rowData.status === 'Cancelled'
+                                 }">
+                                    {{rowData.status}}
+                                </span>
+                            </td>
+                            <td style="text-align:center">
+                                <button pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                                    class="ui-button-info btn-edit-icon" (click)="showdisplayStatusAdder(rowData)"
+                                    style="margin-right: 5px;"></button>
+                                <button pButton type="button" pInitEditableRow icon="pi pi-trash" class="ui-button-edit btn-edit-icon"
+                                    (click)="cancelOrder(rowData)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog appendTo="body" header="Manage Status" [(visible)]="displayStatusAdder" [modal]="true" [responsive]="true"
+    [style]="{width: '850px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+    [baseZIndex]="10000">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox animated fadeInRight">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p-table [value]="statusItems" dataKey="status_id" editMode="row" [paginator]="false"
+                                [rows]="10" [resizableColumns]="true" [responsive]="true">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:4em">#</th>
+                                        <th>Status</th>
+                                        <th style="width:8em;text-align: center;">Action</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                                    <tr [pEditableRow]="rowData">
+                                        <td>
+                                            {{ri + 1}}
+                                        </td>
+                                        <td>{{rowData.status}}</td>
+
+                                        <td style="text-align:center">
+                                            <button pButton type="button"
+                                                *ngIf="ri == 0 && rowData.status !== 'Ordered'" pInitEditableRow
+                                                icon="pi pi-trash" class="ui-button-edit"
+                                                (click)="updateStatus(rowData)"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                        <div class="col-lg-6">
+                            <form role="form" (ngSubmit)="addStatus(faddstatus)" #faddstatus="ngForm">
+                                <div class="row">
+                                    <div class="col-lg-10">                                        
+                                        <div class="form-group">
+                                            <label>Add Status</label>
+                                            <p-dropdown [options]="statusList" selected [style]="{'width':'100%'}"
+                                                name="statusParam" [(ngModel)]="statusParam" required>
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button  pButton type="submit" label="Add"
+                                            class="float-right ui-button-raised" style="margin-top: 27px;"></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="form-group float-right" style="margin-top: 10px;width: 100%;">
+                        <button (click)="cancelDisplayStatusAdder()" pButton type="button" label="Close"
+                            class="ui-button-raised cancelBtn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

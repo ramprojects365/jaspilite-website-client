@@ -1,0 +1,194 @@
+<div class="row border-bottom">
+  <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0;margin: -5px 15px -10px 15px;">
+    <div class="navbar-header">
+      <a class="navbar-minimalize minimalize-styl-2 btn btn-primary ">
+        <i class="fa fa-bars" style="color:#fff;" title="Refresh the browser if it doesn't work"></i> </a>
+      <div class="row dashboard-header">
+        <div class="col-md-12">
+          <h3 style="font-size: 14px;font-weight: bold;margin-top: 10px;">VOUCHERS</h3>
+        </div>
+      </div>
+    </div>
+    <ul class="nav navbar-top-links">
+      <li style="margin-right: 0px !important;">
+        <a (click)="logout()" class="admin-logout">
+          <i class="fa fa-sign-out"></i> Log Out
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="ibox animated fadeInRight">
+      <form role="form" class="m-t card" (ngSubmit)="addVoucher(faddVoucher)" #faddVoucher="ngForm">
+        <div class='row'>
+          <div class="col-md-4 form-group">
+            <label>Shop</label>
+            <p-dropdown [options]="userShops" (onChange)="changeShop($event)" selected [style]="{'width':'100%'}"
+              name="userShop" [(ngModel)]="userShop" required>
+            </p-dropdown>
+          </div>
+          <div class="col-md-4 form-group">
+            <label>Branch</label>
+            <p-dropdown [options]="userBranches" selected [style]="{'width':'100%'}" name="userBranch"
+              [(ngModel)]="userBranch" required>
+            </p-dropdown>
+          </div>
+          <div class="col-md-4 form-group">
+            <!-- <select class="form-control" name="vCategory" id="vCategory" required ngModel>
+            <option value="" disabled selected>Select Category</option>
+            <option  value="App Promotion">App Promotion</option>        
+          </select>          -->
+
+            <label>Promotion Category</label>
+            <p-dropdown [options]="vCategories" selected [style]="{'width':'100%'}" name="vCategory"
+              [(ngModel)]="vCategory" required>
+            </p-dropdown>
+          </div>
+
+          <div class="col-md-4 form-group">
+            <label>Title</label>
+            <input pInputText type="text" placeholder="EX: RM10 Cash Voucher" class="form-control" ngModel name="vTitle"
+              #vTitle="ngModel">
+            <!-- <input type="text" class="form-control" placeholder="Voucher Title" required name="vTitle" [(ngModel)]="vTitle"> -->
+          </div>
+
+          <div class="col-md-8 form-group">
+            <label>Description</label>
+            <!-- <input type="text" class="form-control" placeholder="Voucher Description" required name="vDesc"
+          [(ngModel)]="vDesc"> -->
+            <input pInputText type="text" placeholder="EX: RM10 Cash Voucher for every RM 100 purchase"
+              class="form-control" ngModel name="vDesc" #vDesc="ngModel">
+          </div>
+
+          <div class="col-md-4 form-group">
+            <label>Voucher Type</label>
+            <!-- <select class="form-control" name="vType" id="vType" required ngModel>
+          <option value="" disabled selected>Select Voucher Type</option>
+          <option value="discount">Discount</option>
+        </select> -->
+            <p-dropdown [options]="vTypes" selected [style]="{'width':'100%'}" name="vType" [(ngModel)]="vType"
+              required>
+            </p-dropdown>
+          </div>
+
+          <div class="col-md-4 form-group">
+            <label>Voucher Value</label>
+            <input pInputText type="number" placeholder="EX: 10" class="form-control" ngModel name="vValue"
+              #vValue="ngModel">
+            <!-- <input type="number" class="form-control" placeholder="Voucher Value" required name="vValue"
+          [(ngModel)]="vValue"> -->
+          </div>
+          <div class="col-md-4 form-group">
+            <label>Min Purchase Amount</label>
+            <input pInputText type="number" placeholder="EX: 100" class="form-control" ngModel name="vMin_Purch_Amt"
+              #vMin_Purch_Amt="ngModel">
+            <!-- <input type="number" class="form-control" placeholder="Min Purchase Amount" required name="vMin_Purch_Amt"
+          [(ngModel)]="vMin_Purch_Amt"> -->
+          </div>
+          <div class="col-md-4 form-group">
+            <label>Max Use Per Customer</label>
+            <input pInputText type="number" placeholder="EX: 5" class="form-control" ngModel name="vMax_use_Per_Cust"
+              #vMax_use_Per_Cust="ngModel">
+            <!-- <input type="number" class="form-control" placeholder="Max Use Per Customer" required name="vMax_use_Per_Cust"
+          [(ngModel)]="vMax_use_Per_Cust"> -->
+          </div>
+          <div class="col-md-4 form-group">
+            <label>Daily Limit</label>
+            <input pInputText type="number" placeholder="EX: 100" class="form-control" ngModel name="vDaily_Limit"
+              #vDaily_Limit="ngModel">
+            <!-- <input type="number" class="form-control" placeholder="Daily Limit" required name="vDaily_Limit"
+          [(ngModel)]="vDaily_Limit"> -->
+          </div>
+          <div class="col-md-4 form-group">
+            <label>Max Limit</label>
+            <input pInputText type="number" placeholder="EX: 1000" class="form-control" ngModel name="vMax_Limit"
+              #vMax_Limit="ngModel">
+            <!-- <input type="number" class="form-control" placeholder="Max Limit" required name="vMax_Limit"
+          [(ngModel)]="vMax_Limit"> -->
+          </div>
+          <!-- <div class="col-md-4 form-group" style="margin-bottom: 55px;">
+        <span style="position: absolute;margin-top: 10px;">Start Date :</span>
+        <input type="date" class="form-control" name="startDate" value="2019-07-22" [(ngModel)]="startDate"
+          min="2019-07-01" max="2050-12-31" style="width: 75%;float: right;">
+      </div> -->
+          <div class="col-md-4 form-group">
+            <label>Start Date</label>
+            <div>
+              <p-calendar [(ngModel)]="vStartDate" dateFormat="dd/mm/yy" name="vStartDate" [showIcon]="true"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <label>End Date</label>
+            <div>
+              <p-calendar [(ngModel)]="vEndDate" dateFormat="dd/mm/yy" name="vEndDate" [showIcon]="true"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+            </div>
+          </div>
+          <!-- <div class="col-md-4 form-group" style="margin-bottom: 55px;">
+        <span style="position: absolute;margin-top: 10px;">End Date :</span>
+        <input type="date" class="form-control" name="endDate" value="2019-07-22" [(ngModel)]="endDate" min="2019-07-01"
+          max="2050-12-31" style="width: 75%;float: right;">
+      </div> -->
+          <div class="col-md-2 form-group">
+            <label>Voucher Image (480 X 225 size)</label><br>
+            <p-fileUpload #addFileUpload mode="basic" name="file[]" customUpload="true"
+              (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*" [auto]="true" maxFileSize="1000000">
+            </p-fileUpload>
+
+          </div>
+          <div class="col-md-2 form-group">
+            <img style="width: 150px;height: 70px;border-radius: 4px;" [attr.src]="uploadedImage" />
+          </div>
+          <div class="col-md-10 form-group"></div>
+          <div class="col-md-2 form-group" style="padding-top:25px">
+            <button type="submit" style="float:right;" class="btn btn-primary block full-width m-b add-submit"
+              [disabled]="!faddVoucher.valid">Add</button>
+          </div>
+        </div>
+      </form>
+      <!-- <div class="row">
+      <div class="col-md-12">
+        <div class="card">         
+            <div class='row'>
+                <div class="col-md-4">
+                    <h4 class="card-title" style="padding-left: 4px;
+                    padding-top: 0px;margin: 4px 0 15px;">Available Vouchers</h4>
+                </div>
+                <div class="col-md-4 form-group">
+                  <select class="form-control" name="sid" id="sid" (ngModelChange)="getBranches($event)"  ngModel>
+                    <option [ngValue]=""  selected>{{shop_name}}</option>
+                    <option *ngFor="let x of shops" [ngValue]="x.shop_id">{{x.shop_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group">
+                  <select class="form-control" name="bid" id="bid" (ngModelChange)="getVoucher($event)" 
+                    ngModel>
+                    <option value="" selected>{{branch_name}}</option>
+                    <option *ngFor="let x of branches" [ngValue]="x.branch_id">{{x.branch_name}}</option>
+                  </select>
+                </div>
+            </div>
+          <div class="row"  *ngFor="let item of vouchers;" style="padding: 10px 15px 20px 15px;background: #f8f9fa;margin: 10px 0px 10px 0px;">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 14px;">
+              <div class="box-part text-center">
+                  <div><img src="{{item.picture}}" style="width:100%;height: 159px;"></div>
+              </div>                          
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-top: 14px;">
+                <div style="font-weight: bold;padding-bottom: 10px;">{{item.title}}</div>  
+                <div style="padding-bottom: 10px;">{{item.description}}</div> 
+                <div style="padding-bottom: 10px;"><label><span>Start Date :</span> {{item.start_date}}</label>
+                  <label style="float: right;"><span>End Date:</span>  {{item.end_date}}</label>                 
+                 </div> 
+                 <div style="padding-bottom: 10px;"><span>Used Count: </span>{{item.used_count}}</div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>   -->
+    </div>
+  </div>
+</div>

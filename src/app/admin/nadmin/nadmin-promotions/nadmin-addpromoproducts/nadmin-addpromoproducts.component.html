@@ -1,0 +1,144 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<p-dialog appendTo="body" header="Add Product to Promotion" [(visible)]="displayPromoProductModal" [modal]="true" [responsive]="true"
+    [style]="{width: '850px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+    [baseZIndex]="10000">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox animated fadeInRight">
+                <form role="form" (ngSubmit)="addPromoProduct(faddPromo)" #faddPromo="ngForm">
+                    <div class="row" style="padding:20px">               
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                             <span>{{selectedProductName}}</span>
+                              <span>
+                                    <input pInputText type="number"  placeholder="Enter percentage (1 to 99 and no decimal values)" class="form-control" ngModel
+                                    name="promoPercentage" #promoPercentage="ngModel" required>
+                                <span *ngIf="!promoPercentage.valid && promoPercentage.touched"
+                                    style="color:#ffa500">Please
+                                    enter promo percentage.</span>
+                              </span>                               
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group" style="padding-top: 20px;">
+                                <button pButton type="submit" [disabled]="!faddPromo.valid" label="Add"
+                                    class="float-right ui-button-raised"></button>
+                                <button (click)="cancelPromoProductModal(faddPromo)" pButton type="button" label="Cancel"
+                                    class="float-right ui-button-raised cancelBtn"></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+                <div class="ibox-title">
+                        <button pButton type="button" icon="pi pi-arrow-left" style="margin-right: 1em;"
+                        (click)="router.navigate(['admin/nadmin/promotions']);"></button>
+                        <h5>Promotion Products</h5>                        
+                    </div>
+                    <div class="ibox-content">
+                <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="font-weight:bold;">Promo Title</label>
+                                <div>{{this.promoProducts.title}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="font-weight:bold;">Promo Description</label>
+                                <div>{{this.promoProducts.description}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="font-weight:bold;">Start Date</label>
+                                <div>{{this.promoProducts.startdate}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="font-weight:bold;">End Date</label>
+                                <div>{{this.promoProducts.enddate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="font-weight:bold;">Select Promo Products</label><br>
+                            <p-dropdown [options]="shopItems" [(ngModel)]="selectedProduct" [virtualScroll]="true"
+                                itemSize="30" name="product" filter="true" (onChange)="changeShopItem($event)" required>
+                                <ng-template let-item pTemplate="selectedItem">
+                                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                                </ng-template>
+                                <ng-template let-car pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                                        <div style="font-size:14px;float:left;margin-top:4px">{{car.label}}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-content">
+                <p-table #dt [columns]="cols" [value]="existingPromotions" [globalFilterFields]="['name', 'price', 'discount_percentage']" dataKey="item_id"
+                    editMode="row" [responsive]="true" [paginator]="true" [rows]="20" [resizableColumns]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-6">
+                                <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                                <input type="text" pInputText size="50" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:2.5em;text-align:center;">#</th>
+                            <th>Title</th>
+                            <th style="text-align:center">Price</th>  
+                            <th style="text-align:center">Discount</th>                       
+                            <th style="text-align:center">Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td>
+                                {{rowData.name}}
+                            </td>                            
+                            <td style="text-align:center">
+                                {{rowData.price}}
+                            </td>     
+                            <td style="text-align:center">
+                                    {{rowData.discount_percentage}}
+                                </td>                   
+                            <td style="width:14em;text-align:center">                                
+                                <button  pButton type="button" pInitEditableRow
+                                    icon="pi pi-trash" class="ui-button-edit" (click)="removePromoItem(rowData)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

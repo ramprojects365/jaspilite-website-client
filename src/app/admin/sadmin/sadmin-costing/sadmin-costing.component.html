@@ -1,0 +1,222 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Costing</h5>
+                <button style="margin-top: -0.6em; margin-left: 0.5em;" [disabled]="!this.printBtnEnabled" pButton type="button" icon="pi pi-print"
+                class="ui-button-edit float-right" label="Excel" (click)="printExcelSale()"></button>
+                <button style="margin-top: -0.6em; margin-left: 0.5em;" [disabled]="!this.printBtnEnabled" pButton type="button" icon="pi pi-print"
+                class="ui-button-edit float-right" label="PDF" (click)="printPDFSale()"></button>
+                <button style="margin-top: -0.6em; margin-left: 0.5em;"  pButton type="button" icon="pi pi-print"
+                    class="ui-button-edit float-right" label="Invoice" (click)="getInvoice()"></button>
+            </div>
+            <div class="ibox-content">
+                <form role="form" (ngSubmit)="getSales(fgetSales)" #fgetSales="ngForm">
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label>Shop</label>
+                            <p-dropdown [options]="userShops" (onChange)="changeShop($event)" selected
+                                [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop" required>
+                            </p-dropdown>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Branch</label>
+                            <p-dropdown [options]="userBranches" (onChange)="changeBranch($event)" selected
+                                [style]="{'width':'100%'}" name="userBranch" [(ngModel)]="userBranch" required>
+                            </p-dropdown>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Start Date</label>
+                            <div>
+                                <p-calendar [(ngModel)]="costingStartDate"  dateFormat="dd/mm/yy" name="costingStartDate"
+                                    [showIcon]="true" [maxDate]="todayDate" [monthNavigator]="true"
+                                    [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>End Date</label>
+                            <div>
+                                <p-calendar [(ngModel)]="costingEndDate"  dateFormat="dd/mm/yy" name="costingEndDate"
+                                    [showIcon]="true" [maxDate]="todayDate" [monthNavigator]="true"
+                                    [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="form-group col-lg-3">
+                                    <label>Percentage</label>
+                                    <input  pInputText type="number" placeholder="0.00" class="form-control"
+                                        [ngModel]="shopPercentage" name="shopPercentage"
+                                        required>                                   
+                                </div>
+                        <div class="form-group col-lg-9">
+                                <label></label>
+                                <div style="margin-top: 7px;">
+                            <button pButton type="submit" [disabled]="!fgetSales.valid" label="Submit" class="ui-button-raised"></button>
+                        </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>No of Sales: <span style="font-weight: bold;margin-right: 10px;">{{this.noOfSales}}</span> </label> <label>Total Amount: <span style="font-weight: bold;margin-right: 10px;">{{this.grandTotal}}</span>
+                        </label><label>Fees: <span style="font-weight: bold;margin-right: 10px;">{{this.fees}} </span></label>
+                    </div>
+                </div>
+                <p-table #dt [columns]="cols" [value]="sales" dataKey="sales_id" editMode="row" [paginator]="true"
+                    [rows]="10" [resizableColumns]="true" [responsive]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-6">
+                                <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                                <input type="text" pInputText size="50" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    class="table-search">
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:4em">#</th>
+                            <th>Sales ID</th>
+                            <th>Branch</th>
+                            <th [pSortableColumn]="'displayName'">Name
+                                <p-sortIcon [field]="'displayName'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+
+                            <th [pSortableColumn]="'date'">Date
+                                <p-sortIcon [field]="'date'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th>Amount</th>
+                            <th>Delivery Charge</th>
+                            <th>Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td>
+                                <span *ngIf="!rowData.salesIdString">N/A</span>
+                                {{rowData.salesIdString}}
+                            </td>
+                            <td>
+                                {{rowData.branch_name}}
+                            </td>
+                            <td>
+                                {{rowData.displayName}}
+                            </td>
+                            <td>
+                                {{rowData.date}}
+                            </td>
+                            <td>
+                                {{rowData.total}}
+                            </td>
+                            <td>
+                                {{rowData.delivery_charge}}
+                            </td>
+                            <td>
+                                {{rowData.salesTotal}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog appendTo="body" header="Add Invoice Data" [(visible)]="displayInvoiceModal" [modal]="true" [responsive]="true"
+[style]="{width: '650px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+[baseZIndex]="10000">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <form role="form" (ngSubmit)="printInvoice(fgetInvoice)" #fgetInvoice="ngForm">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-6 b-r">                         
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input pInputText type="text" placeholder=""
+                                    class="form-control" ngModel name="companyname"
+                                    #companyname="ngModel" required>
+                                <span *ngIf="!companyname.valid && companyname.touched" style="color:#ffa500">Please enter
+                                    full company name.</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Company Address Line 1</label>
+                                <input pInputText type="text" placeholder=""
+                                    class="form-control" ngModel name="companyaddressline1"
+                                    #companyaddressline1="ngModel" required>
+                                <span *ngIf="!companyaddressline1.valid && companyaddressline1.touched" style="color:#ffa500">Please enter
+                                     company address line 1.</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Company Address Line 2</label>
+                                <input pInputText type="text" placeholder=""
+                                    class="form-control" ngModel name="companyaddressline2"
+                                    #companyaddressline2="ngModel" required>
+                                <span *ngIf="!companyaddressline2.valid && companyaddressline2.touched" style="color:#ffa500">Please enter
+                                     company address line 2.</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Invoice Date</label>
+                                <input pInputText type="text" placeholder=""
+                                    class="form-control" ngModel name="invoicedate"
+                                    #invoicedate="ngModel" required>
+                                <span *ngIf="!invoicedate.valid && invoicedate.touched" style="color:#ffa500">Please enter
+                                    invoice date.</span>
+                            </div>                      
+                        
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Invoice Number</label>
+                                <input pInputText type="text" placeholder=""
+                                    class="form-control" ngModel name="invoicenumber"
+                                    #invoicenumber="ngModel" required>
+                                <span *ngIf="!invoicenumber.valid && invoicenumber.touched" style="color:#ffa500">Please enter
+                                    invoice number.</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Sale Amount</label>
+                                <input pInputText type="number" placeholder=""
+                                    class="form-control" ngModel name="saleamount"
+                                    #saleamount="ngModel" required>
+                                <span *ngIf="!saleamount.valid && saleamount.touched" style="color:#ffa500">Please enter
+                                    sales amount.</span>
+                            </div>   
+                            <div class="form-group">
+                                <label>Delivery Amount</label>
+                                <input pInputText type="number" placeholder=""
+                                    class="form-control" ngModel name="deliveryamount"
+                                    #deliveryamount="ngModel" required>
+                                <span *ngIf="!deliveryamount.valid && deliveryamount.touched" style="color:#ffa500">Please enter
+                                    delivery amount.</span>
+                            </div>                       
+                            <div>
+                               
+                                <button pButton type="submit" label="Download" [disabled]="!fgetInvoice.valid"
+                                    class="float-right ui-button-raised"></button>
+                                <button (click)="cancelInvoiceModal()" pButton type="button" label="Cancel"
+                                    class="float-right ui-button-raised cancelBtn"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</p-dialog>

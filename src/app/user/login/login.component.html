@@ -1,0 +1,22 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="default"
+  color="#fff"
+  type="ball-climbing-dot"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="mycontent" style="min-height: 85%">
+  <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+      <h3>Sign in with</h3> 
+      <button (click)="loginFacebook()" class="loginBtn loginBtn--facebook">
+        Login with Facebook
+      </button>      
+      <button (click)="loginGoogle()" class="loginBtn loginBtn--google">
+        Login with Google
+      </button>
+    </div>
+  </div>
+</div>

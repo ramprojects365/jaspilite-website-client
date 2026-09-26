@@ -1,0 +1,59 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <button pButton type="button" icon="pi pi-arrow-left" style="margin-right: 1em;"
+                    (click)="router.navigate(['admin/nadmin/settings']);"></button>
+                <h5>Add Shop</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox animated fadeInRight">
+                            <form role="form" (ngSubmit)="addShop(faddshop)" #faddshop="ngForm">
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-sm-6 b-r">
+                                            <div class="form-group">
+                                                <label>Shop Name</label>
+                                                <input pInputText type="text" placeholder="Enter shop name"
+                                                    class="form-control" ngModel name="name" #name="ngModel" required>
+                                                <span *ngIf="!name.valid && name.touched" style="color:#ffa500">Please
+                                                    enter shop name.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input pInputText type="text" placeholder="Enter address"
+                                                    class="form-control" ngModel name="address" #address="ngModel"
+                                                    required>
+                                                <span *ngIf="!address.valid && address.touched"
+                                                    style="color:#ffa500">Please
+                                                    enter full
+                                                    address.</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <button pButton type="submit" [disabled]="!faddshop.valid"
+                                                    label="Add Shop" class="float-right ui-button-raised"></button>
+                                                <button (click)="resetForm(faddshop)" pButton type="button"
+                                                    label="Reset"
+                                                    class="float-right ui-button-raised cancelBtn"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

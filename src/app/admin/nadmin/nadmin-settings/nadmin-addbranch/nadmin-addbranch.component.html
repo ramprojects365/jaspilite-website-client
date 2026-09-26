@@ -1,0 +1,503 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="default"
+  color="#fff"
+  type="ball-climbing-dot"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox animated fadeInRight">
+      <div class="ibox-title">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-arrow-left"
+          style="margin-right: 1em"
+          (click)="router.navigate(['admin/nadmin/settings'])"
+        ></button>
+        <h5>Add Branch</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="ibox animated fadeInRight">
+              <form
+                role="form"
+                (ngSubmit)="addBranch(faddbranch, addFileUpload)"
+                #faddbranch="ngForm"
+              >
+                <div class="row">
+                  <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                      <label><b>Shop Name</b></label>
+                      <p-dropdown
+                        [options]="userShops"
+                        selected
+                        [style]="{ width: '100%' }"
+                        name="userShop"
+                        [(ngModel)]="userShop"
+                        required
+                      >
+                      </p-dropdown>
+                    </div>
+                    <div class="form-group">
+                      <label><b>Shop Category</b></label>
+                      <p-dropdown
+                        [options]="shopCategories"
+                        selected
+                        [style]="{ width: '100%' }"
+                        name="shopCategory"
+                        [(ngModel)]="shopCategory"
+                        required
+                      >
+                      </p-dropdown>
+                    </div>
+                    <div class="form-group">
+                      <label><b>Branch Name</b></label>
+                      <input
+                        pInputText
+                        type="text"
+                        placeholder="Enter branch name"
+                        class="form-control"
+                        ngModel
+                        name="name"
+                        #name="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!name.valid && name.touched"
+                        style="color: #ffa500"
+                        >Please enter branch name.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label><b>Branch Location</b></label>
+                      <input
+                        placeholder="search for location"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="off"
+                        type="text"
+                        class="form-control"
+                        required
+                        #search
+                      />
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <!-- <div class="col-md-12" style="margin: 0.4em;">
+                                                    <agm-map [latitude]="latitude" [longitude]="longitude"
+                                                        [scrollwheel]="false" [zoom]="zoom">
+                                                        <agm-marker [latitude]="latitude" [longitude]="longitude"
+                                                            [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+                                                        </agm-marker>
+                                                    </agm-map>
+                                                </div> -->
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label><b>Branch Address</b></label>
+                      <input
+                        pInputText
+                        type="text"
+                        placeholder="Copy the same address here from above google search bar"
+                        class="form-control"
+                        ngModel
+                        name="address"
+                        #address="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!address.valid && address.touched"
+                        style="color: #ffa500"
+                        >Please enter full address.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label><b>Landmark</b></label>
+                      <input
+                        pInputText
+                        type="text"
+                        placeholder="Enter place name (EX: Chowkit)"
+                        class="form-control"
+                        ngModel
+                        name="landmark"
+                        #landmark="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!landmark.valid && landmark.touched"
+                        style="color: #ffa500"
+                        >Please enter landmark.</span
+                      >
+                    </div>
+                    <div>
+                      <label><b>Phone Number (Choose Country Code)</b></label>
+                    </div>
+                    <div class="row">
+                      <div
+                        class="col-md-2 col-sm-2 col-xs-3"
+                        style="padding-right: 0px"
+                      >
+                        <p-dropdown
+                          [options]="countryCodes"
+                          selected
+                          [style]="{
+                            'padding-bottom': '1px',
+                            border: '1px solid #e5e6e7',
+                          }"
+                          name="countryCode"
+                          [(ngModel)]="countryCode"
+                          required
+                        >
+                        </p-dropdown>
+                      </div>
+                      <div
+                        class="col-md-10 col-sm-10 col-xs-7"
+                        style="padding-left: 0px"
+                      >
+                        <input
+                          pInputText
+                          type="text"
+                          placeholder="Enter phone number"
+                          class="form-control"
+                          ngModel
+                          name="phone"
+                          #phone="ngModel"
+                          required
+                          style="height: 29px"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <span
+                        *ngIf="!phone.valid && phone.touched"
+                        style="color: #ffa500"
+                        >Please enter phone number with out country code.</span
+                      >
+                    </div>
+                    <div class="form-group" style="padding-top: 10px">
+                      <label><b>Currency</b></label>
+                      <p-dropdown
+                        [options]="currencies"
+                        selected
+                        [style]="{ width: '100%' }"
+                        name="currency"
+                        [(ngModel)]="currency"
+                        required
+                      >
+                      </p-dropdown>
+                    </div>
+                    <div class="form-group">
+                      <label><b>Maximum Distance in Radius</b></label>
+                      <input
+                        pInputText
+                        type="number"
+                        placeholder="Enter mximum distance for delivery"
+                        class="form-control"
+                        ngModel
+                        name="maxdistance"
+                        #maxdistance="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!maxdistance.valid && maxdistance.touched"
+                        style="color: #ffa500"
+                        >Please enter maximum distance for delivery.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label><b>Minimum Amount</b></label>
+                      <input
+                        pInputText
+                        type="number"
+                        placeholder="Enter minimum amount for delivery"
+                        class="form-control"
+                        ngModel
+                        name="minamount"
+                        #minamount="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!minamount.valid && minamount.touched"
+                        style="color: #ffa500"
+                        >Please enter minimum delivery amount.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label><b>Shop Opening Time (24 Hours Clock)</b></label>
+                      <p-calendar
+                        [style]="{ width: '100%' }"
+                        [inputStyle]="{ width: '100%' }"
+                        [timeOnly]="true"
+                        hourFormat="24"
+                        ngModel
+                        name="openingtime"
+                        #openingtime="ngModel"
+                        required
+                      ></p-calendar>
+                      <span
+                        *ngIf="!openingtime.valid && openingtime.touched"
+                        style="color: #ffa500"
+                        >Please choose opening time.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label><b>Shop Closing Time (24 Hours Clock)</b></label>
+                      <p-calendar
+                        [style]="{ width: '100%' }"
+                        [inputStyle]="{ width: '100%' }"
+                        [timeOnly]="true"
+                        hourFormat="24"
+                        ngModel
+                        name="closingtime"
+                        #closingtime="ngModel"
+                        required
+                      ></p-calendar>
+                      <span
+                        *ngIf="!closingtime.valid && closingtime.touched"
+                        style="color: #ffa500"
+                        >Please choose closing time.</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div>
+                      <label><b>Delivery Charges</b></label>
+                    </div>
+                    <div class="form-group">
+                      <label>Distance < 3km</label>
+                      <input
+                        pInputText
+                        type="number"
+                        placeholder="Enter delivery charge"
+                        class="form-control"
+                        ngModel
+                        name="delchargless3"
+                        #delchargless3="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!delchargless3.valid && delchargless3.touched"
+                        style="color: #ffa500"
+                        >Please enter minimum delivery amount.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label>Distance between 3km and 5km</label>
+                      <input
+                        pInputText
+                        type="number"
+                        placeholder="Enter delivery charge"
+                        class="form-control"
+                        ngModel
+                        name="delchargless5"
+                        #delchargless5="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!delchargless5.valid && delchargless5.touched"
+                        style="color: #ffa500"
+                        >Please enter minimum delivery amount.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label>Distance between 5km and 10km</label>
+                      <input
+                        pInputText
+                        type="number"
+                        placeholder="Enter delivery charge"
+                        class="form-control"
+                        ngModel
+                        name="delchargless10"
+                        #delchargless10="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!delchargless10.valid && delchargless10.touched"
+                        style="color: #ffa500"
+                        >Please enter minimum delivery amount.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label>Distance between 10km and 15km</label>
+                      <input
+                        pInputText
+                        type="number"
+                        placeholder="Enter delivery charge"
+                        class="form-control"
+                        ngModel
+                        name="delchargless15"
+                        #delchargless15="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!delchargless15.valid && delchargless15.touched"
+                        style="color: #ffa500"
+                        >Please enter minimum delivery amount.</span
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label>Distance above 15km</label>
+                      <input
+                        pInputText
+                        type="number"
+                        placeholder="Enter delivery charge"
+                        class="form-control"
+                        ngModel
+                        name="delchargless20"
+                        #delchargless20="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="!delchargless20.valid && delchargless20.touched"
+                        style="color: #ffa500"
+                        >Please enter minimum delivery amount.</span
+                      >
+                    </div>
+                    <div>
+                      <label><b>Add branch image</b></label>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label>Add Image (400 X 400 size)</label><br />
+                          <p-fileUpload
+                            #addFileUpload
+                            mode="basic"
+                            name="file[]"
+                            customUpload="true"
+                            (uploadHandler)="uploadImage($event, addFileUpload)"
+                            accept="image/*"
+                            [auto]="true"
+                            maxFileSize="1000000"
+                          >
+                          </p-fileUpload>
+                        </div>
+                        <div class="col-md-4" style="text-align: center">
+                          <div *ngIf="uploadedImage != ''" class="col-lg-12">
+                            <label>New Image</label><br />
+                            <img
+                              class="medium_image"
+                              [attr.src]="uploadedImage"
+                              alt="seven eleven"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label><b>Select the theme</b></label>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <img
+                            src="../../../../../assets/img/themes/category-theme.png"
+                            style="width: 130px"
+                          />
+                          <div style="margin-top: 1em">
+                            <input
+                              type="radio"
+                              name="themes"
+                              [(ngModel)]="theme.themes"
+                              value="1"
+                              required
+                              style="position: absolute"
+                            />
+                            <span style="padding-left: 20px"
+                              >Category Theme</span
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <img
+                            src="../../../../../assets/img/themes/list-theme.png"
+                            style="width: 130px; border: 1px solid #efefef"
+                            alt="Indian Grocery in Malaysia"
+                          />
+                          <div style="margin-top: 1em">
+                            <input
+                              type="radio"
+                              name="themes"
+                              [(ngModel)]="theme.themes"
+                              value="2"
+                              required
+                              style="position: absolute"
+                            />
+                            <span style="padding-left: 20px">List Theme</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label><b>Options (Not Mandatory)</b></label>
+                      <div
+                        class="ui-g"
+                        style="width: 250px; margin-bottom: 10px"
+                      >
+                        <div class="ui-g-12">
+                          <p-checkbox
+                            [(ngModel)]="isPosEnabled"
+                            name="isPosEnabled"
+                            label="POS Enabled"
+                            binary="true"
+                          ></p-checkbox>
+                        </div>
+                        <div class="ui-g-12">
+                          <p-checkbox
+                            [(ngModel)]="track_stock"
+                            name="track_stock"
+                            label="Track Stock"
+                            binary="true"
+                          ></p-checkbox>
+                        </div>
+                        <div class="ui-g-12">
+                          <p-checkbox
+                            disabled
+                            [(ngModel)]="isAdminDelivery"
+                            name="isAdminDelivery"
+                            label="Delivery By Minimart"
+                            binary="true"
+                          >
+                          </p-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                    <label><b>Welcome Message (400 size)</b></label>
+                    <div class="form-group">
+                      <textarea
+                        class="welcom-textarea"
+                        ngModel
+                        name="welcomeMessage"
+                        #welcomeMessage="ngModel"
+                        placeholder="Enter welcome message"
+                        rows="4"
+                        cols="35"
+                        autoResize="autoResize"
+                        style="width: 100%; border-radius: 3px"
+                      >
+                      </textarea>
+                    </div>
+                    <div class="form-group">
+                      <button
+                        pButton
+                        type="submit"
+                        [disabled]="!faddbranch.valid"
+                        label="Add Branch"
+                        class="float-right ui-button-raised"
+                      ></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

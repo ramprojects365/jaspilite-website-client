@@ -1,0 +1,301 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0;margin: -5px 15px 5px 15px;">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary ">
+                    <i class="fa fa-bars" style="color:#fff;" title="Refresh the browser if it doesn't work"></i> </a>
+                <div class="row dashboard-header">
+                    <div class="col-md-3">
+                        <h3 style="font-size: 14px;font-weight: bold;margin-top: 10px;">PRODUCTS</h3>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav navbar-top-links">
+                    <li style="margin-right: 0px !important;">
+                        <a (click)="logout()" class="admin-logout">
+                            <i class="fa fa-sign-out"></i> Log Out
+                        </a>
+                    </li>
+                </ul>
+        </nav>
+    </div>
+<p-dialog appendTo="body" header="Add Product" [(visible)]="displayProductAdder" [modal]="true" [responsive]="true"
+    [style]="{width: '850px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+    [baseZIndex]="10000">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox animated fadeInRight">
+                <form role="form" (ngSubmit)="addProduct(faddProd)" #faddProd="ngForm">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-6 b-r">
+                                <div class="form-group" hidden>
+                                    <label>Shop</label>
+                                    <p-dropdown [options]="userShops" (onChange)="changeShop($event)" selected
+                                        [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop" required>
+                                    </p-dropdown>
+                                </div>
+                                <div class="form-group" hidden>
+                                    <label>Branch</label>
+                                    <p-dropdown [options]="userBranches" (onChange)="changeBranch($event)" selected
+                                        [style]="{'width':'100%'}" name="userBranch" [(ngModel)]="userBranch" required>
+                                    </p-dropdown>
+                                </div>
+                                <div class="form-group" style="padding-top:10px;">
+                                    <label>Select Category</label>
+                                    <p-dropdown [options]="categories" (onChange)="changeCategory($event)" selected [style]="{'width':'100%'}"
+                                        name="selectedCategory" [(ngModel)]="selectedCategory">
+                                    </p-dropdown>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Product</label><br>
+                                    <p-dropdown [options]="products" [(ngModel)]="selectedproduct" [virtualScroll]="true" itemSize="10" name="product"
+                                        filter="true" (onChange)="changeProduct($event)" required>
+                                        <ng-template let-item pTemplate="selectedItem">
+                                            <!-- <img src="{{item.image}}" style="width:16px;vertical-align:middle" /> -->
+                                            <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                                        </ng-template>
+                                        <ng-template let-car pTemplate="item">
+                                            <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                                                <!-- <img src="{{car.image}}"
+                                                    style="width:24px;position:absolute;top:1px;left:5px" /> -->
+                                                <div style="font-size:14px;float:left;margin-top:4px">{{car.label}}
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input pInputText type="number" placeholder="0.00" class="form-control" ngModel
+                                        name="price" #price="ngModel" pattern="^\d*(\.\d{0,2})?$" required>
+                                    <span *ngIf="!price.valid && price.touched" style="color:#ffa500">Please enter
+                                        price with 2 decimal.</span>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label>Discount</label>
+                                    <input pInputText type="number" placeholder="0.00" class="form-control" ngModel
+                                        name="discount" #discount="ngModel">
+                                </div> -->
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <!-- <label>Barcode</label>
+                                    <input pInputText type="text" placeholder="xxxxxxxxxxxx" class="form-control"
+                                        ngModel name="barcode" #barcode="ngModel" required>
+                                    <span *ngIf="!barcode.valid && barcode.touched" style="color:#ffa500">Please enter
+                                        barcode.</span> -->
+                                        <div class="barcodeDisabled">{{this.selectedBarcode}}</div> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Article Number</label>
+                                    <input pInputText type="text" placeholder="xxxxxxxxxxxx" class="form-control"
+                                        ngModel name="articleNumber" #articleNumber="ngModel">
+                                    <span *ngIf="!articleNumber.valid && articleNumber.touched"
+                                        style="color:#ffa500">Please enter article number.</span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label>Image</label>
+                                            <img class="medium_image" [attr.src]="selectedImage" alt="Mini mart mobile app"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label>Image</label><br>
+                                    <p-fileUpload #addFileUpload mode="basic" name="file[]" customUpload="true"
+                                        (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*"
+                                        [auto]="true" maxFileSize="1000000">
+                                    </p-fileUpload>
+                                </div> -->
+                                <div class="form-group">
+                                    <button pButton type="submit" [disabled]="!faddProd.valid" label="Add Product"
+                                        class="float-right ui-button-raised"></button>
+                                    <button (click)="cancelProductAdder(faddProd)" pButton type="button" label="Cancel"
+                                        class="float-right ui-button-raised cancelBtn"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</p-dialog>
+
+<!-- Add Product - Select Branch popup -->
+<p-dialog appendTo="body" header="Select Branches" [(visible)]="displaySelectBranchForAddUpdt" [modal]="true" [responsive]="true"
+    [style]="{width: '400px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+    [baseZIndex]="10000">
+    Please Select the branches you want to update.
+    <div class="ui-g" style="width:100%;margin-bottom:10px">
+        <div class="ui-g-12" *ngFor="let branch of userBranches; let i = index">
+            <p-checkbox [(ngModel)]="branch.itemSelected" name="{{branch.id}}" label="{{branch.label}}" binary="true" (onChange)="addProdBranchChange(branch, $event)">
+            </p-checkbox>
+        </div>
+        <div class="form-group float-right" style="margin-top: 10px;width: 100%;">
+            <button (click)="addAddProdBranchSelection(faddProd)" pButton type="button" [disabled]="" label="Add"
+                class="float-right ui-button-raised"></button>
+            <button (click)="cancelAaddProdBranchSelection()" pButton type="button" label="Cancel"
+                class="float-right ui-button-raised cancelBtn"></button>
+        </div>
+    </div>
+</p-dialog>
+<!-- END Add Product - Select Branch popup -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox animated fadeInRight">
+            <div class="ibox-title">
+                <h5>Existing Products</h5>
+                <button (click)="showdisplayProductAdder()" style="margin-top: -0.5em;" pButton type="submit"
+                    label="Add Product" class="float-right ui-button-raised"></button>
+            </div>
+            <div class="ibox-content">
+                <!-- <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label>Shop</label>
+                        <p-dropdown [options]="userShops" (onChange)="changeShop($event)" selected
+                            [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Branch</label>
+
+                        <p-dropdown [options]="userBranches" (onChange)="changeBranch($event)" selected
+                            [style]="{'width':'100%'}" name="userBranch" [(ngModel)]="userBranch" required>
+                        </p-dropdown>
+                    </div>
+                </div> -->
+                <p-table #dt [columns]="cols" [value]="shopItems"
+                    [globalFilterFields]="['name', 'item_qr_code', 'articleNumber', 'category_name']" dataKey="item_id" editMode="row"
+                    [responsive]="true" [paginator]="true" [rows]="20">
+                    <ng-template pTemplate="caption">
+                            <div class="row">
+                                    <div class="col-lg-6"></div>
+                                <div class="col-lg-6">
+                            <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
+                            <input type="text" pInputText size="50" placeholder="Search"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                        </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:2.5em;text-align:center;">#</th>
+                            <th style="width:5em;text-align:center;">Image</th>
+                            <th style="text-align:center;" [pSortableColumn]="'name'">Name
+                                <p-sortIcon [field]="'name'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:8.5em;text-align:center;" [pSortableColumn]="'category_name'">Category
+                                <p-sortIcon [field]="'category_name'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th [pSortableColumn]="'item_price'" style="width:7em;text-align:center;">Price
+                                <p-sortIcon [field]="'item_price'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <!-- <th [pSortableColumn]="'item_discount'" style="width:6em;text-align:center;">Disc
+                                <p-sortIcon [field]="'item_discount'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th> -->
+                            <th>Barcode</th>
+                            <th>Article No</th>
+                            <!-- <th [pSortableColumn]="'availability'" style="width:9.5em;text-align:center;">In Stock
+                                <p-sortIcon [field]="'availability'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th> -->
+                            <th [pSortableColumn]="'hidden'" style="width:7.5em;text-align:center;">Stock
+                                <p-sortIcon [field]="'hidden'" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th style="width:8em;text-align:center;">Edit</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="rowData">
+                            <td>
+                                {{ri + 1}}
+                            </td>
+                            <td style="text-align:center">
+                                <img class="small_image" [attr.src]="rowData.image" />
+                            </td>
+                            <td>
+                                {{rowData.name}}
+                            </td>
+                            <td style="text-align:center">
+                                {{rowData.category_name}}
+                            </td>
+                            <td style="text-align:center">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input class="smallText" pInputText type="text" [(ngModel)]="rowData.item_price"
+                                            required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.item_price}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <!-- <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input class="smallText" pInputText type="text"
+                                            [(ngModel)]="rowData.item_discount" required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.item_discount}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td> -->
+                            <td>
+                                {{rowData.item_qr_code}}
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input class="smallText" pInputText type="text"
+                                            [(ngModel)]="rowData.articleNumber" required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.articleNumber}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td style="text-align:center">
+                                <p-checkbox [(ngModel)]="rowData.availability"
+                                    (onChange)="changeAvailability($event, rowData)" binary="true"></p-checkbox>
+                          
+                            </td>
+                            <td style="text-align:center">
+                                <p-checkbox [(ngModel)]="rowData.hidden" (onChange)="changeHidden($event, rowData)"
+                                    binary="true"></p-checkbox>
+                            </td>
+                            <td style="text-align:center">
+                                <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                                    class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                                <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
+                                    class="ui-button-success" style="margin-right: 1em; margin-bottom: 2px"
+                                    (click)="onRowEditSave(rowData)"></button>
+                                <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
+                                    class="cancelBtn" (click)="onRowEditCancel(rowData, ri)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
