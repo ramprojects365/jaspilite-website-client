@@ -235,7 +235,7 @@ export class SadminCostingComponent implements OnInit {
     });
     this.SadminCostingExcelService.generateExcel(
       this.excelData,
-      "Minimart-Report",
+      "Jaspilite-Report",
     );
   }
   printPDFSale() {
@@ -270,7 +270,7 @@ export class SadminCostingComponent implements OnInit {
     rows.push(["", "", "", "", "", "Total Delivery", this.deliveryTotal]);
     rows.push(["", "", "", "", "", "Invoice Amount", this.minimartAmount]);
 
-    pdf.text("Minimart Report", 10, 10);
+    pdf.text("Jaspilite Report", 10, 10);
     pdf.setFontSize(10);
     const header = [];
     header.push("Shop : " + this.sales[0].branch_name);
@@ -295,7 +295,7 @@ export class SadminCostingComponent implements OnInit {
       },
       startY: 25,
     });
-    pdf.save("minimart-report.pdf");
+    pdf.save("jaspilite-report.pdf");
   }
   printInvoice(form: NgForm) {
     this.sst = 0;
@@ -323,7 +323,7 @@ export class SadminCostingComponent implements OnInit {
     pdf.setFontSize(13);
     pdf.setFont("bold");
     pdf.text("Bill To: " + value.companyname, 20, 46);
-    pdf.text("Minimart Online Sdn Bhd", 120, 46);
+    pdf.text("Jaspilite Online Sdn Bhd", 120, 46);
     pdf.text("Address:", 20, 53);
     pdf.text("Address:", 120, 53);
     pdf.setFont("normal");
@@ -419,7 +419,7 @@ export class SadminCostingComponent implements OnInit {
     pdf.setFont("normal");
     pdf.setTextColor(64, 64, 64);
     pdf.setFontSize(12);
-    pdf.text("All cheques are payable at Minimart Online Sdn Bhd.", 20, 146);
+    pdf.text("All cheques are payable at Jaspilite Online Sdn Bhd.", 20, 146);
     pdf.text("For online payment Account No. 8010933529, CIMB Bank", 20, 154);
     pdf.setTextColor(160, 160, 160);
     pdf.text(
@@ -432,7 +432,7 @@ export class SadminCostingComponent implements OnInit {
     pdf.setFontSize(13);
     pdf.text("Thank you for your Business", 72, 170);
 
-    pdf.save("minimart-invoice.pdf");
+    pdf.save("jaspilite-invoice.pdf");
     this.displayInvoiceModal = false;
   }
   cancelInvoiceModal() {

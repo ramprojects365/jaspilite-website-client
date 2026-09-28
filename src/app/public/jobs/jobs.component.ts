@@ -16,12 +16,12 @@ export class JobsComponent implements OnInit {
   constructor(private title:Title, private router: Router, private toastr: ToastrService, private metaService: Meta, @Inject(PLATFORM_ID) private platformId) { }
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart - Jobs | Minimart Careers | Minimart Jobs in Malaysia");
+    this.title.setTitle("Jaspilite - Jobs | Jaspilite Careers | Jaspilite Jobs in Malaysia");
     this.metaService.updateTag(
-      { name: 'keywords', content: 'jobs, marketing jobs, minimart jobs in Malaysia, digital marketing, minimart careers, grocery mart jobs, online jobs, food panda jobs, grocery shopping jobs, sales' }
+      { name: 'keywords', content: 'jobs, marketing jobs, jaspilite jobs in Malaysia, digital marketing, jaspilite careers, grocery mart jobs, online jobs, food panda jobs, grocery shopping jobs, sales' }
     );
     this.metaService.updateTag(
-      { name: 'description', content: 'New jobs for Minimart in Malaysia available today - Digital marketing, Mobile and Web developers, Sales exicutive, groceries packing, rider jobs, photoshop designers etc.' }
+      { name: 'description', content: 'New jobs for Jaspilite in Malaysia available today - Digital marketing, Mobile and Web developers, Sales exicutive, groceries packing, rider jobs, photoshop designers etc.' }
     );
     this.metaService.updateTag(
       { name: 'robots', content: 'index, follow' }

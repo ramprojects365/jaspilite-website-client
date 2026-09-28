@@ -18,12 +18,12 @@ export class ComplaintsComponent implements OnInit {
 
   constructor(private title:Title, private router: Router, private toastr: ToastrService, private metaService: Meta, @Inject(PLATFORM_ID) private platformId) { }
   ngOnInit() {
-    this.title.setTitle("Mini Mart - faq, complaints and suggestions page");
+    this.title.setTitle("Jaspilite - faq, complaints and suggestions page");
     this.metaService.updateTag(
-      { name: 'keywords', content: 'online indian grocery store in malaysia, mini mart franchise malaysia, mini mart business plan, mini market, Frequently asked questions, Best Tamil Food, Best Kerala Food, Andhra Spices, Hyderabadi Biryani, Shop for quality milk online, Lulu Hypermarket, Modern Stores Malaysia, Indian Grocery, Online Grocery, Value Bazaar Malaysia, Cyberjaya Grocery, Delivery App, GroceryShopping, Grocery Delivery' }
+      { name: 'keywords', content: 'online indian grocery store in malaysia, jaspilite franchise malaysia, jaspilite business plan, mini market, Frequently asked questions, Best Tamil Food, Best Kerala Food, Andhra Spices, Hyderabadi Biryani, Shop for quality milk online, Lulu Hypermarket, Modern Stores Malaysia, Indian Grocery, Online Grocery, Value Bazaar Malaysia, Cyberjaya Grocery, Delivery App, GroceryShopping, Grocery Delivery' }
     );
     this.metaService.updateTag(
-      { name: 'description', content: 'Indian Vegetables online Malaysia, Fresh groceries and Hot food at your doorstep in the next hour! Download Minimart now in App store or Google Play store' }
+      { name: 'description', content: 'Indian Vegetables online Malaysia, Fresh groceries and Hot food at your doorstep in the next hour! Download Jaspilite now in App store or Google Play store' }
     );
     this.metaService.updateTag(
       { name: 'robots', content: 'index, follow' }

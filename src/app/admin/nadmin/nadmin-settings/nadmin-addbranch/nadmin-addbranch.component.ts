@@ -58,7 +58,7 @@ export class NadminAddbranchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart | Regestring the new shops in Minimart | Download today");
+    this.title.setTitle("Jaspilite | Registering the new shops in Jaspilite | Download today");
     this.metaService.updateTag(
       { name: 'keywords', content: 'Food Sharing App, Maybank Mobile App, Delivery business in Malaysia, Little Indian Shopping, Masid India Shopping, Banga Home Groceries, Srilakan Grocery Shops' }
     );

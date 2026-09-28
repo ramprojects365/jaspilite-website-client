@@ -13,12 +13,12 @@ export class BecomePartnerComponent implements OnInit {
 
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart - How to register a shop in Minimart mobile app? or How to become a Minimart partner?");
+    this.title.setTitle("Jaspilite - How to register a shop in Jaspilite mobile app? or How to become a Jaspilite partner?");
     this.metaService.updateTag(
-      { name: 'keywords', content: 'online Indian grocery store in Malaysia, mini market nearby, mini mart shop, ola mart, Become a minimart partner, how to register with Minimart, Indian Grocery Mobile App, Modern Stores, Biggest Indian Super market, Brickfields Grocery' }
+      { name: 'keywords', content: 'online Indian grocery store in Malaysia, mini market nearby, jaspilite shop, ola mart, Become a jaspilite partner, how to register with Jaspilite, Indian Grocery Mobile App, Modern Stores, Biggest Indian Super market, Brickfields Grocery' }
     );
     this.metaService.updateTag(
-      { name: 'description', content: 'If you want to become Minimart partner, please reach our team (+60 10 544 9974) with the below details. We will help you to register with us. Your name, email address, phone number, shop name, shop Address, shop logo.' }
+      { name: 'description', content: 'If you want to become Jaspilite partner, please reach our team (+60 10 544 9974) with the below details. We will help you to register with us. Your name, email address, phone number, shop name, shop Address, shop logo.' }
     );
     this.metaService.updateTag(
       { name: 'robots', content: 'index, follow' }

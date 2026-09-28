@@ -206,7 +206,7 @@ export class NadminProductsComponent implements OnInit {
       return { 'Product Name': item.name, 'Category': item.category_name, 'Price': item.item_price, 'Max Quantity': item.max_quantity, 'Barcode': item.item_qr_code, 
         'Artical Number': item.articleNumber };
     });
-    this.SadminCostingExcelService.generateExcel(this.excelData, 'Minimart-Products');
+    this.SadminCostingExcelService.generateExcel(this.excelData, 'Jaspilite-Products');
    }
   getShops() {
     const adminId = this.adminLoginService.adminUser.getValue().adminId;

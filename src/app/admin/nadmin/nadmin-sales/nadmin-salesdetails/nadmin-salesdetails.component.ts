@@ -143,7 +143,7 @@ export class NadminSalesdetailsComponent implements OnInit {
     }
     rows.push(["", "", "", "Grand Total", this.grandTotal]);
 
-    pdf.text("Minimart", 15, 12);
+    pdf.text("Jaspilite", 15, 12);
     pdf.setFontSize(11);
     const header = [];
     header.push("Name : " + this.sale.displayName);

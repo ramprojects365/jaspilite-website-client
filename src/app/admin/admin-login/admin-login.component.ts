@@ -23,17 +23,17 @@ export class AdminLoginComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.title.setTitle(
-      "Mini Mart | Login and Registration for grocery shops | Download Minimart App today",
+      "Jaspilite | Login and Registration for grocery shops | Download Jaspilite App today",
     );
     this.metaService.updateTag({
       name: "keywords",
       content:
-        "Register with Minimart, malaysia shopping app, food and grocery, little Indian Grocery, freedelivery, groceryshopping, food delivery app, aboutminimart, grab delivery",
+        "Register with Jaspilite, malaysia shopping app, food and grocery, little Indian Grocery, freedelivery, groceryshopping, food delivery app, aboutjaspilite, grab delivery",
     });
     this.metaService.updateTag({
       name: "description",
       content:
-        "Fed up of tiring household shopping, long queues at the cashiers? Well Minimart is here to make shopping a whole new experience. You can search and shop from our full range of products and have your shopping delivered to your doorstep based on the time most convenient for you.",
+        "Fed up of tiring household shopping, long queues at the cashiers? Well Jaspilite is here to make shopping a whole new experience. You can search and shop from our full range of products and have your shopping delivered to your doorstep based on the time most convenient for you.",
     });
     this.metaService.updateTag({ name: "robots", content: "index, follow" });
   }

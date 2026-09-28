@@ -17,7 +17,7 @@ export class PublicService {
   contactUs(value) {
     return this.http.post<PublicResponse>('api/v2/user/web/contactus',
       {
-        subject: 'Minimart Customer Feedback', name: value.name
+        subject: 'Jaspilite Customer Feedback', name: value.name
         , number: value.mobilenumber, email: value.email
         , message: value.message
       });
