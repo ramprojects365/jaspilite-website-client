@@ -36,7 +36,7 @@ export class SadminCostingComponent implements OnInit {
   totalDiscount: any;
   finalAmount: any;
   totalInvoiceAmount: any;
-  minimartAmount: any;
+  jaspiliteAmount: any;
   sst: any;
   noOfSales: any;
   fees: any;
@@ -51,7 +51,7 @@ export class SadminCostingComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private utilityService: UtilityService,
     private title: Title,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.cols = [
@@ -66,7 +66,7 @@ export class SadminCostingComponent implements OnInit {
     this.totalDiscount = 0;
     this.finalAmount = 0;
     this.totalInvoiceAmount = 0;
-    this.minimartAmount = 0;
+    this.jaspiliteAmount = 0;
     this.fees = 0;
     this.printBtnEnabled = false;
     //this.shopPercentage = 0.00;
@@ -189,7 +189,7 @@ export class SadminCostingComponent implements OnInit {
       this.deliveryTotal = 0;
       this.totalDiscount = 0;
       this.finalAmount = 0;
-      this.minimartAmount = 0;
+      this.jaspiliteAmount = 0;
       this.fees = 0;
       if (this.sales.length > 0) {
         this.sales = sales.payload.sales.map((item) => {
@@ -212,7 +212,7 @@ export class SadminCostingComponent implements OnInit {
         this.finalAmount = (
           parseFloat(this.fees) - parseFloat(this.totalDiscount)
         ).toFixed(2);
-        this.minimartAmount = (
+        this.jaspiliteAmount = (
           parseFloat(this.finalAmount) + parseFloat(this.deliveryTotal)
         ).toFixed(2);
         this.printBtnEnabled = true;
@@ -268,7 +268,7 @@ export class SadminCostingComponent implements OnInit {
     rows.push(["", "", "", "", "", "Discount", this.totalDiscount]);
     rows.push(["", "", "", "", "", "Fees After Discount", this.finalAmount]);
     rows.push(["", "", "", "", "", "Total Delivery", this.deliveryTotal]);
-    rows.push(["", "", "", "", "", "Invoice Amount", this.minimartAmount]);
+    rows.push(["", "", "", "", "", "Invoice Amount", this.jaspiliteAmount]);
 
     pdf.text("Jaspilite Report", 10, 10);
     pdf.setFontSize(10);
@@ -276,9 +276,9 @@ export class SadminCostingComponent implements OnInit {
     header.push("Shop : " + this.sales[0].branch_name);
     header.push(
       "Duration : " +
-        this.costingStartDateForPrint +
-        " - " +
-        this.costingEndDateForPrint,
+      this.costingStartDateForPrint +
+      " - " +
+      this.costingEndDateForPrint,
     );
 
     pdf.text(header, 10, 15);
@@ -309,7 +309,7 @@ export class SadminCostingComponent implements OnInit {
     const pdf = new jsPDF();
 
     var mmlogo = new Image();
-    mmlogo.src = "../../../../assets/img/common/minimart-logo.png";
+    mmlogo.src = "../../../../assets/img/common/jaspilite-logo.png";
 
     pdf.addImage(mmlogo, "png", 20, 10, 20, 20);
     pdf.setTextColor(64, 64, 64);
@@ -389,11 +389,11 @@ export class SadminCostingComponent implements OnInit {
       "",
       "",
       "Total Amount: " +
-        (
-          parseFloat(value.saleamount) +
-          parseFloat(value.deliveryamount) +
-          parseFloat(this.sst)
-        ).toFixed(2),
+      (
+        parseFloat(value.saleamount) +
+        parseFloat(value.deliveryamount) +
+        parseFloat(this.sst)
+      ).toFixed(2),
       "",
     ];
     const rows1 = [];

@@ -28,15 +28,15 @@ const appRoutes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "online-food-and-grocery-mobile-app", component: HomeComponent },
   { path: "about-jaspilite-mobile-app", component: AboutUsComponent },
-  { path: "about-minimart-mobile-app", redirectTo: "about-jaspilite-mobile-app" },
+  { path: "about-jaspilite-mobile-app", redirectTo: "about-jaspilite-mobile-app" },
   { path: "faq", component: ComplaintsComponent },
   { path: "how-to-become-a-partner", component: BecomePartnerComponent },
   { path: "products", component: ProductsComponent },
   { path: "promo-codes", component: PromoCodesComponent },
   { path: "jaspilite-jobs", component: JobsComponent },
-  { path: "minimart-jobs", redirectTo: "jaspilite-jobs" },
+  { path: "jaspilite-jobs", redirectTo: "jaspilite-jobs" },
   { path: "contact-jaspilite-mobile-app-team", component: ContactUsComponent },
-  { path: "contact-minimart-mobile-app-team", redirectTo: "contact-jaspilite-mobile-app-team" },
+  { path: "contact-jaspilite-mobile-app-team", redirectTo: "contact-jaspilite-mobile-app-team" },
   { path: "download", component: DownloadComponent },
   {
     path: "admin",
@@ -50,4 +50,4 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

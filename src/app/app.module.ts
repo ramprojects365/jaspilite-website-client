@@ -33,10 +33,10 @@ import { DownloadComponent } from "./public/download/download.component";
 
 const config = {
   apiKey: "AIzaSyBsuyNGdnrXbHVhQp7nnEFyEdbutTuACM0",
-  authDomain: "minimart-be661.firebaseapp.com",
-  databaseURL: "https://minimart-be661.firebaseio.com",
-  projectId: "minimart-be661",
-  storageBucket: "minimart-be661.appspot.com",
+  authDomain: "jaspilite-be661.firebaseapp.com",
+  databaseURL: "https://jaspilite-be661.firebaseio.com",
+  projectId: "jaspilite-be661",
+  storageBucket: "jaspilite-be661.appspot.com",
   messagingSenderId: "16143142924",
   appId: "1:16143142924:web:448c3de1254cc2a53d1e29",
   measurementId: "G-XMMCBSBCNQ",
@@ -90,4 +90,4 @@ const config = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
