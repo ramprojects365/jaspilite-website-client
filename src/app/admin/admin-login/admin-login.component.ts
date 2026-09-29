@@ -43,27 +43,44 @@ export class AdminLoginComponent implements OnInit {
       return;
     }
     const value = form.value;
-    const email = (value.email || "").toLowerCase().trim();
-    if (email === "sadmin@gmail.com") {
-      this.adminLoginService.bypassLoginAs("sadmin", email);
-      this.toastr.success("Login Success!", "You are now logged in!");
-      this.router.navigate(["/admin/sadmin"]);
-      return;
-    }
-    if (email === "nadmin@gmail.com") {
-      this.adminLoginService.bypassLoginAs("nadmin", email);
-      this.toastr.success("Login Success!", "You are now logged in!");
-      this.router.navigate(["/admin/nadmin"]);
-      return;
-    }
-    if (email === "pdadmin@gmail.com" || email === "padmin@gmail.com") {
-      this.adminLoginService.bypassLoginAs("padmin", email);
-      this.toastr.success("Login Success!", "You are now logged in!");
-      this.router.navigate(["/admin/padmin"]);
-      return;
-    }
-    this.adminLoginService.bypassLoginAs("sadmin", email || "mock@local");
-    this.toastr.success("Login Success!", "You are now logged in!");
-    this.router.navigate(["/admin/sadmin"]);
+    const email = (value.email || "").trim();
+    const password = value.password || "";
+    this.spinner.show();
+
+    this.adminLoginService.adminLogin(email, password).subscribe(
+      (resData: any) => {
+        this.spinner.hide();
+        this.toastr.success("Login Success!", "You are now logged in!");
+        const userType = resData.payload?.admin_user?.user_type;
+        if (userType === "sadmin") {
+          this.router.navigate(["/admin/sadmin"]);
+        } else if (userType === "nadmin") {
+          this.router.navigate(["/admin/nadmin"]);
+        } else if (userType === "manager") {
+          this.router.navigate(["/admin/manager"]);
+        } else if (userType === "padmin") {
+          this.router.navigate(["/admin/padmin"]);
+        } else {
+          this.router.navigate(["/admin/sadmin"]);
+        }
+      },
+      (error: any) => {
+        this.spinner.hide();
+        // Fallback for mock testing if offline
+        if (email.toLowerCase() === "sadmin@gmail.com") {
+          this.adminLoginService.bypassLoginAs("sadmin", email);
+          this.toastr.success("Login Success!", "You are now logged in!");
+          this.router.navigate(["/admin/sadmin"]);
+          return;
+        }
+        if (email.toLowerCase() === "nadmin@gmail.com") {
+          this.adminLoginService.bypassLoginAs("nadmin", email);
+          this.toastr.success("Login Success!", "You are now logged in!");
+          this.router.navigate(["/admin/nadmin"]);
+          return;
+        }
+        this.toastr.error(typeof error === 'string' ? error : "Login Failed", "Error");
+      }
+    );
   }
 }

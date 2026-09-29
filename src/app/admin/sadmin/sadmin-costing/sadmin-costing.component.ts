@@ -309,7 +309,7 @@ export class SadminCostingComponent implements OnInit {
     const pdf = new jsPDF();
 
     var mmlogo = new Image();
-    mmlogo.src = "../../../../assets/img/common/jaspilite-logo.png";
+    mmlogo.src = "../../../../assets/img/common/minimart-logo.png";
 
     pdf.addImage(mmlogo, "png", 20, 10, 20, 20);
     pdf.setTextColor(64, 64, 64);
