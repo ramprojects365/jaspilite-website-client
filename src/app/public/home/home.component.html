@@ -279,32 +279,44 @@
             </div>
 
             <div class="contact-form-col">
-                <form (ngSubmit)="contactUs(flogin)" #flogin="ngForm" class="modern-form">
+                <form (ngSubmit)="contactUs(flogin)" #flogin="ngForm" class="modern-form" novalidate>
                     <h3 class="form-title">Send Us a Quick Message</h3>
                     
                     <div class="form-group">
                         <label for="name">Your Name</label>
-                        <input type="text" class="form-input" ngModel id="name" name="name" placeholder="e.g. Rahul Sharma" #name="ngModel" required />
+                        <div class="input-wrap">
+                            <i class="fa fa-user input-icon"></i>
+                            <input type="text" class="form-input" ngModel id="name" name="name" placeholder="e.g. Rahul Sharma" #name="ngModel" required />
+                        </div>
                         <span *ngIf="!name.valid && name.touched" class="form-err">Please enter your name.</span>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group half">
                             <label for="mobilenumber">Phone Number</label>
-                            <input type="tel" class="form-input" id="mobilenumber" ngModel name="mobilenumber" placeholder="+60 1x xxx xxxx" #mobilenumber="ngModel" required />
-                            <span *ngIf="!mobilenumber.valid && mobilenumber.touched" class="form-err">Required.</span>
+                            <div class="input-wrap">
+                                <i class="fa fa-phone input-icon"></i>
+                                <input type="tel" class="form-input" id="mobilenumber" ngModel name="mobilenumber" placeholder="+60 1x xxx xxxx" #mobilenumber="ngModel" required />
+                            </div>
+                            <span *ngIf="!mobilenumber.valid && mobilenumber.touched" class="form-err">Please enter your phone number.</span>
                         </div>
 
                         <div class="form-group half">
                             <label for="email">Email Address</label>
-                            <input type="email" class="form-input" id="email" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ngModel placeholder="name@email.com" #email="ngModel" required />
+                            <div class="input-wrap">
+                                <i class="fa fa-envelope-o input-icon"></i>
+                                <input type="email" class="form-input" id="email" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ngModel placeholder="name@email.com" #email="ngModel" required />
+                            </div>
                             <span *ngIf="!email.valid && email.touched" class="form-err">Valid email required.</span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="message">How can we help you?</label>
-                        <textarea class="form-textarea" rows="3" id="message" name="message" ngModel placeholder="Tell us about your query, bulk order, or merchant inquiry..." #message="ngModel" required></textarea>
+                        <div class="input-wrap textarea-wrap">
+                            <i class="fa fa-commenting-o input-icon"></i>
+                            <textarea class="form-textarea" rows="4" id="message" name="message" ngModel placeholder="Tell us about your query, bulk order, or merchant inquiry..." #message="ngModel" required></textarea>
+                        </div>
                         <span *ngIf="!message.valid && message.touched" class="form-err">Please write a brief message.</span>
                     </div>
 
