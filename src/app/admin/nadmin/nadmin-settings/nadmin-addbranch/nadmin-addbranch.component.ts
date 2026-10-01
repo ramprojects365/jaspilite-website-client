@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, NgForm } from '@angular/forms';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta  } from '@angular/platform-browser';
 
@@ -47,7 +46,6 @@ export class NadminAddbranchComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     public router: Router,
-    private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private adminLoginService: AdminLoginService,
     private nadminSettingsService: NadminSettingsService,
@@ -58,7 +56,7 @@ export class NadminAddbranchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart | Regestring the new shops in Minimart | Download today");
+    this.title.setTitle("Jaspilite | Registering the new shops in Jaspilite | Download today");
     this.metaService.updateTag(
       { name: 'keywords', content: 'Food Sharing App, Maybank Mobile App, Delivery business in Malaysia, Little Indian Shopping, Masid India Shopping, Banga Home Groceries, Srilakan Grocery Shops' }
     );
@@ -121,29 +119,31 @@ export class NadminAddbranchComponent implements OnInit {
     this.zoom = 15;
     this.latitude = 3.129225;
     this.longitude = 101.6861389;
- 
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder();
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: []
-      });
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          // set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 15;
+    const g = (window as any).google;
+    if (g && g.maps && g.maps.places && this.searchElementRef) {
+      try {
+        this.setCurrentLocation();
+        this.geoCoder = new g.maps.Geocoder();
+        const autocomplete = new g.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+          types: []
         });
-      });
-    });
+        autocomplete.addListener('place_changed', () => {
+          this.ngZone.run(() => {
+            const place = autocomplete.getPlace();
+            if (place && place.geometry && place.geometry.location) {
+              this.latitude = place.geometry.location.lat();
+              this.longitude = place.geometry.location.lng();
+              this.zoom = 15;
+            }
+          });
+        });
+      } catch (e) {
+        console.warn('Google maps autocomplete error:', e);
+      }
+    } else {
+      this.setCurrentLocation();
+    }
   }
 
   // Get Current Location Coordinates
@@ -176,9 +176,11 @@ export class NadminAddbranchComponent implements OnInit {
     }
   }
 
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
+  markerDragEnd($event: any) {
+    if ($event && $event.coords) {
+      this.latitude = $event.coords.lat;
+      this.longitude = $event.coords.lng;
+    }
   }
 
   uploadImage(event, addFileUpload) {

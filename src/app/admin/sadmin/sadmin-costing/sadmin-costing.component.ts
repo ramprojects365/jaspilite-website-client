@@ -36,7 +36,7 @@ export class SadminCostingComponent implements OnInit {
   totalDiscount: any;
   finalAmount: any;
   totalInvoiceAmount: any;
-  minimartAmount: any;
+  jaspiliteAmount: any;
   sst: any;
   noOfSales: any;
   fees: any;
@@ -51,7 +51,7 @@ export class SadminCostingComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private utilityService: UtilityService,
     private title: Title,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.cols = [
@@ -66,7 +66,7 @@ export class SadminCostingComponent implements OnInit {
     this.totalDiscount = 0;
     this.finalAmount = 0;
     this.totalInvoiceAmount = 0;
-    this.minimartAmount = 0;
+    this.jaspiliteAmount = 0;
     this.fees = 0;
     this.printBtnEnabled = false;
     //this.shopPercentage = 0.00;
@@ -189,7 +189,7 @@ export class SadminCostingComponent implements OnInit {
       this.deliveryTotal = 0;
       this.totalDiscount = 0;
       this.finalAmount = 0;
-      this.minimartAmount = 0;
+      this.jaspiliteAmount = 0;
       this.fees = 0;
       if (this.sales.length > 0) {
         this.sales = sales.payload.sales.map((item) => {
@@ -212,7 +212,7 @@ export class SadminCostingComponent implements OnInit {
         this.finalAmount = (
           parseFloat(this.fees) - parseFloat(this.totalDiscount)
         ).toFixed(2);
-        this.minimartAmount = (
+        this.jaspiliteAmount = (
           parseFloat(this.finalAmount) + parseFloat(this.deliveryTotal)
         ).toFixed(2);
         this.printBtnEnabled = true;
@@ -235,7 +235,7 @@ export class SadminCostingComponent implements OnInit {
     });
     this.SadminCostingExcelService.generateExcel(
       this.excelData,
-      "Minimart-Report",
+      "Jaspilite-Report",
     );
   }
   printPDFSale() {
@@ -268,17 +268,17 @@ export class SadminCostingComponent implements OnInit {
     rows.push(["", "", "", "", "", "Discount", this.totalDiscount]);
     rows.push(["", "", "", "", "", "Fees After Discount", this.finalAmount]);
     rows.push(["", "", "", "", "", "Total Delivery", this.deliveryTotal]);
-    rows.push(["", "", "", "", "", "Invoice Amount", this.minimartAmount]);
+    rows.push(["", "", "", "", "", "Invoice Amount", this.jaspiliteAmount]);
 
-    pdf.text("Minimart Report", 10, 10);
+    pdf.text("Jaspilite Report", 10, 10);
     pdf.setFontSize(10);
     const header = [];
     header.push("Shop : " + this.sales[0].branch_name);
     header.push(
       "Duration : " +
-        this.costingStartDateForPrint +
-        " - " +
-        this.costingEndDateForPrint,
+      this.costingStartDateForPrint +
+      " - " +
+      this.costingEndDateForPrint,
     );
 
     pdf.text(header, 10, 15);
@@ -295,7 +295,7 @@ export class SadminCostingComponent implements OnInit {
       },
       startY: 25,
     });
-    pdf.save("minimart-report.pdf");
+    pdf.save("jaspilite-report.pdf");
   }
   printInvoice(form: NgForm) {
     this.sst = 0;
@@ -323,7 +323,7 @@ export class SadminCostingComponent implements OnInit {
     pdf.setFontSize(13);
     pdf.setFont("bold");
     pdf.text("Bill To: " + value.companyname, 20, 46);
-    pdf.text("Minimart Online Sdn Bhd", 120, 46);
+    pdf.text("Jaspilite Online Sdn Bhd", 120, 46);
     pdf.text("Address:", 20, 53);
     pdf.text("Address:", 120, 53);
     pdf.setFont("normal");
@@ -389,11 +389,11 @@ export class SadminCostingComponent implements OnInit {
       "",
       "",
       "Total Amount: " +
-        (
-          parseFloat(value.saleamount) +
-          parseFloat(value.deliveryamount) +
-          parseFloat(this.sst)
-        ).toFixed(2),
+      (
+        parseFloat(value.saleamount) +
+        parseFloat(value.deliveryamount) +
+        parseFloat(this.sst)
+      ).toFixed(2),
       "",
     ];
     const rows1 = [];
@@ -419,7 +419,7 @@ export class SadminCostingComponent implements OnInit {
     pdf.setFont("normal");
     pdf.setTextColor(64, 64, 64);
     pdf.setFontSize(12);
-    pdf.text("All cheques are payable at Minimart Online Sdn Bhd.", 20, 146);
+    pdf.text("All cheques are payable at Jaspilite Online Sdn Bhd.", 20, 146);
     pdf.text("For online payment Account No. 8010933529, CIMB Bank", 20, 154);
     pdf.setTextColor(160, 160, 160);
     pdf.text(
@@ -432,7 +432,7 @@ export class SadminCostingComponent implements OnInit {
     pdf.setFontSize(13);
     pdf.text("Thank you for your Business", 72, 170);
 
-    pdf.save("minimart-invoice.pdf");
+    pdf.save("jaspilite-invoice.pdf");
     this.displayInvoiceModal = false;
   }
   cancelInvoiceModal() {

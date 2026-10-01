@@ -54,7 +54,7 @@ export class SadminProductsComponent implements OnInit {
     this.products = this.getMockProducts();
     this.loadCategories();
     this.loadProducts();
-    this.title.setTitle("Mini Mart - order food online Malaysia - order groceries Minimart online");
+    this.title.setTitle("Jaspilite - order food online Malaysia - order groceries Jaspilite online");
     this.metaService.updateTag(
       { name: 'keywords', content: 'grocery delivery, best restaurants, easy payment, klang groceries, ipoh indian grocery' }
     );

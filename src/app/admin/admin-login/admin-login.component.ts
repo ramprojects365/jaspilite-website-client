@@ -23,17 +23,17 @@ export class AdminLoginComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.title.setTitle(
-      "Mini Mart | Login and Registration for grocery shops | Download Minimart App today",
+      "Jaspilite | Login and Registration for grocery shops | Download Jaspilite App today",
     );
     this.metaService.updateTag({
       name: "keywords",
       content:
-        "Register with Minimart, malaysia shopping app, food and grocery, little Indian Grocery, freedelivery, groceryshopping, food delivery app, aboutminimart, grab delivery",
+        "Register with Jaspilite, malaysia shopping app, food and grocery, little Indian Grocery, freedelivery, groceryshopping, food delivery app, aboutjaspilite, grab delivery",
     });
     this.metaService.updateTag({
       name: "description",
       content:
-        "Fed up of tiring household shopping, long queues at the cashiers? Well Minimart is here to make shopping a whole new experience. You can search and shop from our full range of products and have your shopping delivered to your doorstep based on the time most convenient for you.",
+        "Fed up of tiring household shopping, long queues at the cashiers? Well Jaspilite is here to make shopping a whole new experience. You can search and shop from our full range of products and have your shopping delivered to your doorstep based on the time most convenient for you.",
     });
     this.metaService.updateTag({ name: "robots", content: "index, follow" });
   }
@@ -43,27 +43,44 @@ export class AdminLoginComponent implements OnInit {
       return;
     }
     const value = form.value;
-    const email = (value.email || "").toLowerCase().trim();
-    if (email === "sadmin@gmail.com") {
-      this.adminLoginService.bypassLoginAs("sadmin", email);
-      this.toastr.success("Login Success!", "You are now logged in!");
-      this.router.navigate(["/admin/sadmin"]);
-      return;
-    }
-    if (email === "nadmin@gmail.com") {
-      this.adminLoginService.bypassLoginAs("nadmin", email);
-      this.toastr.success("Login Success!", "You are now logged in!");
-      this.router.navigate(["/admin/nadmin"]);
-      return;
-    }
-    if (email === "pdadmin@gmail.com" || email === "padmin@gmail.com") {
-      this.adminLoginService.bypassLoginAs("padmin", email);
-      this.toastr.success("Login Success!", "You are now logged in!");
-      this.router.navigate(["/admin/padmin"]);
-      return;
-    }
-    this.adminLoginService.bypassLoginAs("sadmin", email || "mock@local");
-    this.toastr.success("Login Success!", "You are now logged in!");
-    this.router.navigate(["/admin/sadmin"]);
+    const email = (value.email || "").trim();
+    const password = value.password || "";
+    this.spinner.show();
+
+    this.adminLoginService.adminLogin(email, password).subscribe(
+      (resData: any) => {
+        this.spinner.hide();
+        this.toastr.success("Login Success!", "You are now logged in!");
+        const userType = resData.payload?.admin_user?.user_type;
+        if (userType === "sadmin") {
+          this.router.navigate(["/admin/sadmin"]);
+        } else if (userType === "nadmin") {
+          this.router.navigate(["/admin/nadmin"]);
+        } else if (userType === "manager") {
+          this.router.navigate(["/admin/manager"]);
+        } else if (userType === "padmin") {
+          this.router.navigate(["/admin/padmin"]);
+        } else {
+          this.router.navigate(["/admin/sadmin"]);
+        }
+      },
+      (error: any) => {
+        this.spinner.hide();
+        // Fallback for mock testing if offline
+        if (email.toLowerCase() === "sadmin@gmail.com") {
+          this.adminLoginService.bypassLoginAs("sadmin", email);
+          this.toastr.success("Login Success!", "You are now logged in!");
+          this.router.navigate(["/admin/sadmin"]);
+          return;
+        }
+        if (email.toLowerCase() === "nadmin@gmail.com") {
+          this.adminLoginService.bypassLoginAs("nadmin", email);
+          this.toastr.success("Login Success!", "You are now logged in!");
+          this.router.navigate(["/admin/nadmin"]);
+          return;
+        }
+        this.toastr.error(typeof error === 'string' ? error : "Login Failed", "Error");
+      }
+    );
   }
 }

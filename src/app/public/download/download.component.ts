@@ -15,12 +15,12 @@ export class DownloadComponent implements OnInit {
   constructor(private router: Router, private title:Title, private metaService: Meta) { }
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart - Download App on Google Playstore and Apple App Store"); 
+    this.title.setTitle("Jaspilite - Download App on Google Playstore and Apple App Store"); 
     this.metaService.updateTag(
-      { name: 'keywords', content: 'Convenience Store, mini mart franchise malaysia, minimart by resto, mini mart penang,  Minimart Invite code, Minimart Voucher code, Where to get fresh groceery, Best Grocery in CyberJaya, Kerala food in Malaysia, Grocery, Big Basket, D mart, Andhra Vegetables, Haldiram, Hyderabadi Biryani, babas masala, aachi masala, spicy masala, indiangrocery, onlinegrocery, freedelivery, groceryshopping, aboutminimart, minimartmobileapp' }
+      { name: 'keywords', content: 'Convenience Store, jaspilite franchise malaysia, jaspilite by resto, jaspilite penang,  Jaspilite Invite code, Jaspilite Voucher code, Where to get fresh grocery, Best Grocery in CyberJaya, Kerala food in Malaysia, Grocery, Big Basket, D mart, Andhra Vegetables, Haldiram, Hyderabadi Biryani, babas masala, aachi masala, spicy masala, indiangrocery, onlinegrocery, freedelivery, groceryshopping, aboutjaspilite, jaspilitemobileapp' }
     );
     this.metaService.updateTag(
-      { name: 'description', content: 'Mini mart online is Malaysia most convenient online grocery ordering site, connecting people with the best grocery shops around them, in Kuala Lumpur.' }
+      { name: 'description', content: 'Jaspilite online is Malaysia most convenient online grocery ordering site, connecting people with the best grocery shops around them, in Kuala Lumpur.' }
     );
     this.metaService.updateTag(
       { name: 'robots', content: 'index, follow' }

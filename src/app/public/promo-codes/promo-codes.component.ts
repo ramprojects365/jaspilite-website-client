@@ -13,9 +13,9 @@ export class PromoCodesComponent implements OnInit {
   constructor(private title:Title, private metaService: Meta,  private spinner: NgxSpinnerService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart | Promo Codes and Cash Vouchers in Malaysia | Free Delivery"); 
+    this.title.setTitle("Jaspilite | Promo Codes and Cash Vouchers in Malaysia | Free Delivery"); 
     this.metaService.updateTag(
-      { name: 'keywords', content: 'Minimart Promo Codes, Minimart Cash Vouchers, Minimart Free Coupons, Food Coupons, Free Credit, Free Delivery, Cash Back Coupons' }
+      { name: 'keywords', content: 'Jaspilite Promo Codes, Jaspilite Cash Vouchers, Jaspilite Free Coupons, Food Coupons, Free Credit, Free Delivery, Cash Back Coupons' }
     );
     this.metaService.updateTag(
       { name: 'description', content: 'Earn credit points by sharing our app with others. You can get the points once they used your invite code while they logged in. You can use credit points any time while purchasing.' }

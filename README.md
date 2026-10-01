@@ -1,2 +1,2 @@
-# minimart-admin-client
-Minimart Admin Website Angular Code
+# jaspilitee-admin-client
+jaspilite Admin Website Angular Code

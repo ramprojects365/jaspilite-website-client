@@ -27,10 +27,10 @@ export class NadminSettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart | Login and Registration for grocery shops | Download today");
+    this.title.setTitle("Jaspilite | Login and Registration for grocery shops | Download today");
     this.metaService.addTags([
       {name: 'keywords', content: 'Tamil Grocery Shop, Telugu Grocery Shop in Malaysia, Food and Grocery Delivery app in malaysia, Food Panda Grocery, Sentul Grocery, Malay Grocery'},
-      {name: 'description', content: 'Minimart Grocery. We are an online store selling high quality Indian spices, masalas and other groceries at reasonable price delivered direct to the home.'},
+      {name: 'description', content: 'Jaspilite Grocery. We are an online store selling high quality Indian spices, masalas and other groceries at reasonable price delivered direct to the home.'},
       {name: 'robots', content: 'index, follow'}
     ]);
     this.userShops = this.getMockShops();

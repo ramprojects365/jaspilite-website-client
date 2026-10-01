@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, NgForm } from '@angular/forms';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta  } from '@angular/platform-browser';
 
@@ -45,7 +44,6 @@ export class NadminEditbranchComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     public router: Router,
     private route: ActivatedRoute,
-    private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private adminLoginService: AdminLoginService,
     private nadminSettingsService: NadminSettingsService,
@@ -127,35 +125,34 @@ export class NadminEditbranchComponent implements OnInit {
   }
 
   initGoogleServices() {
-    // console.log(this.branchDetails.latitude);
-    // console.log(this.branchDetails.longitude);
     this.zoom = 15;
-    this.mapsAPILoader.load().then(() => {
-      // this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder();
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: []
-      });
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          // set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 15;
+    const g = (window as any).google;
+    if (g && g.maps && g.maps.places && this.searchElementRef) {
+      try {
+        this.geoCoder = new g.maps.Geocoder();
+        const autocomplete = new g.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+          types: []
         });
-      });
-    });
+        autocomplete.addListener('place_changed', () => {
+          this.ngZone.run(() => {
+            const place = autocomplete.getPlace();
+            if (place && place.geometry && place.geometry.location) {
+              this.latitude = place.geometry.location.lat();
+              this.longitude = place.geometry.location.lng();
+              this.zoom = 15;
+            }
+          });
+        });
+      } catch (e) {
+        console.warn('Google maps autocomplete error:', e);
+      }
+    }
   }
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
+  markerDragEnd($event: any) {
+    if ($event && $event.coords) {
+      this.latitude = $event.coords.lat;
+      this.longitude = $event.coords.lng;
+    }
   }
   uploadImage(event, addFileUpload) {
     // console.log(event.files[0]);

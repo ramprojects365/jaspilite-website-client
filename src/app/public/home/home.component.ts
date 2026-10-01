@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private title:Title, private spinner: NgxSpinnerService,private toastr: ToastrService, private metaService: Meta, private publicService: PublicService) { }
 
   ngOnInit() {
-    this.title.setTitle("Mini Mart | Online Grocery Delivery Services in Malaysia | Free Delivery");
+    this.title.setTitle("Jaspilite | Online Grocery Delivery Services in Malaysia | Free Delivery");
     this.metaService.updateTag(
       { name: 'keywords', content: 'convenience store, happy fresh, tesco, jaya grocer, delivery app, grocery delivery, free delivery, chines grocery, food and grocery in malaysia' }
     );
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
       response => {
         this.spinner.hide();
         if (response.status === 200) {
-          this.toastr.success('Thank you for contacting Minimart.', 'Submit success!');
+          this.toastr.success('Thank you for contacting Jaspilite.', 'Submit success!');
           form.reset(); 
         } else {
           this.toastr.error('There was a problem updating query!', 'Submit failed!');

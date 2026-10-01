@@ -21,12 +21,12 @@ export class ContactUsComponent implements OnInit {
 
   constructor(private router: Router, private title:Title, private metaService: Meta, private spinner: NgxSpinnerService, private toastr: ToastrService, private publicService: PublicService) { }
   ngOnInit() {
-    this.title.setTitle("Mini Mart | Indian Grocery Delivery Services in Malaysia | Free Delivery"); 
+    this.title.setTitle("Jaspilite | Indian Grocery Delivery Services in Malaysia | Free Delivery"); 
     this.metaService.updateTag(
-      { name: 'keywords', content: 'Partner with Mini mart, How to contact, Grocery Shopping, Indian Grocery, Mini Market, Little India Grocery' }
+      { name: 'keywords', content: 'Partner with Jaspilite, How to contact, Grocery Shopping, Indian Grocery, Mini Market, Little India Grocery' }
     );
     this.metaService.updateTag(
-      { name: 'description', content: 'If you want to become Minimart partner, please reach our team (+60 10 544 9974) with the below details. We will help you to register with us. Your name, email address, phone number, shop name, shop Address, shop logo.' }
+      { name: 'description', content: 'If you want to become Jaspilite partner, please reach our team (+60 10 544 9974) with the below details. We will help you to register with us. Your name, email address, phone number, shop name, shop Address, shop logo.' }
     );
     this.metaService.updateTag(
       { name: 'robots', content: 'index, follow' }
@@ -44,7 +44,7 @@ export class ContactUsComponent implements OnInit {
       response => {
         this.spinner.hide();
         if (response.status === 200) {
-          this.toastr.success('Thank you for contacting Minimart.', 'Submit success!');
+          this.toastr.success('Thank you for contacting Jaspilite.', 'Submit success!');
           form.reset();      
         } else {
           this.toastr.error('There was a problem updating query!', 'Submit failed!');

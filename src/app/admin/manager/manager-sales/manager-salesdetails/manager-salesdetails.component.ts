@@ -125,7 +125,7 @@ export class ManagerSalesdetailsComponent implements OnInit {
       rows.push(["", "", "", "Delivery Charge", this.sale.delivery_charge]);
     }
     rows.push(["", "", "", "Grand Total", this.grandTotal]);
-    pdf.text("Minimart", 10, 10);
+    pdf.text("Jaspilite", 10, 10);
     pdf.setFontSize(12);
     const header = [];
     header.push("Name : " + this.sale.displayName);
