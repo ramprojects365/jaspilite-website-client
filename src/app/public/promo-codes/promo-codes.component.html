@@ -1,118 +1,23 @@
-<ngx-spinner bdColor="rgba(15,23,42,0.85)" size="medium" color="#10b981" type="ball-climbing-dot">
-  <p style="font-size: 18px; color: #ffffff; margin-top: 15px; font-weight: 600;">Loading vouchers...</p>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
-
-<div class="promos-page-wrapper">
-  <!-- Promos Hero -->
-  <div class="promos-hero">
-    <div class="promos-hero-content">
-      <span class="promos-tag"><i class="fa fa-ticket"></i> Vouchers & Rewards</span>
-      <h1>Save More on Every Grocery Order</h1>
-      <p>
-        Enjoy exclusive voucher discounts, earn wallet credits by sharing with friends, and discover instant savings on your daily household essentials.
-      </p>
+<div class="row" style="margin-top: 90px;">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div id="contactus" style="height:60vh">
+            <div style="text-align: center;font-size: 2.3em;font-weight: 700;padding-top: 20px;background: #fff;">
+                <div>Invite a Friend and Earn</div>
+            </div>
+            <div class="welcome-down">Earn credit points by sharing our app with others. You can get the points once
+                they used your invite code while they logged in. You can use credit points any time while purchasing.
+            </div>
+            <div class="welcome-down">
+                <br /><b>Voucher Code :</b> If we use <a
+                    href="https://play.google.com/store/apps/details?id=com.convoxy.jaspilite">FIRST5</a> invite code
+                before login, can get the RM5 worth of credit points. You can use this points anytime before place
+                order.
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="promos-container">
-    <!-- Featured Voucher Ticket -->
-    <div class="featured-voucher-card">
-      <div class="ticket-left">
-        <span class="voucher-type-badge">Welcome Offer</span>
-        <div class="voucher-discount">
-          <span class="currency">RM</span>
-          <span class="amount">5</span>
-          <span class="off-text">OFF</span>
-        </div>
-        <p class="voucher-subtitle">Applies to all Indian groceries, fresh produce, and food orders.</p>
-        <div class="voucher-meta">
-          <span><i class="fa fa-clock-o"></i> Valid for all new mobile app users</span>
-          <span class="meta-dot">&bull;</span>
-          <span><i class="fa fa-check"></i> Min. spend RM0</span>
-        </div>
-      </div>
-
-      <div class="ticket-divider">
-        <div class="notch top"></div>
-        <div class="dashed-line"></div>
-        <div class="notch bottom"></div>
-      </div>
-
-      <div class="ticket-right">
-        <span class="code-label">Use Invite Voucher Code:</span>
-        <div class="code-box-display">
-          <span class="code-text">FIRST5</span>
-          <button type="button" class="copy-code-btn" (click)="copyCode('FIRST5')" title="Click to copy code">
-            <i class="fa fa-clone"></i>
-            <span>Copy</span>
-          </button>
-        </div>
-        <p class="code-instructions">Enter this code before your first login or during app signup to unlock RM5 instant credit.</p>
-        
-        <div class="app-links-row">
-          <a target="_blank" href="https://play.google.com/store/apps/details?id=com.convoxy.jaspilite" class="micro-store-btn">
-            <img src="../../../assets/img/common/playstore.svg" alt="Google Play" />
-          </a>
-          <a target="_blank" href="https://itunes.apple.com/us/app/jaspilite-grocery-shop/id1443443252?ls=1&mt=8" class="micro-store-btn">
-            <img src="../../../assets/img/common/appstore.svg" alt="App Store" />
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Refer & Earn Step Guide -->
-    <div class="referral-guide-section">
-      <div class="section-heading-wrap text-center">
-        <span class="sec-badge">Invite & Earn</span>
-        <h2>How the Jaspilite Referral Program Works</h2>
-        <p class="sec-desc">Share the convenience of Jaspilite with your friends and earn rewards for every household that joins.</p>
-      </div>
-
-      <div class="referral-steps-grid">
-        <div class="ref-step-card">
-          <div class="ref-step-num">Step 1</div>
-          <div class="ref-step-icon green"><i class="fa fa-share-alt"></i></div>
-          <h3>Share Your Invite Code</h3>
-          <p>Open the Jaspilite mobile app, go to your profile, and copy your personal invite code to share via WhatsApp, SMS, or social media.</p>
-        </div>
-
-        <div class="ref-step-card">
-          <div class="ref-step-num">Step 2</div>
-          <div class="ref-step-icon amber"><i class="fa fa-user-plus"></i></div>
-          <h3>Friend Registers & Saves</h3>
-          <p>Your friend installs the app, inputs your code, and immediately receives RM5 worth of welcome credit points to spend on groceries.</p>
-        </div>
-
-        <div class="ref-step-card">
-          <div class="ref-step-num">Step 3</div>
-          <div class="ref-step-icon blue"><i class="fa fa-gift"></i></div>
-          <h3>You Earn Wallet Points</h3>
-          <p>Once your friend completes their order, your account is credited with reward points that can be deducted from any future grocery cart!</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ / Terms Box -->
-    <div class="voucher-terms-box">
-      <h3><i class="fa fa-info-circle"></i> Voucher Rules & Guidelines</h3>
-      <div class="terms-grid">
-        <div class="term-item">
-          <strong>Points Never Expire</strong>
-          <p>All accumulated referral and promotion points remain safely in your Jaspilite wallet until you decide to redeem them.</p>
-        </div>
-        <div class="term-item">
-          <strong>Redeem Across All Stores</strong>
-          <p>Use your credit points at any participating supermarket, bakery, or ethnic store available on our platform.</p>
-        </div>
-        <div class="term-item">
-          <strong>Unlimited Referrals</strong>
-          <p>There is no cap on the number of friends you can refer. The more friends that join, the more groceries you can get for free!</p>
-        </div>
-        <div class="term-item">
-          <strong>Instant Redemption</strong>
-          <p>Points automatically show up at checkout. Simply toggle "Use Wallet Points" to deduct the amount from your total bill.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="col-md-1"></div>
 </div>

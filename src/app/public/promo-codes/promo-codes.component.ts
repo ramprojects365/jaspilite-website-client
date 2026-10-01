@@ -25,14 +25,4 @@ export class PromoCodesComponent implements OnInit {
     ); 
   }
 
-  copyCode(code: string) {
-    if (navigator && navigator.clipboard) {
-      navigator.clipboard.writeText(code).then(() => {
-        this.toastr.success(`Code ${code} copied to clipboard! Paste it in the app before checkout.`, 'Voucher Copied!');
-      });
-    } else {
-      this.toastr.info(`Code: ${code}`, 'Promo Code');
-    }
-  }
-
 }

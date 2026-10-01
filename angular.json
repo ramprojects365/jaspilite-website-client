@@ -28,8 +28,7 @@
               "src/assets",
               "src/resources",
               "src/sitemap.xml",
-              "src/robots.txt",
-              "src/slide-1.jpg"
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.scss",

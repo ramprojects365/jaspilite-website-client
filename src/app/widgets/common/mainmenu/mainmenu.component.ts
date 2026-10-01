@@ -13,17 +13,8 @@ export class MainmenuComponent implements OnInit, OnDestroy {
 
   private adminUserSub: Subscription;
   isAuthenticated = false;
-  isCollapsed = true;
 
   constructor(private adminLoginService: AdminLoginService, private globals: Globals, private router: Router,) { }
-
-  toggleMenu() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-
-  closeMenu() {
-    this.isCollapsed = true;
-  }
 
   ngOnInit() {
     this.adminUserSub = this.adminLoginService.adminUser.subscribe(adminUser => {
