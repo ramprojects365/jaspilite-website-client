@@ -1,90 +1,119 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" color="#fff" type="ball-climbing-dot">
-    <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(15,23,42,0.85)" size="medium" color="#10b981" type="ball-climbing-dot">
+  <p style="font-size: 18px; color: #ffffff; margin-top: 15px; font-weight: 600;">Sending message...</p>
 </ngx-spinner>
-<div class="row" style="margin-top: 70px;background: #f8f9fa;">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        <div id="contactus">       
-            <div style="text-align: center;font-size: 2.3em;font-weight: 700;padding-top: 20px;">
-                <div>Contact Us</div>
-            </div>
-            <div class="welcome-down">We (+60105449974) are the largest online food & grocery platform in Malaysia. We have the best selection of Indian groceries so you can prepare staple delicious dishes with ease! You can find everything from grocery, food, beauty products, jewellery, electronics, fresh vegetables, dairy products, cooking gas, fresh milk, Indian homemade products, bakery items, Indian species many more.
-            </div>
-            <div class="content">
-                <div style="text-align:center;font-size: 15px;
-                font-weight: bold;">
-                    <p style="margin-top: 10px;color: #a5a1a1;">Any queries? Fill out the contact form below.</p>
-                </div>
-                <div class="row" style="padding: 10px;">
-                    <div class="column">
-                        <div class="row">
-                            <div class="col-md-1"><img src="../../assets/img/home/easysearch-address.png"
-                                    alt="Mini Market Delivery App">
-                            </div>
-                            <div class="col-md-7">
-                                <div style="font-weight: 500;font-size: 16px;">Address</div>
-                                <div>Jaspilite Online Sdn Bhd, Unit D-3A-4, Setiawalk, Puchong, 47160, Malaysia</div>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <div class="row" style="padding-top: 20px;">
-                            <div class="col-md-1"><img src="../../assets/img/home/easysearch-email.png"
-                                    alt="Yong Soon Fat Chinese Grocery Delivery"></div>
-                            <div class="col-md-7">
-                                <div style="font-weight: 500;font-size: 16px;">Email Address</div>
-                                <div>sales&#64;jaspilite.com</div>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <div class="row" style="padding-top: 20px;">
-                            <div class="col-md-1"><img src="../../assets/img/home/easysearch-support.png"
-                                    alt="Grocery Shopping in Petaling Jaya">
-                            </div>
-                            <div class="col-md-7">
-                                <div style="font-weight: 500;font-size: 16px;">Contact Number</div>
-                                <div>(+60)10 544 9974</div>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                    </div>
-                    <div class="column">                  
-                        <form class="m-t" (ngSubmit)="contactUs(flogin)" #flogin="ngForm">
-                            <div class="form-group">
-                                <label for="name" style="font-weight: 600;font-size: 15px;">Name</label>
-                                <input type="text" style="font-size: 14px;" class="form-control" ngModel id="name"
-                                    name="name" placeholder="Enter your name" #name="ngModel" required>
-                                <span *ngIf="!name.valid && name.touched" style="color:#ffa500">Please enter your
-                                    name.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="mobilenumber" style="font-weight: 600;font-size: 15px;">Phone
-                                    Number</label>
-                                <input type="number" style="font-size: 14px;" class="form-control" id="mobilenumber"
-                                ngModel  name="mobilenumber" placeholder="Enter your phone number"  #mobilenumber="ngModel" required>
-                                <span *ngIf="!mobilenumber.valid && mobilenumber.touched" style="color:#ffa500">Please enter your
-                                        mobile number.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" style="font-weight: 600;font-size: 15px;">Email</label>
-                                <input type="email" style="font-size: 14px;" class="form-control" id="email"
-                                    name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                    placeholder="Enter your email address"  #email="ngModel" ngModel required>
-                                    <span *ngIf="!email.valid && email.touched" style="color:#ffa500">Please enter your
-                                            email address.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="subject" style="font-weight: 600;font-size: 15px;">Message</label>
-                                <textarea id="message" style="font-size: 14px;" name="message" class="form-control"
-                                    placeholder="Enter your message" style="height:170px"  #message="ngModel" ngModel required></textarea>
-                                    <span *ngIf="!message.valid && message.touched" style="color:#ffa500">Please enter your
-                                            message.</span>
-                            </div>
-                            <button type="submit" class="btn btn-primary block full-width m-b" [disabled]="!flogin.valid">Send Message</button>
-                          </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+<div class="contact-page-wrapper">
+  <!-- Hero Section -->
+  <div class="contact-hero">
+    <div class="contact-hero-content">
+      <span class="contact-tag"><i class="fa fa-envelope-o"></i> Support & Queries</span>
+      <h1>How Can We Help You Today?</h1>
+      <p>
+        Whether you are an eager customer, a prospective merchant partner, or need assistance with an order, our dedicated team in Malaysia is ready to assist.
+      </p>
     </div>
-    <div class="col-md-1"></div>
+  </div>
+
+  <div class="contact-container">
+    <div class="contact-grid">
+      <!-- Left Column: Channels & Details -->
+      <div class="channels-column">
+        <div class="channel-card highlight-whatsapp">
+          <div class="channel-icon wa">
+            <i class="fa fa-whatsapp"></i>
+          </div>
+          <div class="channel-info">
+            <span class="channel-label">Instant Assistance</span>
+            <h3>WhatsApp Support Line</h3>
+            <p>Chat directly with our support reps for live order updates, complaints, or merchant onboarding inquiries.</p>
+            <a href="https://wsap.me/jaspilite" target="_blank" rel="noopener noreferrer" class="channel-action-btn wa-btn">
+              <i class="fa fa-whatsapp"></i>
+              <span>Chat on WhatsApp (+60 10 544 9974)</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-icon mail">
+            <i class="fa fa-envelope"></i>
+          </div>
+          <div class="channel-info">
+            <span class="channel-label">Official Inquiries</span>
+            <h3>Email Support</h3>
+            <p>For corporate partnerships, vendor supplier queries, or feedback regarding our platform.</p>
+            <a href="mailto:sales@jaspilite.com" class="channel-link">sales&#64;jaspilite.com</a>
+          </div>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-icon loc">
+            <i class="fa fa-map-marker"></i>
+          </div>
+          <div class="channel-info">
+            <span class="channel-label">Corporate Office</span>
+            <h3>Jaspilite Online Sdn Bhd</h3>
+            <p>Unit D-3A-4, Setiawalk, Puchong, 47160, Selangor, Malaysia</p>
+            <div class="operating-hours">
+              <i class="fa fa-clock-o"></i>
+              <span>Mon – Sun: 9:00 AM – 9:00 PM (Including Public Holidays)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Contact Form -->
+      <div class="form-column">
+        <div class="contact-form-card">
+          <div class="form-head">
+            <h2>Send Us a Message</h2>
+            <p>Fill out the form below and our team will get back to you promptly.</p>
+          </div>
+
+          <form (ngSubmit)="contactUs(flogin)" #flogin="ngForm" class="modern-contact-form">
+            <div class="form-field">
+              <label for="contact-name">Full Name <span class="req">*</span></label>
+              <div class="input-wrap">
+                <i class="fa fa-user input-icon"></i>
+                <input type="text" id="contact-name" class="styled-input" ngModel name="name" placeholder="Enter your full name" #name="ngModel" required />
+              </div>
+              <span *ngIf="!name.valid && name.touched" class="field-error">Please enter your name.</span>
+            </div>
+
+            <div class="form-row-dual">
+              <div class="form-field">
+                <label for="contact-phone">Phone / WhatsApp Number <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <i class="fa fa-phone input-icon"></i>
+                  <input type="tel" id="contact-phone" class="styled-input" ngModel name="mobilenumber" placeholder="+60 1x xxx xxxx" #mobilenumber="ngModel" required />
+                </div>
+                <span *ngIf="!mobilenumber.valid && mobilenumber.touched" class="field-error">Phone number is required.</span>
+              </div>
+
+              <div class="form-field">
+                <label for="contact-email">Email Address <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <i class="fa fa-envelope-o input-icon"></i>
+                  <input type="email" id="contact-email" class="styled-input" ngModel name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="your@email.com" #email="ngModel" required />
+                </div>
+                <span *ngIf="!email.valid && email.touched" class="field-error">Valid email required.</span>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-msg">Message / Details <span class="req">*</span></label>
+              <div class="input-wrap textarea-wrap">
+                <textarea id="contact-msg" class="styled-textarea" rows="4" ngModel name="message" placeholder="Please describe how we can assist you..." #message="ngModel" required></textarea>
+              </div>
+              <span *ngIf="!message.valid && message.touched" class="field-error">Message cannot be empty.</span>
+            </div>
+
+            <button type="submit" class="submit-message-btn" [disabled]="!flogin.valid">
+              <span>Submit Inquiry</span>
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,27 +1,57 @@
-<div class="navbar-wrapper">
-  <nav class="navbar navbar-default navbar-fixed-top navbar-expand-md navbar-scroll header-nav-main" role="navigation">
-    <a class="website-logo" routerLink="/"><span>
-        <img src="../../../../assets/img/common/minimart-logo.png" alt="jaspilite" />
-      </span>
-      <span style="position: absolute;top: 24px; left: 60px; font-weight: bold; color: #fff;">Jaspilite</span>
-    </a>
-    <div class="justify-content-start" id="navbar" style="padding-left: 10px; margin-top: -5px;">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="navShow"><a class="nav-link page-scroll" routerLink="/online-food-and-grocery-mobile-app">Home</a>
-        </li>
-        <li class="navShow"><a class="nav-link page-scroll" routerLink="/about-jaspilite-mobile-app">About Us</a></li>
-        <li class="navShow"><a class="nav-link page-scroll" routerLink="/contact-jaspilite-mobile-app-team">Contact
-            Us</a></li>
-        <li class="navShow"><a class="nav-link page-scroll" routerLink="/how-to-become-a-partner">Become a Partner</a>
-        </li>
-        <li class="navShow"><a class="nav-link page-scroll" routerLink="/jaspilite-jobs">Jobs</a></li>
-        <li class="navShow"><a class="nav-link page-scroll" routerLink="/promo-codes">Promo Codes</a></li>
-        <li class="navShow"><a class="nav-link page-scroll" routerLink="/faq">FAQ</a></li>
+<header class="modern-header-wrapper">
+  <nav class="modern-navbar" role="navigation">
+    <div class="nav-container">
+      <a class="nav-brand" routerLink="/" (click)="closeMenu()">
+        <div class="brand-logo-wrap">
+          <img src="../../../../assets/img/common/minimart-logo.png" alt="Jaspilite Logo" class="brand-img" />
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-name">Jaspilite</span>
+          <span class="brand-sub"><span class="status-dot"></span>Grocery & Food</span>
+        </div>
+      </a>
 
-        <li class="menuList">
-          <a class="nav-link page-scroll" (click)="continueFun()"><span class="login-border">Admin</span></a>
-        </li>
-      </ul>
+      <!-- Mobile Hamburger Toggle -->
+      <button class="mobile-toggle-btn" (click)="toggleMenu()" aria-label="Toggle navigation">
+        <i class="fa" [ngClass]="isCollapsed ? 'fa-bars' : 'fa-times'"></i>
+      </button>
+
+      <!-- Nav Links -->
+      <div class="nav-menu" [class.show-mobile]="!isCollapsed">
+        <ul class="nav-links">
+          <li>
+            <a class="nav-item" routerLink="/online-food-and-grocery-mobile-app" routerLinkActive="active" (click)="closeMenu()">Home</a>
+          </li>
+          <li>
+            <a class="nav-item" routerLink="/about-jaspilite-mobile-app" routerLinkActive="active" (click)="closeMenu()">About Us</a>
+          </li>
+          <li>
+            <a class="nav-item" routerLink="/contact-jaspilite-mobile-app-team" routerLinkActive="active" (click)="closeMenu()">Contact Us</a>
+          </li>
+          <li>
+            <a class="nav-item" routerLink="/how-to-become-a-partner" routerLinkActive="active" (click)="closeMenu()">Become a Partner</a>
+          </li>
+          <li>
+            <a class="nav-item" routerLink="/jaspilite-jobs" routerLinkActive="active" (click)="closeMenu()">Jobs</a>
+          </li>
+          <li>
+            <a class="nav-item" routerLink="/promo-codes" routerLinkActive="active" (click)="closeMenu()">
+              Promo Codes
+              <span class="nav-chip">Offers</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" routerLink="/faq" routerLinkActive="active" (click)="closeMenu()">FAQ</a>
+          </li>
+        </ul>
+
+        <div class="nav-actions">
+          <button type="button" class="admin-portal-btn" (click)="continueFun(); closeMenu()">
+            <i class="fa fa-lock"></i>
+            <span>Admin Portal</span>
+          </button>
+        </div>
+      </div>
     </div>
   </nav>
-</div>
+</header>
