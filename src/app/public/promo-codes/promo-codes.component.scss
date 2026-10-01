@@ -1,6 +1,392 @@
-.welcome-down {
-    color: #a5a1a1;
-    padding: 10px;
-    font-size: 16px;
+.promos-page-wrapper {
+  margin-top: 64px;
+  background: #f8fafc;
+  min-height: 100vh;
+  padding-bottom: 90px;
+}
+
+.promos-hero {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 60%, #022c22 100%);
+  color: #ffffff;
+  padding: 80px 24px 70px;
+  text-align: center;
+  position: relative;
+
+  .promos-hero-content {
+    max-width: 780px;
+    margin: 0 auto;
+
+    .promos-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      color: #a7f3d0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      @media (max-width: 768px) { font-size: 2rem; }
+    }
+
+    p {
+      font-size: 1.12rem;
+      line-height: 1.6;
+      color: #d1fae5;
+      margin: 0;
+      @media (max-width: 768px) { font-size: 1rem; }
+    }
+  }
+}
+
+.promos-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Featured Voucher Ticket */
+.featured-voucher-card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  margin-top: -45px;
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+  margin-bottom: 70px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .ticket-left {
+    flex: 1.2;
+    padding: 40px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+
+    .voucher-type-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #10b981;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .voucher-discount {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 12px;
+
+      .currency {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #064e3b;
+      }
+      .amount {
+        font-family: 'Outfit', sans-serif;
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1;
+        color: #059669;
+        letter-spacing: -0.03em;
+      }
+      .off-text {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin-left: 6px;
+      }
+    }
+
+    .voucher-subtitle {
+      font-size: 1.05rem;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .voucher-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+      flex-wrap: wrap;
+
+      i { color: #10b981; }
+      .meta-dot { color: #cbd5e1; }
+    }
+  }
+
+  .ticket-divider {
+    width: 2px;
+    position: relative;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 768px) { display: none; }
+
+    .notch {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #f8fafc;
+      position: absolute;
+      border: 1px solid #e2e8f0;
+      z-index: 2;
+
+      &.top { top: -12px; }
+      &.bottom { bottom: -12px; }
+    }
+
+    .dashed-line {
+      height: 100%;
+      border-left: 2px dashed #cbd5e1;
+    }
+  }
+
+  .ticket-right {
+    flex: 1;
+    padding: 40px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .code-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .code-box-display {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 2px dashed #10b981;
+      border-radius: 14px;
+      padding: 10px 16px;
+      margin-bottom: 14px;
+
+      .code-text {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: #064e3b;
+      }
+
+      .copy-code-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #10b981;
+        color: #ffffff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.88rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #059669;
+          transform: translateY(-1px);
+        }
+      }
+    }
+
+    .code-instructions {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #64748b;
+      margin-bottom: 22px;
+    }
+
+    .app-links-row {
+      display: flex;
+      gap: 12px;
+      .micro-store-btn img {
+        height: 38px;
+        border-radius: 6px;
+        transition: transform 0.2s ease;
+        &:hover { transform: translateY(-2px); }
+      }
+    }
+  }
+}
+
+/* Referral Guide */
+.referral-guide-section {
+  margin-bottom: 70px;
+
+  .section-heading-wrap {
+    margin-bottom: 45px;
+    .sec-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 10px;
+      @media (max-width: 768px) { font-size: 1.7rem; }
+    }
+    .sec-desc {
+      font-size: 1.05rem;
+      color: #64748b;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .referral-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+
+    @media (max-width: 991px) { grid-template-columns: 1fr; }
+  }
+
+  .ref-step-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    padding: 36px 28px;
     text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: #10b981;
+      box-shadow: 0 12px 25px rgba(16, 185, 129, 0.08);
+    }
+
+    .ref-step-num {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .ref-step-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+
+      &.green { background: #ecfdf5; color: #10b981; }
+      &.amber { background: #fffbeb; color: #f59e0b; }
+      &.blue { background: #eff6ff; color: #3b82f6; }
+    }
+
+    h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #64748b;
+      margin: 0;
+    }
+  }
+}
+
+/* Voucher Terms Box */
+.voucher-terms-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 22px;
+  padding: 40px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+
+  h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    i { color: #10b981; }
+  }
+
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+
+    @media (max-width: 768px) { grid-template-columns: 1fr; }
+
+    .term-item {
+      strong {
+        display: block;
+        font-size: 1rem;
+        color: #1e293b;
+        margin-bottom: 6px;
+      }
+      p {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        color: #64748b;
+        margin: 0;
+      }
+    }
+  }
 }
