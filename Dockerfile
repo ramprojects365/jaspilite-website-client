@@ -15,7 +15,7 @@ COPY --from=build /app/dist/browser /usr/share/nginx/html
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 ENV PORT=80
-ENV BACKEND_URL=http://localhost:3000
+ENV BACKEND_URL=https://jaspilite-website-server-production.up.railway.app
 
 EXPOSE 80
 
