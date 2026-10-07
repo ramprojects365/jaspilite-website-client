@@ -17,7 +17,7 @@ export class SadminLeftMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.getUserData();
+    this.getUserData();
   }
 
   getUserData() {

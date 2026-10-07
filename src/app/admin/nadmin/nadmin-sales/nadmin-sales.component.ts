@@ -43,16 +43,14 @@ export class NadminSalesComponent implements OnInit {
       { field: 'status', header: 'Status' },
       { field: 'salesIdString', header: 'Sales ID' },
     ];
-    this.userShops = this.getMockShops();
-    this.userShop = this.userShops[0]?.value;
-    this.userBranches = this.getMockBranches(this.userShop);
-    this.userBranch = this.userBranches[0]?.value;
-    this.sales = this.getMockSales(this.userBranch).map(item => {
-      item.date = this.utilityService.getDateTimeFormatted(item.date);
-      return item;
-    });
+    // Live production: Start empty, load real data only
+    this.userShops = [];
+    this.userShop = null;
+    this.userBranches = [];
+    this.userBranch = null;
+    this.sales = [];
     this.getShops();
-    this.title.setTitle("Mini Mart | Grocery delivery from Lulu Hypermarket, Modern Stores, UM Stores | Download today");
+    this.title.setTitle("Jaspilite - Merchant Sales Orders");
     this.metaService.addTags([
       {name: 'keywords', content: 'Cyberjaya Food, Petaling Jaya Grocery Delivery, Instant Food Delivery, Same day delivery mobile app'},
       {name: 'description', content: 'Malaysia own Indian e-commerce store. Same day delivery to PJ, Klang, Shah Alam, Kajang, Brickfields, Kuala Lumpur, Selayang, Batu Caves, Klang Valley'},
@@ -72,31 +70,17 @@ export class NadminSalesComponent implements OnInit {
             this.userShops = remoteShops.map(item => {
               return { label: item.shop_name, value: item.shop_id };
             });
-            this.userShop = this.userShops[0].value;
-            this.getBranches(this.userShops[0].value);
-          } else if (!Array.isArray(this.userShops) || this.userShops.length === 0) {
-            this.userShops = this.getMockShops();
             this.userShop = this.userShops[0]?.value;
-            this.userBranches = this.getMockBranches(this.userShop);
-            this.userBranch = this.userBranches[0]?.value;
-            this.sales = this.getMockSales(this.userBranch).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
+            this.getBranches(this.userShop);
+          } else {
+            this.userShops = [];
+            this.userBranches = [];
+            this.sales = [];
           }
-          // const shopIds = shops.payload.shops.map(item => item.shop_id.toString());
-          // this.loadAdminUsers(shopIds.join(','));
         }, () => {
-          if (!Array.isArray(this.userShops) || this.userShops.length === 0) {
-            this.userShops = this.getMockShops();
-            this.userShop = this.userShops[0]?.value;
-            this.userBranches = this.getMockBranches(this.userShop);
-            this.userBranch = this.userBranches[0]?.value;
-            this.sales = this.getMockSales(this.userBranch).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
-          }
+          this.userShops = [];
+          this.userBranches = [];
+          this.sales = [];
         });
   }
 
@@ -196,6 +180,11 @@ export class NadminSalesComponent implements OnInit {
   }
 
   getBranches(shopId) {
+    if (!shopId) {
+      this.userBranches = [];
+      this.sales = [];
+      return;
+    }
     this.nadminSalesService.getAllUsersBranches(shopId)
       .subscribe(
         branches => {
@@ -204,30 +193,27 @@ export class NadminSalesComponent implements OnInit {
             this.userBranches = remoteBranches.map(item => {
               return { label: item.branch_name, value: item.branch_id };
             });
+            this.userBranch = this.userBranches[0]?.value || '0';
+            this.getAllSales(this.userBranch);
           } else {
-            this.userBranches = this.getMockBranches(shopId);
+            this.userBranches = [];
+            this.userBranch = '0';
+            this.sales = [];
           }
-          this.userBranch = this.userBranches[0] ? this.userBranches[0].value : '0';
-          this.sales = this.getMockSales(this.userBranch).map(item => {
-            item.date = this.utilityService.getDateTimeFormatted(item.date);
-            return item;
-          });
-          // console.log(this.userBranch);
-          this.getAllSales(this.userBranch);
         },
         () => {
-          this.userBranches = this.getMockBranches(shopId);
-          this.userBranch = this.userBranches[0] ? this.userBranches[0].value : '0';
-          this.sales = this.getMockSales(this.userBranch).map(item => {
-            item.date = this.utilityService.getDateTimeFormatted(item.date);
-            return item;
-          });
-          this.getAllSales(this.userBranch);
+          this.userBranches = [];
+          this.userBranch = '0';
+          this.sales = [];
         },
       );
   }
 
   getAllSales(branchId) {
+    if (!branchId || branchId === '0') {
+      this.sales = [];
+      return;
+    }
     this.nadminSalesService.getAllSales(branchId)
       .subscribe(
         shops => {
@@ -237,32 +223,18 @@ export class NadminSalesComponent implements OnInit {
               item.date = this.utilityService.getDateTimeFormatted(item.date);
               return item;
             });
-          } else if (!Array.isArray(this.sales) || this.sales.length === 0) {
-            this.sales = this.getMockSales(branchId).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
+          } else {
+            this.sales = [];
           }
-           //console.log('sales with remarks ' + JSON.stringify(this.sales));
         },
         () => {
-          if (!Array.isArray(this.sales) || this.sales.length === 0) {
-            this.sales = this.getMockSales(branchId).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
-          }
-        },
-      );
+          this.sales = [];
+        });
   }
   changeShop(event) {
     this.getBranches(event.value);
   }
   changeBranch(event) {
-    this.sales = this.getMockSales(event.value).map(item => {
-      item.date = this.utilityService.getDateTimeFormatted(item.date);
-      return item;
-    });
     this.getAllSales(event.value);
   }
   showDetails(sale) {

@@ -46,44 +46,32 @@ export class PadminProductsComponent implements OnInit {
       { field: 'name', header: 'Name' },
       { field: 'sku', header: 'SKU' },
     ];
-    this.categories = this.getMockCategories();
-    this.selectedCatInAddProd = this.categories[0]?.category_id;
-    this.products = this.getMockProducts();
+    // Live production: Load real database catalog only
+    this.categories = [];
+    this.selectedCatInAddProd = '0';
+    this.products = [];
     this.loadCategories();
     this.loadProducts();
-    this.title.setTitle("Mini Mart - best online grocery shopping malaysia");
-    this.metaService.updateTag(
-      { name: 'keywords', content: 'grocery delivery, best restaurants, easy payment, klang groceries, ipoh indian grocery' }
-    );
-    this.metaService.updateTag(
-      { name: 'description', content: 'Order food and grocery delivery ✓ The best restaurants and grocery shops near you ✓ Large variety of household and products ✓ Safe & easy payment options. The most affordable Food Delivery in Malaysia. Delivery within 1 hour' }
-    );
-    this.metaService.updateTag(
-      { name: 'robots', content: 'index, follow' }
-    );
+    this.title.setTitle("Jaspilite - Packing Admin Products");
   }
   loadCategories() {
     this.padminProductsService.getAllCategories()
       .subscribe(
         categories => {
-          // console.log(categories.payload.categories);
           const remoteCategories = categories?.payload?.categories;
-          if (Array.isArray(remoteCategories) && remoteCategories.length > 0) {
-            this.categories = remoteCategories;
-          } else if (!Array.isArray(this.categories) || this.categories.length === 0) {
-            this.categories = this.getMockCategories();
+          if (Array.isArray(remoteCategories)) {
+            this.categories = remoteCategories.map(item => ({
+              ...item,
+              label: item.category_name,
+              value: item.category_id,
+            }));
+            this.selectedCatInAddProd = String(this.categories[0]?.category_id || '0');
+          } else {
+            this.categories = [];
           }
-          this.categories.map(item => {
-            item.label = item.category_name;
-            item.value = item.category_id;
-          });
-          this.selectedCatInAddProd = this.categories[0]?.category_id;
         },
         () => {
-          if (!Array.isArray(this.categories) || this.categories.length === 0) {
-            this.categories = this.getMockCategories();
-          }
-          this.selectedCatInAddProd = this.categories[0]?.category_id;
+          this.categories = [];
         },
       );
   }
@@ -92,18 +80,15 @@ export class PadminProductsComponent implements OnInit {
     this.padminProductsService.getAllProducts()
       .subscribe(
         products => {
-          // console.log(products.payload.products);
           const remoteProducts = products?.payload?.products;
-          if (Array.isArray(remoteProducts) && remoteProducts.length > 0) {
+          if (Array.isArray(remoteProducts)) {
             this.products = remoteProducts;
-          } else if (!Array.isArray(this.products) || this.products.length === 0) {
-            this.products = this.getMockProducts();
+          } else {
+            this.products = [];
           }
         },
         () => {
-          if (!Array.isArray(this.products) || this.products.length === 0) {
-            this.products = this.getMockProducts();
-          }
+          this.products = [];
         },
       );
   }

@@ -75,14 +75,13 @@ export class SadminCostingComponent implements OnInit {
     this.costingEndDate = new Date();
     this.costingEndDateForPrint = new Date();
     this.todayDate.setDate(this.todayDate.getDate());
-    this.userShops = this.getMockShops();
-    this.userShop = this.userShops[0]?.value;
-    this.userBranches = this.getMockBranches(this.userShop);
-    this.userBranch = this.userBranches[0]?.value || "0";
+    // Live production: Start empty, load real data only
+    this.userShops = [];
+    this.userShop = null;
+    this.userBranches = [];
+    this.userBranch = "0";
     this.getShops();
-    this.title.setTitle(
-      "Mini Mart: Grocery delivery from Lulu Hypermarket, Modern Stores, UM Stores | Download today",
-    );
+    this.title.setTitle("Jaspilite - Costing & Settlements");
   }
   changeShop(event) {
     this.getBranches(event.value);
@@ -100,15 +99,14 @@ export class SadminCostingComponent implements OnInit {
           });
           this.userShop = this.userShops[0]?.value;
           this.getBranches(this.userShop);
+        } else {
+          this.userShops = [];
+          this.userBranches = [];
         }
       },
       () => {
-        if (!Array.isArray(this.userShops) || this.userShops.length === 0) {
-          this.userShops = this.getMockShops();
-        }
-        this.userShop = this.userShop || this.userShops[0]?.value;
-        this.userBranches = this.getMockBranches(this.userShop);
-        this.userBranch = this.userBranches[0]?.value || "0";
+        this.userShops = [];
+        this.userBranches = [];
       },
     );
   }
@@ -121,14 +119,15 @@ export class SadminCostingComponent implements OnInit {
           this.userBranches = remoteBranches.map((item) => {
             return { label: item.branch_name, value: item.branch_id };
           });
+          this.userBranch = this.userBranches[0]?.value || "0";
         } else {
-          this.userBranches = this.getMockBranches(shopId);
+          this.userBranches = [];
+          this.userBranch = "0";
         }
-        this.userBranch = this.userBranches[0]?.value || "0";
       },
       () => {
-        this.userBranches = this.getMockBranches(shopId);
-        this.userBranch = this.userBranches[0]?.value || "0";
+        this.userBranches = [];
+        this.userBranch = "0";
       },
     );
   }

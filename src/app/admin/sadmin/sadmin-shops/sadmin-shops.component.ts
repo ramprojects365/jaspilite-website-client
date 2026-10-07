@@ -25,77 +25,22 @@ export class SadminShopsComponent implements OnInit {
       { field: 'shop_name', header: 'Shop Name' },
       { field: 'branch_name', header: 'Branch Name' },
     ];
-    this.shopsData = this.getMockAvailableShops();
+    // Live production: Start with clean empty array, load real database data only
+    this.shopsData = [];
     this.updateRowGroupMetaData();
     this.loadShops();
   }
 
+  // Mock demo data commented out - production uses live database only
   private getMockAvailableShops() {
+    return [];
+    /*
     return [
-      {
-        shop_id: 1,
-        shop_name: 'Mini Mart',
-        branch_id: 101,
-        branch_name: 'KL Downtown',
-        image: 'assets/img/shops/jaspilite-kl.png',
-        isPosEnabled: true,
-        active: true,
-      },
-      {
-        shop_id: 1,
-        shop_name: 'Mini Mart',
-        branch_id: 102,
-        branch_name: 'Brickfields',
-        image: 'assets/img/shops/jaspilite-brickfields.png',
-        isPosEnabled: true,
-        active: true,
-      },
-      {
-        shop_id: 1,
-        shop_name: 'Mini Mart',
-        branch_id: 103,
-        branch_name: 'Cheras',
-        image: 'assets/img/shops/jaspilite-cheras.png',
-        isPosEnabled: false,
-        active: false,
-      },
-      {
-        shop_id: 2,
-        shop_name: 'Fresh Basket',
-        branch_id: 201,
-        branch_name: 'PJ Section 14',
-        image: 'assets/img/shops/freshbasket-pj.png',
-        isPosEnabled: true,
-        active: true,
-      },
-      {
-        shop_id: 2,
-        shop_name: 'Fresh Basket',
-        branch_id: 202,
-        branch_name: 'Shah Alam',
-        image: 'assets/img/shops/freshbasket-shahalam.png',
-        isPosEnabled: false,
-        active: true,
-      },
-      {
-        shop_id: 3,
-        shop_name: 'Daily Needs',
-        branch_id: 301,
-        branch_name: 'Ampang',
-        image: 'assets/img/shops/dailyneeds-ampang.png',
-        isPosEnabled: true,
-        active: true,
-      },
-      {
-        shop_id: 3,
-        shop_name: 'Daily Needs',
-        branch_id: 302,
-        branch_name: 'Setapak',
-        image: 'assets/img/shops/dailyneeds-setapak.png',
-        isPosEnabled: true,
-        active: false,
-      },
+      { shop_id: 1, shop_name: 'Mini Mart', branch_id: 101, branch_name: 'KL Downtown', isPosEnabled: true, active: true },
+      { shop_id: 2, shop_name: 'Fresh Basket', branch_id: 201, branch_name: 'PJ Section 14', isPosEnabled: true, active: true },
+      { shop_id: 3, shop_name: 'Daily Needs', branch_id: 301, branch_name: 'Ampang', isPosEnabled: true, active: true },
     ];
+    */
   }
 
   onSort() {
@@ -110,16 +55,15 @@ export class SadminShopsComponent implements OnInit {
             console.log('shops data ' + JSON.stringify(shops));
             this.shopsData = shops;
             this.updateRowGroupMetaData();
-          } else if (!Array.isArray(this.shopsData) || this.shopsData.length === 0) {
-            this.shopsData = this.getMockAvailableShops();
+          } else {
+            // No registered shops in DB yet
+            this.shopsData = [];
             this.updateRowGroupMetaData();
           }
         },
         () => {
-          if (!Array.isArray(this.shopsData) || this.shopsData.length === 0) {
-            this.shopsData = this.getMockAvailableShops();
-            this.updateRowGroupMetaData();
-          }
+          this.shopsData = [];
+          this.updateRowGroupMetaData();
         });
   }
   changeStatus(event, branch_id) {

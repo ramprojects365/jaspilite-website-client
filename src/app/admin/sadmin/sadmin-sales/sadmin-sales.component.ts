@@ -42,16 +42,14 @@ export class SadminSalesComponent implements OnInit {
       { field: 'total', header: 'Total' },
       { field: 'status', header: 'Status' },
     ];
-    this.userShops = this.getMockShops();
-    this.userShop = this.userShops[0]?.value;
-    this.userBranches = this.getMockBranches(this.userShop);
-    this.userBranch = this.userBranches[0]?.value;
-    this.sales = this.getMockSales(this.userBranch).map(item => {
-      item.date = this.utilityService.getDateTimeFormatted(item.date);
-      return item;
-    });
+    // Live production: Start with clean empty array, load real database data only
+    this.userShops = [];
+    this.userShop = null;
+    this.userBranches = [];
+    this.userBranch = null;
+    this.sales = [];
     this.getShops();
-    this.title.setTitle("Mini Mart: Grocery delivery from Lulu Hypermarket, Modern Stores, UM Stores | Download today");
+    this.title.setTitle("Jaspilite - Sales Management");
   }
 
   private getMockShops() {
@@ -161,32 +159,18 @@ export class SadminSalesComponent implements OnInit {
             this.userShops = remoteShops.map(item => {
               return { label: item.shop_name, value: item.shop_id };
             });
-            this.userShop = this.userShops[0].value;
-            this.getBranches(this.userShops[0].value);
-          } else if (!Array.isArray(this.userShops) || this.userShops.length === 0) {
-            this.userShops = this.getMockShops();
             this.userShop = this.userShops[0]?.value;
-            this.userBranches = this.getMockBranches(this.userShop);
-            this.userBranch = this.userBranches[0]?.value;
-            this.sales = this.getMockSales(this.userBranch).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
+            this.getBranches(this.userShop);
+          } else {
+            this.userShops = [];
+            this.userBranches = [];
+            this.sales = [];
           }
-          // const shopIds = shops.payload.shops.map(item => item.shop_id.toString());
-          // this.loadAdminUsers(shopIds.join(','));
         },
         () => {
-          if (!Array.isArray(this.userShops) || this.userShops.length === 0) {
-            this.userShops = this.getMockShops();
-            this.userShop = this.userShops[0]?.value;
-            this.userBranches = this.getMockBranches(this.userShop);
-            this.userBranch = this.userBranches[0]?.value;
-            this.sales = this.getMockSales(this.userBranch).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
-          }
+          this.userShops = [];
+          this.userBranches = [];
+          this.sales = [];
         });
   }
 
@@ -199,27 +183,19 @@ export class SadminSalesComponent implements OnInit {
             this.userBranches = remoteBranches.map(item => {
               return { label: item.branch_name, value: item.branch_id };
             });
+            this.userBranch = this.userBranches[0]?.value || '0';
+            this.getAllSales(this.userBranch);
           } else {
-            this.userBranches = this.getMockBranches(shopId);
+            this.userBranches = [];
+            this.userBranch = '0';
+            this.sales = [];
           }
-          this.userBranch = this.userBranches[0] ? this.userBranches[0].value : '0';
-          this.sales = this.getMockSales(this.userBranch).map(item => {
-            item.date = this.utilityService.getDateTimeFormatted(item.date);
-            return item;
-          });
-          // console.log(this.userBranch);
-          this.getAllSales(this.userBranch);
         },
         () => {
-          this.userBranches = this.getMockBranches(shopId);
-          this.userBranch = this.userBranches[0] ? this.userBranches[0].value : '0';
-          this.sales = this.getMockSales(this.userBranch).map(item => {
-            item.date = this.utilityService.getDateTimeFormatted(item.date);
-            return item;
-          });
-          this.getAllSales(this.userBranch);
-        },
-      );
+          this.userBranches = [];
+          this.userBranch = '0';
+          this.sales = [];
+        });
   }
 
   getAllSales(branchId) {

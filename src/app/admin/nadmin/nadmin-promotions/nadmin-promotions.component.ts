@@ -51,11 +51,12 @@ export class NadminPromotionsComponent implements OnInit {
       { field: 'start_date', header: 'Start Date' },
       { field: 'end_date', header: 'End Date' },
     ];
-    this.userShops = this.getMockShops();
-    this.userShop = this.userShops[0]?.value;
-    this.userBranches = this.getMockBranches(this.userShop);
-    this.userBranch = this.userBranches[0]?.value;
-    this.promotions = this.getMockPromotions(this.userBranch);
+    // Live production: Start empty, load real data only
+    this.userShops = [];
+    this.userShop = null;
+    this.userBranches = [];
+    this.userBranch = null;
+    this.promotions = [];
     this.getShops();
     this.uploadedImage = '../../../../assets/img/common/sample-promo.jpg'; 
     this.eStartDate = new Date();
@@ -80,7 +81,6 @@ export class NadminPromotionsComponent implements OnInit {
     this.getBranches(event.value);
   }
   changeBranch(event) { 
-    this.promotions = this.getMockPromotions(event.value);
     this.getPromotions(event.value);
   }
   cancelPromo(promo){
@@ -204,23 +204,28 @@ export class NadminPromotionsComponent implements OnInit {
             this.userShop = this.userShops[0]?.value;
             this.getBranches(this.userShop);
           } else {
-            this.userShops = this.getMockShops();
-            this.userShop = this.userShops[0]?.value;
-            this.userBranches = this.getMockBranches(this.userShop);
-            this.userBranch = this.userBranches[0]?.value;
-            this.getPromotions(this.userBranch);
+            this.userShops = [];
+            this.userShop = null;
+            this.userBranches = [];
+            this.userBranch = null;
+            this.promotions = [];
           }
         },
         () => {
-          this.userShops = this.getMockShops();
-          this.userShop = this.userShops[0]?.value;
-          this.userBranches = this.getMockBranches(this.userShop);
-          this.userBranch = this.userBranches[0]?.value;
-          this.getPromotions(this.userBranch);
+          this.userShops = [];
+          this.userShop = null;
+          this.userBranches = [];
+          this.userBranch = null;
+          this.promotions = [];
         },
       );
   }
   getBranches(shopId) {
+    if (!shopId) {
+      this.userBranches = [];
+      this.promotions = [];
+      return;
+    }
     this.nadminPromotionsService.getAllUsersBranches(shopId)
       .subscribe(
         branches => {
@@ -230,16 +235,15 @@ export class NadminPromotionsComponent implements OnInit {
               return { label: item.branch_name, value: item.branch_id };
             });
           } else {
-            this.userBranches = this.getMockBranches(shopId);
+            this.userBranches = [];
           }
           this.userBranch = this.userBranches[0] ? this.userBranches[0].value : '0';
-          // console.log(this.userBranch);   
           this.getPromotions(this.userBranch);     
         },
         () => {
-          this.userBranches = this.getMockBranches(shopId);
-          this.userBranch = this.userBranches[0] ? this.userBranches[0].value : '0';
-          this.getPromotions(this.userBranch);
+          this.userBranches = [];
+          this.userBranch = '0';
+          this.promotions = [];
         },
       );
   }
@@ -271,6 +275,10 @@ export class NadminPromotionsComponent implements OnInit {
     return map[shopId] || [{ label: 'Default Branch', value: '0' }];
   }
   getPromotions(branchId) {
+    if (!branchId || branchId === '0') {
+      this.promotions = [];
+      return;
+    }
     this.nadminPromotionsService.getAllPromotions(branchId)
     .subscribe(
       data => {
@@ -281,15 +289,12 @@ export class NadminPromotionsComponent implements OnInit {
             item.enddate = this.utilityService.getDateTimeFormattedShort(item.end_date);
             return item;
           });
-        } else if (!Array.isArray(this.promotions) || this.promotions.length === 0) {
-          this.promotions = this.getMockPromotions(branchId);
+        } else {
+          this.promotions = [];
         }
-        //console.log('sales with remarks ' + JSON.stringify(this.promotions));
       },
       () => {
-        if (!Array.isArray(this.promotions) || this.promotions.length === 0) {
-          this.promotions = this.getMockPromotions(branchId);
-        }
+        this.promotions = [];
       },
     );
   }

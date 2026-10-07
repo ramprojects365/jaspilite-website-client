@@ -33,9 +33,10 @@ export class NadminSettingsComponent implements OnInit {
       {name: 'description', content: 'Jaspilite Grocery. We are an online store selling high quality Indian spices, masalas and other groceries at reasonable price delivered direct to the home.'},
       {name: 'robots', content: 'index, follow'}
     ]);
-    this.userShops = this.getMockShops();
-    this.userShop = this.userShops[0]?.value;
-    this.userBranches = this.getMockBranches(this.userShop);
+    // Live production: Start with clean empty state, load real data only
+    this.userShops = [];
+    this.userShop = null;
+    this.userBranches = [];
     this.getShops();
   }
   logout() {
@@ -53,23 +54,25 @@ export class NadminSettingsComponent implements OnInit {
             });
             this.userShop = this.userShops[0]?.value;
             this.getBranches(this.userShop);
-          } else if (!Array.isArray(this.userShops) || this.userShops.length === 0) {
-            this.userShops = this.getMockShops();
-            this.userShop = this.userShops[0]?.value;
-            this.userBranches = this.getMockBranches(this.userShop);
+          } else {
+            this.userShops = [];
+            this.userShop = null;
+            this.userBranches = [];
           }
         },
         () => {
-          if (!Array.isArray(this.userShops) || this.userShops.length === 0) {
-            this.userShops = this.getMockShops();
-          }
-          this.userShop = this.userShop || this.userShops[0]?.value;
-          this.userBranches = this.getMockBranches(this.userShop);
+          this.userShops = [];
+          this.userShop = null;
+          this.userBranches = [];
         },
       );
   }
 
   getBranches(shopId) {
+    if (!shopId) {
+      this.userBranches = [];
+      return;
+    }
     this.nadminSettingsService.getAllUsersBranches(shopId)
       .subscribe(
         branches => {
@@ -79,12 +82,11 @@ export class NadminSettingsComponent implements OnInit {
               return { label: item.branch_name, value: item.branch_id, image: item.image, active: item.active };
             });
           } else {
-            this.userBranches = this.getMockBranches(shopId);
+            this.userBranches = [];
           }
-          // console.log(this.userBranches);
         },
         () => {
-          this.userBranches = this.getMockBranches(shopId);
+          this.userBranches = [];
         },
       );
   }

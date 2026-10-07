@@ -53,89 +53,36 @@ export class SadminUsersComponent implements OnInit {
       { label: 'Active', value: 'active' },
       { label: 'Inactive', value: 'inactive' },
     ];
-    this.adminUsers = this.getMockExistingUsers();
+    // Live production: Start empty and load real database users only
+    this.adminUsers = [];
     this.loadAdminUsers();
-    this.title.setTitle("Mini Mart - Brickfileds Grocery Store for home delivery");
+    this.title.setTitle("Jaspilite - Admin Users Management");
   }
 
+  // Mock demo data commented out - production displays real database admin users only
   private getMockExistingUsers() {
+    return [];
+    /*
     return [
-      {
-        admin_id: 201,
-        display_name: 'Super Admin',
-        branch_name: 'HQ',
-        user_type: 'sadmin',
-        email: 'super.admin@example.com',
-        status: 'active',
-      },
-      {
-        admin_id: 202,
-        display_name: 'Partner Admin',
-        branch_name: 'KL Downtown',
-        user_type: 'padmin',
-        email: 'partner.admin@example.com',
-        status: 'active',
-      },
-      {
-        admin_id: 203,
-        display_name: 'N Admin - Brickfields',
-        branch_name: 'Brickfields',
-        user_type: 'nadmin',
-        email: 'nadmin.brickfields@example.com',
-        status: 'active',
-      },
-      {
-        admin_id: 204,
-        display_name: 'N Admin - PJ',
-        branch_name: 'PJ Section 14',
-        user_type: 'nadmin',
-        email: 'nadmin.pj@example.com',
-        status: 'inactive',
-      },
-      {
-        admin_id: 205,
-        display_name: 'API User',
-        branch_name: 'System',
-        user_type: 'api',
-        email: 'api.user@example.com',
-        status: 'active',
-      },
+      { admin_id: 201, display_name: 'Super Admin', branch_name: 'HQ', user_type: 'sadmin', email: 'super.admin@example.com', status: 'active' },
+      { admin_id: 202, display_name: 'Partner Admin', branch_name: 'KL Downtown', user_type: 'padmin', email: 'partner.admin@example.com', status: 'active' },
     ];
+    */
   }
 
   loadAdminUsers() {
-    // const user: AdminUser = new AdminUser(userData, userData.getToken, userData.refreshToken,
-    //   new Date(userData.tokenExpirationDate));
-
-    // this.adminLoginService.adminUser
-    //   .subscribe(
-    //     userData => {
-    //       const user: AdminUser = new AdminUser(userData, userData.getToken, userData.refreshToken,
-    //         new Date(userData.tokenExpirationDate));
-    //       console.log('Got admin user ...' + JSON.stringify(user.adminId));
-    //       this.sadminUsersService.getAllAdminUsers()
-    //         .subscribe(
-    //           admUsers => {
-    //             console.log(admUsers.payload.users);
-    //             this.adminUsers = admUsers.payload.users;
-    //             // $('.dataTables-example').DataTable();
-    //             // this.initializeDataTable();
-    //           });
-    //     });
-
-
     this.sadminUsersService.getAllAdminUsers()
       .subscribe(
         admUsers => {
           const users = admUsers?.payload?.users;
-          if (Array.isArray(users) && users.length > 0) {
+          if (Array.isArray(users)) {
             this.adminUsers = users;
+          } else {
+            this.adminUsers = [];
           }
         },
         () => {
-          if (!Array.isArray(this.adminUsers) || this.adminUsers.length === 0) {
-            this.adminUsers = this.getMockExistingUsers();
-          }
+          this.adminUsers = [];
         });
   }
 

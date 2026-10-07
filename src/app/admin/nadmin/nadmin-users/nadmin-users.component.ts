@@ -50,11 +50,12 @@ export class NadminUsersComponent implements OnInit {
       { label: 'Active', value: 'active' },
       { label: 'Inactive', value: 'inactive' },
     ];
-    this.userShops = this.getMockShops();
-    this.userShop = this.userShops[0]?.value;
-    this.userBranches = this.getMockBranches(this.userShop);
-    this.userBranch = this.userBranches[0]?.value;
-    this.adminUsers = this.getMockUsers();
+    // Live production: Start with clean empty state, load real users only
+    this.userShops = [];
+    this.userShop = null;
+    this.userBranches = [];
+    this.userBranch = null;
+    this.adminUsers = [];
     this.getShops();
   }
   logout() {
@@ -75,24 +76,28 @@ export class NadminUsersComponent implements OnInit {
             const shopIds = remoteShops.map(item => item.shop_id.toString());
             this.loadAdminUsers(shopIds.join(','));
           } else {
-            this.userShops = this.getMockShops();
-            this.userShop = this.userShops[0]?.value;
-            this.userBranches = this.getMockBranches(this.userShop);
-            this.userBranch = this.userBranches[0]?.value;
-            this.loadAdminUsers('');
+            this.userShops = [];
+            this.userShop = null;
+            this.userBranches = [];
+            this.userBranch = null;
+            this.adminUsers = [];
           }
         },
         () => {
-          this.userShops = this.getMockShops();
-          this.userShop = this.userShops[0]?.value;
-          this.userBranches = this.getMockBranches(this.userShop);
-          this.userBranch = this.userBranches[0]?.value;
-          this.loadAdminUsers('');
+          this.userShops = [];
+          this.userShop = null;
+          this.userBranches = [];
+          this.userBranch = null;
+          this.adminUsers = [];
         },
       );
   }
 
   getBranches(shopId) {
+    if (!shopId) {
+      this.userBranches = [];
+      return;
+    }
     this.nadminUsersService.getAllUsersBranches(shopId)
       .subscribe(
         branches => {
@@ -102,34 +107,34 @@ export class NadminUsersComponent implements OnInit {
               return { label: item.branch_name, value: item.branch_id };
             });
           } else {
-            this.userBranches = this.getMockBranches(shopId);
+            this.userBranches = [];
           }
           this.userBranch = this.userBranches[0]?.value;
-          // console.log(this.userBranch);
         },
         () => {
-          this.userBranches = this.getMockBranches(shopId);
-          this.userBranch = this.userBranches[0]?.value;
+          this.userBranches = [];
+          this.userBranch = null;
         },
       );
   }
 
   loadAdminUsers(shopIds) {
+    if (!shopIds) {
+      this.adminUsers = [];
+      return;
+    }
     this.nadminUsersService.getAllAdminUsers(shopIds)
       .subscribe(
         admUsers => {
-          //console.log(admUsers.payload.users);
           const users = admUsers?.payload?.users;
-          if (Array.isArray(users) && users.length > 0) {
+          if (Array.isArray(users)) {
             this.adminUsers = users;
-          } else if (!Array.isArray(this.adminUsers) || this.adminUsers.length === 0) {
-            this.adminUsers = this.getMockUsers();
+          } else {
+            this.adminUsers = [];
           }
         },
         () => {
-          if (!Array.isArray(this.adminUsers) || this.adminUsers.length === 0) {
-            this.adminUsers = this.getMockUsers();
-          }
+          this.adminUsers = [];
         },
       );
   }

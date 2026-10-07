@@ -37,38 +37,36 @@ export class SadminCategoryComponent implements OnInit {
       { field: 'category_name', header: 'Name' },
       { field: 'category_icon', header: 'Icon' },
     ];
-    this.categories = this.getMockCategories();
+    // Live production: Load categories directly from database
+    this.categories = [];
     this.loadCategories();
-    this.title.setTitle("Mini Mart - Mondern stores for Indian grocery");
+    this.title.setTitle("Jaspilite - Master Product Categories");
   }
 
+  // Mock demo categories commented out - production loads from database only
   private getMockCategories() {
+    return [];
+    /*
     return [
       { category_id: 11, category_name: 'Rice & Flour', category_icon: 'pi pi-shopping-bag' },
       { category_id: 12, category_name: 'Spices', category_icon: 'pi pi-star' },
-      { category_id: 13, category_name: 'Snacks', category_icon: 'pi pi-box' },
-      { category_id: 14, category_name: 'Beverages', category_icon: 'pi pi-globe' },
-      { category_id: 15, category_name: 'Frozen', category_icon: 'pi pi-snowflake' },
-      { category_id: 16, category_name: 'Personal Care', category_icon: 'pi pi-heart' },
     ];
+    */
   }
 
   loadCategories() {
     this.sadminCategoriesService.getAllCategories()
       .subscribe(
         categories => {
-          // console.log(admUsers.payload.categories);
           const remoteCategories = categories?.payload?.categories;
-          if (Array.isArray(remoteCategories) && remoteCategories.length > 0) {
+          if (Array.isArray(remoteCategories)) {
             this.categories = remoteCategories;
-          } else if (!Array.isArray(this.categories) || this.categories.length === 0) {
-            this.categories = this.getMockCategories();
+          } else {
+            this.categories = [];
           }
         },
         () => {
-          if (!Array.isArray(this.categories) || this.categories.length === 0) {
-            this.categories = this.getMockCategories();
-          }
+          this.categories = [];
         },
       );
   }
