@@ -70,9 +70,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Change Image</label><br>
+                                        <input
+                                            id="sadminEditProductFileInput"
+                                            type="file"
+                                            accept="image/*"
+                                            (change)="onFileSelected($event, editFileUpload)"
+                                            class="custom-file-input-hidden"
+                                        >
+                                        <label for="sadminEditProductFileInput" class="custom-choose-btn">
+                                            <i class="fa fa-folder-open"></i> Choose Image
+                                        </label>
                                         <p-fileUpload #editFileUpload mode="basic" name="file[]" customUpload="true"
-                                            (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*" [auto]="true"
-                                            maxFileSize="1000000">
+                                            (uploadHandler)="uploadImage($event, editFileUpload)" accept="image/*" [auto]="true"
+                                            maxFileSize="5000000" style="display: none;">
                                         </p-fileUpload>
                                     </div>
                                     <div>
@@ -162,9 +172,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Upload (400 X 400 size)</label><br>
+                                        <input
+                                            id="sadminAddProductFileInput"
+                                            type="file"
+                                            accept="image/*"
+                                            (change)="onFileSelected($event, addFileUpload)"
+                                            class="custom-file-input-hidden"
+                                        >
+                                        <label for="sadminAddProductFileInput" class="custom-choose-btn">
+                                            <i class="fa fa-folder-open"></i> Choose Image
+                                        </label>
                                         <p-fileUpload #addFileUpload mode="basic" name="file[]" customUpload="true"
                                             (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*" [auto]="true"
-                                            maxFileSize="1000000">
+                                            maxFileSize="5000000" style="display: none;">
                                         </p-fileUpload>
                                     </div>
                                     <div>
@@ -201,13 +221,13 @@
                     <p-table #dt [columns]="cols" [value]="products"  [globalFilterFields]="['name', 'company', 'weight', 'sku']" dataKey="product_id" editMode="row" [paginator]="true"
                         [rows]="20" [resizableColumns]="true" [responsive]="true">
                         <ng-template pTemplate="caption">
-                                <div class="row">
-                                        <div class="col-lg-6"></div>
-                                    <div class="col-lg-6">
-                                <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
-                                <input type="text" pInputText size="50" placeholder="Search"
-                                    (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
-                            </div>
+                            <div class="admin-table-search-row">
+                                <div class="admin-table-search-actions"></div>
+                                <div class="admin-table-search-wrapper">
+                                    <i class="fa fa-search search-icon"></i>
+                                    <input type="text" pInputText placeholder="Search products..."
+                                        (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                                </div>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="header">

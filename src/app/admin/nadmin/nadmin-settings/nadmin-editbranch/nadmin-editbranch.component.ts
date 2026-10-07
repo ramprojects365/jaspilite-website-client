@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, NgForm } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
-import { Title, Meta  } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { AdminLoginService } from '../../../../services/admin/admin-login/adminlogin.service';
 import { NadminSettingsService } from '../nadminsettings.service';
@@ -49,7 +49,7 @@ export class NadminEditbranchComponent implements OnInit {
     private nadminSettingsService: NadminSettingsService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private title:Title,
+    private title: Title,
     private metaService: Meta
   ) { }
 
@@ -69,7 +69,7 @@ export class NadminEditbranchComponent implements OnInit {
     this.currencies = [
       { label: 'BND', value: 'BND' },
       { label: 'INR', value: 'INR' },
-      { label: 'RM', value: 'RM' },     
+      { label: 'RM', value: 'RM' },
       { label: 'USD', value: 'USD' },
     ];
     this.branchId = this.route.snapshot.paramMap.get('branch');
@@ -92,16 +92,16 @@ export class NadminEditbranchComponent implements OnInit {
           // console.log(this.userShops);
         });
   }
-  shopCategories(){
+  shopCategories() {
     this.nadminSettingsService.getShopCategories()
-    .subscribe(
-      categories => {
-        this.shopCategories = categories.payload.categories.map(item => {
-          return { label: item.category_name, value: item.category_id };
+      .subscribe(
+        categories => {
+          this.shopCategories = categories.payload.categories.map(item => {
+            return { label: item.category_name, value: item.category_id };
+          });
+          //this.shopCategory = this.shopCategories[0].value;
+          //console.log(JSON.stringify(categories.payload));
         });
-        //this.shopCategory = this.shopCategories[0].value;
-        //console.log(JSON.stringify(categories.payload));
-      });
   }
   getBranchDetails() {
     this.nadminSettingsService.getBranchDetails(this.branchId)
@@ -155,30 +155,31 @@ export class NadminEditbranchComponent implements OnInit {
     }
   }
   uploadImage(event, addFileUpload) {
-    // console.log(event.files[0]);
-    if(event.files[0].size < 60000){
+    if (event.files && event.files[0] && event.files[0].size <= 5 * 1024 * 1024) {
       this.spinner.show();
-    this.nadminSettingsService.uploadImage(event.files[0])
-      .subscribe(
-        response => {
-          this.spinner.hide();
-          // console.log(response);
-          if (response.status === 200) {
-            addFileUpload.clear();
-            this.uploadedImage = response.payload.image;
-          } else {
-            // console.log(response);
-            this.toastr.error('There was a problem uploading your image!', 'Image Upload Error!');
+      this.nadminSettingsService.uploadImage(event.files[0])
+        .subscribe(
+          response => {
+            this.spinner.hide();
+            if (response.status === 200) {
+              if (addFileUpload && addFileUpload.clear) {
+                addFileUpload.clear();
+              }
+              this.uploadedImage = response.payload.image;
+            } else {
+              this.toastr.error('There was a problem uploading your image!', 'Image Upload Error!');
+            }
+          }, error => {
+            this.spinner.hide();
+            this.toastr.error(error.error?.message || 'Error!', 'Error!');
           }
-        }, error => {
-          this.spinner.hide();
-          this.toastr.error(error.error.message, 'Error!');
-        }
-      );
-    }else {
-      this.toastr.error('Please upload the small size image.', 'Image Size Bigger!');
-      addFileUpload.clear();
-    } 
+        );
+    } else {
+      this.toastr.error('Please upload an image smaller than 5MB.', 'Image Too Large!');
+      if (addFileUpload && addFileUpload.clear) {
+        addFileUpload.clear();
+      }
+    }
   }
   updateBranch(form: NgForm, addFileUpload) {
     if (!form.valid) {
@@ -187,16 +188,16 @@ export class NadminEditbranchComponent implements OnInit {
     }
     const value = form.value;
 
-    if (value.phone.length < 12 || value.phone.length > 13 || value.phone[0] !== '+') {
-      this.toastr.warning('Please check the + and country code', 'Invalid Phone Number');
+    if (!value.phone.startsWith('+60') || value.phone.length < 11 || value.phone.length > 14) {
+      this.toastr.warning('Please enter a valid Malaysian phone number starting with +60 (e.g. +60142353806)', 'Invalid Phone Number');
       return;
     }
-    if (value.maxdistance > 30 ) {
+    if (value.maxdistance > 30) {
       this.toastr.warning('Radius should not be more than 30', 'Please check the Radius');
       return;
     }
-    if(value.welcomeMessage !== null){
-      if (value.welcomeMessage.length > 400 ) {
+    if (value.welcomeMessage !== null) {
+      if (value.welcomeMessage.length > 400) {
         this.toastr.warning('Please check the welcome message', 'Lenght exceeded');
         return;
       }
@@ -209,7 +210,7 @@ export class NadminEditbranchComponent implements OnInit {
       value.image = this.branchDetails.image;
     }
 
-    if(value.minamount <5){
+    if (value.minamount < 5) {
       this.toastr.warning('Minimum amount should not be less than 5', 'Please check the Minimum Amount');
       return;
     }

@@ -370,29 +370,18 @@
           [resizableColumns]="true"
         >
           <ng-template pTemplate="caption">
-            <div class="row">
-              <div class="col-lg-6">
-                <a
-                  style="
-                    float: left;
-                    color: #0000ee;
-                    border-bottom: 1px solid;
-                    padding-top: 10px;
-                  "
-                  (click)="exportShopProducts()"
-                  >Export Products List</a
-                >
+            <div class="admin-table-search-row">
+              <div class="admin-table-search-actions">
+                <a (click)="exportShopProducts()">
+                  <i class="fa fa-download"></i> Export Products List
+                </a>
               </div>
-              <div class="col-lg-6">
-                <i
-                  class="fa fa-search"
-                  style="position: absolute; right: 30px; top: 15px"
-                ></i>
+              <div class="admin-table-search-wrapper">
+                <i class="fa fa-search search-icon"></i>
                 <input
                   type="text"
                   pInputText
-                  size="50"
-                  placeholder="Search"
+                  placeholder="Search products..."
                   (input)="dt.filterGlobal($event.target.value, 'contains')"
                   class="table-search"
                 />

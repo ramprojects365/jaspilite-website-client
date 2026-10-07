@@ -43,14 +43,14 @@
                 <p-table #dt [columns]="cols" [value]="sales" dataKey="sales_id" editMode="row" [paginator]="true"
                     [rows]="10" [resizableColumns]="true" [responsive]="true"> 
                     <ng-template pTemplate="caption">
-                        <div class="row">
-                            <div class="col-lg-6"></div>
-                        <div class="col-lg-6">
-                            <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
-                            <input type="text" pInputText size="50" placeholder="Search"
-                                (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                        <div class="admin-table-search-row">
+                            <div class="admin-table-search-actions"></div>
+                            <div class="admin-table-search-wrapper">
+                                <i class="fa fa-search search-icon"></i>
+                                <input type="text" pInputText placeholder="Search sales..."
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
+                            </div>
                         </div>
-                    </div>
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>

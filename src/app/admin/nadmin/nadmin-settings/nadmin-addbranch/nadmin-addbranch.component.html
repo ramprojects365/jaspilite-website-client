@@ -135,11 +135,11 @@
                       >
                     </div>
                     <div>
-                      <label><b>Phone Number (Choose Country Code)</b></label>
+                      <label><b>Phone Number (Malaysian Code +60)</b></label>
                     </div>
                     <div class="row">
                       <div
-                        class="col-md-2 col-sm-2 col-xs-3"
+                        class="col-md-3 col-sm-3 col-xs-4"
                         style="padding-right: 0px"
                       >
                         <p-dropdown
@@ -148,6 +148,7 @@
                           [style]="{
                             'padding-bottom': '1px',
                             border: '1px solid #e5e6e7',
+                            width: '100%'
                           }"
                           name="countryCode"
                           [(ngModel)]="countryCode"
@@ -156,13 +157,13 @@
                         </p-dropdown>
                       </div>
                       <div
-                        class="col-md-10 col-sm-10 col-xs-7"
+                        class="col-md-9 col-sm-9 col-xs-8"
                         style="padding-left: 0px"
                       >
                         <input
                           pInputText
                           type="text"
-                          placeholder="Enter phone number"
+                          placeholder="Enter phone number (e.g. 105449974)"
                           class="form-control"
                           ngModel
                           name="phone"
@@ -176,7 +177,7 @@
                       <span
                         *ngIf="!phone.valid && phone.touched"
                         style="color: #ffa500"
-                        >Please enter phone number with out country code.</span
+                        >Please enter Malaysian phone number without country code (e.g. 105449974).</span
                       >
                     </div>
                     <div class="form-group" style="padding-top: 10px">

@@ -74,10 +74,7 @@ export class NadminAddbranchComponent implements OnInit {
       { label: 'USD', value: 'USD' },
     ];
     this.countryCodes = [
-      { label: '+1', value: '+1' },
-      { label: '+60', value: '+60' },
-      { label: '+91', value: '+91' },
-      { label: '+673', value: '+673' },
+      { label: '+60 (Malaysia)', value: '+60' },
     ];
     this.currency = 'RM';
     this.countryCode = '+60';
@@ -184,29 +181,30 @@ export class NadminAddbranchComponent implements OnInit {
   }
 
   uploadImage(event, addFileUpload) {
-    //console.log(event.files[0].size);
-    if(event.files[0].size < 60000){
+    if (event.files && event.files[0] && event.files[0].size <= 5 * 1024 * 1024) {
       this.spinner.show();
       this.nadminSettingsService.uploadImage(event.files[0])
         .subscribe(
           response => {
             this.spinner.hide();
-            // console.log(response);
             if (response.status === 200) {
-              addFileUpload.clear();
+              if (addFileUpload && addFileUpload.clear) {
+                addFileUpload.clear();
+              }
               this.uploadedImage = response.payload.image;
             } else {
-              // console.log(response);
               this.toastr.error('There was a problem uploading your image!', 'Image Upload Error!');
             }
           }, error => {
             this.spinner.hide();
-            this.toastr.error(error.error.message, 'Error!');
+            this.toastr.error(error.error?.message || 'Error!', 'Error!');
           }
         );
-    }else {
-      this.toastr.error('Please upload the small size image.', 'Image Size Bigger!');
-      addFileUpload.clear();
+    } else {
+      this.toastr.error('Please upload an image smaller than 5MB.', 'Image Too Large!');
+      if (addFileUpload && addFileUpload.clear) {
+        addFileUpload.clear();
+      }
     }
   }
 

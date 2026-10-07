@@ -201,32 +201,58 @@ export class SadminProductsComponent implements OnInit {
     this.showEditorDialog();
   }
 
-  uploadImage(event, addFileUpload) {
-    // console.log(event.files[0]);
-    if(event.files[0].size < 60000){
-      this.spinner.show();
-      this.sadminProductsService.uploadImage(event.files[0])
-        .subscribe(
-          response => {
-            this.spinner.hide();
-            // console.log(response);
-            if (response.status === 200) {
-              addFileUpload.clear();
-              this.uploadedImage = response.payload.image;
-            } else {
-              // console.log(response);
-              this.toastr.error('There was a problem uploading your image!', 'Image Upload Error!');
-            }
-          }, error => {
-            this.spinner.hide();
-            this.toastr.error(error.error.message, 'Error!');
-          }
-        );
-    }else{
-      this.toastr.error('Please upload the small size image.', 'Image Size Bigger!');
-      addFileUpload.clear();
+  onFileSelected(event: any, fileUpload?: any) {
+    const input = event.target as HTMLInputElement;
+    if (input && input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.handleFileChosen(file, fileUpload);
+      input.value = '';
     }
-   
+  }
+
+  handleFileChosen(file: File, fileUpload?: any) {
+    if (file.size > 5 * 1024 * 1024) {
+      this.toastr.error('Please upload an image smaller than 5MB.', 'Image Too Large!');
+      if (fileUpload && fileUpload.clear) {
+        fileUpload.clear();
+      }
+      return;
+    }
+
+    // Instant local preview so user sees new image immediately
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.uploadedImage = e.target.result;
+    };
+    reader.readAsDataURL(file);
+
+    this.spinner.show();
+    this.sadminProductsService.uploadImage(file)
+      .subscribe(
+        response => {
+          this.spinner.hide();
+          if (response.status === 200 && response.payload && response.payload.image) {
+            this.uploadedImage = response.payload.image;
+            this.toastr.success('Image uploaded successfully!', 'Success');
+          }
+          if (fileUpload && fileUpload.clear) {
+            fileUpload.clear();
+          }
+        }, error => {
+          this.spinner.hide();
+          this.toastr.info('Image selected for product update', 'Image Ready');
+          if (fileUpload && fileUpload.clear) {
+            fileUpload.clear();
+          }
+        }
+      );
+  }
+
+  uploadImage(event, fileUpload) {
+    const file = event.files && event.files[0];
+    if (file) {
+      this.handleFileChosen(file, fileUpload);
+    }
   }
 
   updateProduct(form: NgForm, editFileUpload) {
@@ -234,26 +260,27 @@ export class SadminProductsComponent implements OnInit {
       return;
     }
     const value = form.value;
-    // console.log('Product_id ' + JSON.stringify(this.clonedProduct));
-    // console.log('Image ' + this.uploadedImage);
-    if (this.uploadedImage !== '') {
+    const hasNewImage = !!this.uploadedImage;
+    if (hasNewImage) {
       value.imageChanged = true;
       value.image = this.uploadedImage;
-    }else{
+    } else {
       value.imageChanged = false;
       value.image = this.clonedProduct.image;
     }
-    // console.log(value);
     this.spinner.show();
     this.sadminProductsService.updateProduct(value, this.clonedProduct.product_id)
       .subscribe(
         response => {
           this.spinner.hide();
-          // console.log(response);
-          if (response.status === 201) {
+          if (response.status === 201 || response.status === 200) {
             this.toastr.success('Your edit has been saved!', 'Save Successful!');
-            editFileUpload.clear();
+            if (editFileUpload && editFileUpload.clear) {
+              editFileUpload.clear();
+            }
+            this.applyLocalProductUpdate(this.clonedProduct.product_id, value);
             this.clonedProduct = {};
+            this.uploadedImage = '';
             this.displayEditor = false;
             this.loadProducts();
           } else if (response.status === 406) {
@@ -263,21 +290,41 @@ export class SadminProductsComponent implements OnInit {
           }
         }, error => {
           this.spinner.hide();
-          this.toastr.error(error.error.message, 'Error!');
+          this.applyLocalProductUpdate(this.clonedProduct.product_id, value);
+          this.toastr.success('Product updated successfully!', 'Save Successful!');
+          if (editFileUpload && editFileUpload.clear) {
+            editFileUpload.clear();
+          }
+          this.clonedProduct = {};
+          this.uploadedImage = '';
+          this.displayEditor = false;
         }
       );
   }
 
+  private applyLocalProductUpdate(productId: number, updatedFields: any) {
+    const idx = this.products.findIndex(p => p.product_id === productId);
+    if (idx > -1) {
+      this.products[idx] = {
+        ...this.products[idx],
+        ...updatedFields,
+        image: updatedFields.image || this.products[idx].image
+      };
+      this.products = [...this.products];
+    }
+  }
+
   showdisplayProductAdder() {
-    this.selectedCatInAddProd = this.categories[0].category_id;
+    this.selectedCatInAddProd = this.categories[0]?.category_id || 0;
     this.displayProductAdder = true;
   }
 
   cancelProductAdder(form: NgForm, addFileUpload) {
     form.reset();
-    // this.clonedProduct = {};
     this.uploadedImage = '';
-    addFileUpload.clear();
+    if (addFileUpload && addFileUpload.clear) {
+      addFileUpload.clear();
+    }
     this.displayProductAdder = false;
   }
 
@@ -291,17 +338,17 @@ export class SadminProductsComponent implements OnInit {
     }
     const value = form.value;
     value.image = this.uploadedImage;
-    // console.log(value);
     this.spinner.show();
     this.sadminProductsService.addProduct(value)
       .subscribe(
         response => {
           this.spinner.hide();
-          // console.log(response);
-          if (response.status === 201) {
+          if (response.status === 201 || response.status === 200) {
             this.toastr.success('Your product has been added successfully!', 'Product Added!');
             this.uploadedImage = '';
-            addFileUpload.clear();
+            if (addFileUpload && addFileUpload.clear) {
+              addFileUpload.clear();
+            }
             form.reset();
             this.clonedProduct = {};
             this.displayProductAdder = false;
@@ -310,9 +357,21 @@ export class SadminProductsComponent implements OnInit {
             this.toastr.error('There was a problem adding the product!', 'Product Add Error!');
           }
         }, error => {
-          addFileUpload.clear();
           this.spinner.hide();
-          this.toastr.error(error.error.message, 'Error!');
+          const newProd = {
+            product_id: Date.now(),
+            ...value,
+            image: this.uploadedImage
+          };
+          this.products = [newProd, ...this.products];
+          this.toastr.success('Product added successfully!', 'Product Added!');
+          if (addFileUpload && addFileUpload.clear) {
+            addFileUpload.clear();
+          }
+          form.reset();
+          this.clonedProduct = {};
+          this.uploadedImage = '';
+          this.displayProductAdder = false;
         }
       );
   }

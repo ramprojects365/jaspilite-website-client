@@ -97,28 +97,30 @@ export class NadminPromotionsComponent implements OnInit {
     }
   }
   uploadImage(event, addFileUpload) {
-    if (event.files[0].size < 60000) {
+    if (event.files && event.files[0] && event.files[0].size <= 5 * 1024 * 1024) {
       this.spinner.show();
       this.nadminPromotionsService.uploadImage(event.files[0])
         .subscribe(
           response => {
             this.spinner.hide();
-            // console.log(response);
-            if (response.status === 200) {
-              addFileUpload.clear();
+            if (response.status === 200 && response.payload && response.payload.image) {
+              if (addFileUpload && addFileUpload.clear) {
+                addFileUpload.clear();
+              }
               this.uploadedImage = response.payload.image;
             } else {
-              // console.log(response);
               this.toastr.error('There was a problem uploading your image!', 'Image Upload Error!');
             }
           }, error => {
             this.spinner.hide();
-            this.toastr.error(error.error.message, 'Error!');
+            this.toastr.error(error.error?.message || 'Upload error', 'Error!');
           }
         );
     } else {
-      this.toastr.error('Please upload the small size image.', 'Image Size Bigger!');
-      addFileUpload.clear();
+      this.toastr.error('Please upload an image smaller than 5MB.', 'Image Too Large!');
+      if (addFileUpload && addFileUpload.clear) {
+        addFileUpload.clear();
+      }
     }
   }
   addPromoProducts(promo){

@@ -123,11 +123,11 @@
                 <p-table #dt [columns]="cols" [value]="promotions" [globalFilterFields]="['title']" dataKey="item_id"
                     editMode="row" [responsive]="true" [paginator]="true" [rows]="20" [resizableColumns]="true">
                     <ng-template pTemplate="caption">
-                        <div class="row">
-                            <div class="col-lg-6"></div>
-                            <div class="col-lg-6">
-                                <i class="fa fa-search" style="position:absolute;right:30px;top:15px;"></i>
-                                <input type="text" pInputText size="50" placeholder="Search"
+                        <div class="admin-table-search-row">
+                            <div class="admin-table-search-actions"></div>
+                            <div class="admin-table-search-wrapper">
+                                <i class="fa fa-search search-icon"></i>
+                                <input type="text" pInputText placeholder="Search promotions..."
                                     (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
                             </div>
                         </div>

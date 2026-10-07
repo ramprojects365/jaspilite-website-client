@@ -31,4 +31,8 @@ export class SadminUsersService {
             { display_name: user.display_name, status: user.status, user_type: user.user_type, password: user.password });
     }
 
+    deleteAdminUser(adminId: any) {
+        return this.http.delete<AdminUserResponse>('api/v2/admin/web/user/' + adminId);
+    }
+
 }
