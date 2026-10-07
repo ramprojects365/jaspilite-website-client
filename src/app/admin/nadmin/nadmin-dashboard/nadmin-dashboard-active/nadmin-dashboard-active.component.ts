@@ -35,10 +35,8 @@ export class NadminDashboardActiveComponent implements OnInit {
       { field: 'total', header: 'Total' },
       { field: 'status', header: 'Status' },
     ];
-    this.sales = this.getMockActiveOrders().map(item => {
-      item.date = this.utilityService.getDateTimeFormatted(item.date);
-      return item;
-    });
+    // Live production: Start with clean empty array, load real database orders only
+    this.sales = [];
     const adminId = this.adminLoginService.adminUser.getValue().adminId;
     setTimeout(
       function () {
@@ -53,6 +51,9 @@ export class NadminDashboardActiveComponent implements OnInit {
     //     });
   }
 
+  // Mock active orders disabled for clean production deployment.
+  // Uncomment only if mock offline UI demonstration is needed.
+  /*
   private getMockActiveOrders() {
     const now = Date.now();
     return [
@@ -123,6 +124,7 @@ export class NadminDashboardActiveComponent implements OnInit {
       },
     ];
   }
+  */
 
   getActiveOrders(adminId) {
     this.nadminActiveService.getActiveOrders(adminId)
@@ -134,16 +136,13 @@ export class NadminDashboardActiveComponent implements OnInit {
               item.date = this.utilityService.getDateTimeFormatted(item.date);
               return item;
             });
+          } else {
+            this.sales = [];
           }
           // console.log(JSON.stringify(this.sales));
         },
         () => {
-          if (!Array.isArray(this.sales) || this.sales.length < 5) {
-            this.sales = this.getMockActiveOrders().map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
-          }
+          this.sales = [];
         },
       );
   }

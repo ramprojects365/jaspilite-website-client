@@ -330,7 +330,7 @@ export class SadminCostingComponent implements OnInit {
     pdf.text(value.companyaddressline1, 20, 58);
     pdf.text(value.companyaddressline2, 20, 63);
     pdf.text("Unit D-3A-4, Setiawalk, Puchong, Malaysia.", 120, 58);
-    pdf.text("Tel: +60 10 544 9974", 120, 63);
+    pdf.text("Tel: +60142353806", 120, 63);
     pdf.setFont("bold");
     pdf.text("InvoiceNo :", 120, 70);
     pdf.setFont("normal");

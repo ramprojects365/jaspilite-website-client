@@ -8,20 +8,20 @@ import { SadminBoxService } from "./sadmin-box.service";
   styleUrls: ["./sadmin-box-records.component.scss"],
 })
 export class SadminBoxRecordsComponent implements OnInit {
-  shopsCount: number;
-  branchesCount: number;
-  totalSales: number;
-  totalOrders: number;
-  pendingSales: number;
-  pendingOrders: number;
+  shopsCount: number = 0;
+  branchesCount: number = 0;
+  totalSales: number = 0;
+  totalOrders: number = 0;
+  pendingSales: number = 0;
+  pendingOrders: number = 0;
 
   constructor(private sadminBoxService: SadminBoxService) {}
 
   ngOnInit() {
-    this.shopsCount = 14;
-    this.branchesCount = 22;
-    this.totalSales = 240;
-    this.totalOrders = 190;
+    this.shopsCount = 0;
+    this.branchesCount = 0;
+    this.totalSales = 0;
+    this.totalOrders = 0;
     this.pendingSales = 0;
     this.pendingOrders = 0;
     this.getShopCount();
@@ -33,22 +33,18 @@ export class SadminBoxRecordsComponent implements OnInit {
     this.sadminBoxService.getSalesTotal().subscribe(
       (resData) => {
         const data = resData;
-        //console.log(data);
-        if (data.status === 200) {
-          // if(data.payload.received_amount == null){
-          //   this.totalSales = 0;
-          // }else {
-          //   this.totalSales = data.payload.received_amount || 0;
-          //   this.pendingSales = data.payload.pending_amount || 0;
-          // }
-          this.totalSales = data.payload.received_amount || this.totalSales;
-          this.pendingSales = data.payload.pending_amount || this.pendingSales;
+        if (data && data.status === 200 && data.payload) {
+          const received = Number(data.payload.received_amount);
+          const pending = Number(data.payload.pending_amount);
+          this.totalSales = isNaN(received) ? 0 : received;
+          this.pendingSales = isNaN(pending) ? 0 : pending;
         } else {
-          // console.log('Error - ' + error);
+          this.totalSales = 0;
+          this.pendingSales = 0;
         }
       },
       (error) => {
-        this.totalSales = 240;
+        this.totalSales = 0;
         this.pendingSales = 0;
       },
     );
@@ -57,22 +53,18 @@ export class SadminBoxRecordsComponent implements OnInit {
     this.sadminBoxService.getOrdersTotal().subscribe(
       (resData) => {
         const data = resData;
-        //console.log(data);
-        if (data.status === 200) {
-          // if(data.payload.orders_count == null){
-          //   this.totalOrders = 0;
-          // }else {
-          //   this.totalOrders = data.payload.orders_count;
-          //   this.pendingOrders = data.payload.active_count;
-          // }
-          this.totalOrders = data.payload.orders_count || this.totalOrders;
-          this.pendingOrders = data.payload.active_count || this.pendingOrders;
+        if (data && data.status === 200 && data.payload) {
+          const orders = Number(data.payload.orders_count);
+          const active = Number(data.payload.active_count);
+          this.totalOrders = isNaN(orders) ? 0 : orders;
+          this.pendingOrders = isNaN(active) ? 0 : active;
         } else {
-          // console.log('Error - ' + error);
+          this.totalOrders = 0;
+          this.pendingOrders = 0;
         }
       },
       (error) => {
-        this.totalOrders = 190;
+        this.totalOrders = 0;
         this.pendingOrders = 0;
       },
     );
@@ -81,15 +73,15 @@ export class SadminBoxRecordsComponent implements OnInit {
     this.sadminBoxService.getShopsCount().subscribe(
       (resData) => {
         const data = resData;
-        // console.log(data);
-        if (data.status === 200) {
-          this.shopsCount = data.payload.shops_count || this.shopsCount;
+        if (data && data.status === 200 && data.payload) {
+          const count = Number(data.payload.shops_count);
+          this.shopsCount = isNaN(count) ? 0 : count;
         } else {
-          // console.log('Error - ' + error);
+          this.shopsCount = 0;
         }
       },
       (error) => {
-        this.shopsCount = 14;
+        this.shopsCount = 0;
       },
     );
   }
@@ -97,15 +89,15 @@ export class SadminBoxRecordsComponent implements OnInit {
     this.sadminBoxService.getBranchesCount().subscribe(
       (resData) => {
         const data = resData;
-        // console.log(data);
-        if (data.status === 200) {
-          this.branchesCount = data.payload.branch_count || this.branchesCount;
+        if (data && data.status === 200 && data.payload) {
+          const count = Number(data.payload.branch_count);
+          this.branchesCount = isNaN(count) ? 0 : count;
         } else {
-          // console.log('Error - ' + error);
+          this.branchesCount = 0;
         }
       },
       (error) => {
-        this.branchesCount = 22;
+        this.branchesCount = 0;
       },
     );
   }

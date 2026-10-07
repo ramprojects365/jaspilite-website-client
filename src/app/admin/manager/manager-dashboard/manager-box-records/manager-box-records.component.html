@@ -33,8 +33,8 @@
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins">{{ userShopCount }}</h1>
-                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
-                <small>New shops</small>
+                <div class="stat-percent font-bold text-navy">{{ userShopCount > 0 ? userShopCount + ' Active' : '0 Active' }} <i class="fa fa-shopping-bag"></i></div>
+                <small>Total shops</small>
             </div>
         </div>
     </div>
@@ -46,8 +46,8 @@
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins">{{ userBranchCount }}</h1>
-                <div class="stat-percent font-bold text-navy">38% <i class="fa fa-level-up"></i></div>
-                <small>New branches</small>
+                <div class="stat-percent font-bold text-navy">{{ userBranchCount > 0 ? userBranchCount + ' Active' : '0 Active' }} <i class="fa fa-code-fork"></i></div>
+                <small>Total branches</small>
             </div>
         </div>
     </div>

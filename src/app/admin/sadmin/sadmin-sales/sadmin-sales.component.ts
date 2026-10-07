@@ -52,6 +52,8 @@ export class SadminSalesComponent implements OnInit {
     this.title.setTitle("Jaspilite - Sales Management");
   }
 
+  // Mock shops/branches/sales data disabled for clean production deployment.
+  /*
   private getMockShops() {
     return [
       { label: 'Mini Mart', value: '1' },
@@ -148,6 +150,7 @@ export class SadminSalesComponent implements OnInit {
       },
     ];
   }
+  */
 
   getShops() {
     //const adminId = this.adminLoginService.adminUser.getValue().adminId;
@@ -199,6 +202,10 @@ export class SadminSalesComponent implements OnInit {
   }
 
   getAllSales(branchId) {
+    if (!branchId || branchId === '0') {
+      this.sales = [];
+      return;
+    }
     this.sadminSalesService.getAllSales(branchId)
       .subscribe(
         shops => {
@@ -208,21 +215,12 @@ export class SadminSalesComponent implements OnInit {
               item.date = this.utilityService.getDateTimeFormatted(item.date);
               return item;
             });
-          } else if (!Array.isArray(this.sales) || this.sales.length === 0) {
-            this.sales = this.getMockSales(branchId).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
+          } else {
+            this.sales = [];
           }
-          //console.log('sadmin sales'+ JSON.stringify(this.sales));
         },
         () => {
-          if (!Array.isArray(this.sales) || this.sales.length === 0) {
-            this.sales = this.getMockSales(branchId).map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
-          }
+          this.sales = [];
         },
       );
   }
@@ -230,10 +228,6 @@ export class SadminSalesComponent implements OnInit {
     this.getBranches(event.value);
   }
   changeBranch(event) {
-    this.sales = this.getMockSales(event.value).map(item => {
-      item.date = this.utilityService.getDateTimeFormatted(item.date);
-      return item;
-    });
     this.getAllSales(event.value);
   }
   // showDetails(sale) {

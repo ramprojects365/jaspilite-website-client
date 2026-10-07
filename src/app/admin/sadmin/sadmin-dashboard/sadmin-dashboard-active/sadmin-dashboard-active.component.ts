@@ -41,10 +41,8 @@ export class SadminDashboardActiveComponent implements OnInit {
       { field: 'total', header: 'Total' },
       { field: 'status', header: 'Status' },
     ];
-    this.sales = this.getMockActiveOrders().map(item => {
-      item.date = this.utilityService.getDateTimeFormatted(item.date);
-      return item;
-    });
+    // Live production: Start with clean empty array, load real database orders only
+    this.sales = [];
     setTimeout(
       function () {
         location.reload();
@@ -52,6 +50,9 @@ export class SadminDashboardActiveComponent implements OnInit {
     this.getActiveOrders();
   }
 
+  // Mock active orders disabled for clean production deployment.
+  // Uncomment only if mock offline UI demonstration is needed.
+  /*
   private getMockActiveOrders() {
     const now = Date.now();
     return [
@@ -122,6 +123,7 @@ export class SadminDashboardActiveComponent implements OnInit {
       },
     ];
   }
+  */
 
   getActiveOrders() {
     this.sadminActiveService.getActiveOrders()
@@ -133,16 +135,12 @@ export class SadminDashboardActiveComponent implements OnInit {
               item.date = this.utilityService.getDateTimeFormatted(item.date);
               return item;
             });
+          } else {
+            this.sales = [];
           }
-          //console.log(this.sales);
         },
         () => {
-          if (!Array.isArray(this.sales) || this.sales.length < 5) {
-            this.sales = this.getMockActiveOrders().map(item => {
-              item.date = this.utilityService.getDateTimeFormatted(item.date);
-              return item;
-            });
-          }
+          this.sales = [];
         });
   }
   addStatus(form: NgForm) {

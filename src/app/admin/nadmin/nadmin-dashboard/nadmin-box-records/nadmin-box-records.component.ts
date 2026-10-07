@@ -23,12 +23,12 @@ export class NadminBoxRecordsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userShopCount = 6;
-    this.userBranchCount = 12;
-    this.userOrderCount = 190;
-    this.userActiveOrderCount = 28;
-    this.userReceivedOrderAmount = 240;
-    this.userPendingOrderAmount = 14;
+    this.userShopCount = 0;
+    this.userBranchCount = 0;
+    this.userOrderCount = 0;
+    this.userActiveOrderCount = 0;
+    this.userReceivedOrderAmount = 0;
+    this.userPendingOrderAmount = 0;
     this.getShopCount();
     this.getBranchCount();
     this.getOrderCount();
@@ -40,9 +40,10 @@ export class NadminBoxRecordsComponent implements OnInit {
     this.nadminDashboardService.getShopCount(adminId)
       .subscribe(
         shops => {
-          this.userShopCount = shops.payload.shops_count || this.userShopCount;
+          const count = Number(shops?.payload?.shops_count);
+          this.userShopCount = isNaN(count) ? 0 : count;
         }, () => {
-          this.userShopCount = 6;
+          this.userShopCount = 0;
         });
   }
 
@@ -51,9 +52,10 @@ export class NadminBoxRecordsComponent implements OnInit {
     this.nadminDashboardService.getBranchCount(adminId)
       .subscribe(
         shops => {
-          this.userBranchCount = shops.payload.branch_count || this.userBranchCount;
+          const count = Number(shops?.payload?.branch_count);
+          this.userBranchCount = isNaN(count) ? 0 : count;
         }, () => {
-          this.userBranchCount = 12;
+          this.userBranchCount = 0;
         });
   }
 
@@ -62,11 +64,13 @@ export class NadminBoxRecordsComponent implements OnInit {
     this.nadminDashboardService.getOrderCount(adminId)
       .subscribe(
         shops => {
-          this.userOrderCount = shops.payload.orders_count || this.userOrderCount;
-          this.userActiveOrderCount = shops.payload.active_count || this.userActiveOrderCount;
+          const orders = Number(shops?.payload?.orders_count);
+          const active = Number(shops?.payload?.active_count);
+          this.userOrderCount = isNaN(orders) ? 0 : orders;
+          this.userActiveOrderCount = isNaN(active) ? 0 : active;
         }, () => {
-          this.userOrderCount = 190;
-          this.userActiveOrderCount = 28;
+          this.userOrderCount = 0;
+          this.userActiveOrderCount = 0;
         });
   }
 
@@ -75,11 +79,13 @@ export class NadminBoxRecordsComponent implements OnInit {
     this.nadminDashboardService.getOrderAmounts(adminId)
       .subscribe(
         shops => {
-          this.userReceivedOrderAmount = shops.payload.received_amount || this.userReceivedOrderAmount;
-          this.userPendingOrderAmount = shops.payload.pending_amount || this.userPendingOrderAmount;
+          const received = Number(shops?.payload?.received_amount);
+          const pending = Number(shops?.payload?.pending_amount);
+          this.userReceivedOrderAmount = isNaN(received) ? 0 : received;
+          this.userPendingOrderAmount = isNaN(pending) ? 0 : pending;
         }, () => {
-          this.userReceivedOrderAmount = 240;
-          this.userPendingOrderAmount = 14;
+          this.userReceivedOrderAmount = 0;
+          this.userPendingOrderAmount = 0;
         });
   }
 

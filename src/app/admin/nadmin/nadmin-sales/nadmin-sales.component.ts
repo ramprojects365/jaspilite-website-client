@@ -84,6 +84,8 @@ export class NadminSalesComponent implements OnInit {
         });
   }
 
+  // Mock shops/branches/sales data disabled for clean production deployment.
+  /*
   private getMockShops() {
     return [
       { label: 'Mini Mart', value: '1' },
@@ -178,6 +180,7 @@ export class NadminSalesComponent implements OnInit {
       },
     ];
   }
+  */
 
   getBranches(shopId) {
     if (!shopId) {

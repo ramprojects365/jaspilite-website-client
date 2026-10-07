@@ -9,7 +9,8 @@
       <span class="contact-tag"><i class="fa fa-envelope-o"></i> Support & Queries</span>
       <h1>How Can We Help You Today?</h1>
       <p>
-        Whether you are an eager customer, a prospective merchant partner, or need assistance with an order, our dedicated team in Malaysia is ready to assist.
+        Whether you are an eager customer, a prospective merchant partner, or need assistance with an order, our
+        dedicated team in Malaysia is ready to assist.
       </p>
     </div>
   </div>
@@ -25,10 +26,12 @@
           <div class="channel-info">
             <span class="channel-label">Instant Assistance</span>
             <h3>WhatsApp Support Line</h3>
-            <p>Chat directly with our support reps for live order updates, complaints, or merchant onboarding inquiries.</p>
-            <a href="https://wsap.me/jaspilite" target="_blank" rel="noopener noreferrer" class="channel-action-btn wa-btn">
+            <p>Chat directly with our support reps for live order updates, complaints, or merchant onboarding inquiries.
+            </p>
+            <a href="https://wsap.me/jaspilite" target="_blank" rel="noopener noreferrer"
+              class="channel-action-btn wa-btn">
               <i class="fa fa-whatsapp"></i>
-              <span>Chat on WhatsApp (+60 10 544 9974)</span>
+              <span>Chat on WhatsApp (+60142353806)</span>
             </a>
           </div>
         </div>
@@ -74,7 +77,8 @@
               <label for="contact-name">Full Name <span class="req">*</span></label>
               <div class="input-wrap">
                 <i class="fa fa-user input-icon"></i>
-                <input type="text" id="contact-name" class="styled-input" ngModel name="name" placeholder="Enter your full name" #name="ngModel" required />
+                <input type="text" id="contact-name" class="styled-input" ngModel name="name"
+                  placeholder="Enter your full name" #name="ngModel" required />
               </div>
               <span *ngIf="!name.valid && name.touched" class="field-error">Please enter your name.</span>
             </div>
@@ -84,16 +88,20 @@
                 <label for="contact-phone">Phone / WhatsApp Number <span class="req">*</span></label>
                 <div class="input-wrap">
                   <i class="fa fa-phone input-icon"></i>
-                  <input type="tel" id="contact-phone" class="styled-input" ngModel name="mobilenumber" placeholder="+60 1x xxx xxxx" #mobilenumber="ngModel" required />
+                  <input type="tel" id="contact-phone" class="styled-input" ngModel name="mobilenumber"
+                    placeholder="+60 1x xxx xxxx" #mobilenumber="ngModel" required />
                 </div>
-                <span *ngIf="!mobilenumber.valid && mobilenumber.touched" class="field-error">Phone number is required.</span>
+                <span *ngIf="!mobilenumber.valid && mobilenumber.touched" class="field-error">Phone number is
+                  required.</span>
               </div>
 
               <div class="form-field">
                 <label for="contact-email">Email Address <span class="req">*</span></label>
                 <div class="input-wrap">
                   <i class="fa fa-envelope-o input-icon"></i>
-                  <input type="email" id="contact-email" class="styled-input" ngModel name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="your@email.com" #email="ngModel" required />
+                  <input type="email" id="contact-email" class="styled-input" ngModel name="email"
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="your@email.com" #email="ngModel"
+                    required />
                 </div>
                 <span *ngIf="!email.valid && email.touched" class="field-error">Valid email required.</span>
               </div>
@@ -102,7 +110,8 @@
             <div class="form-field">
               <label for="contact-msg">Message / Details <span class="req">*</span></label>
               <div class="input-wrap textarea-wrap">
-                <textarea id="contact-msg" class="styled-textarea" rows="4" ngModel name="message" placeholder="Please describe how we can assist you..." #message="ngModel" required></textarea>
+                <textarea id="contact-msg" class="styled-textarea" rows="4" ngModel name="message"
+                  placeholder="Please describe how we can assist you..." #message="ngModel" required></textarea>
               </div>
               <span *ngIf="!message.valid && message.touched" class="field-error">Message cannot be empty.</span>
             </div>
