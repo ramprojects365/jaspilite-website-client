@@ -368,4 +368,11 @@ export class SadminProductsComponent implements OnInit {
       );
   }
 
+  onImageError(event: any) {
+    if (event && event.target) {
+      event.target.src = 'assets/img/common/minimart-logo.png';
+    }
+  }
+
 }
+

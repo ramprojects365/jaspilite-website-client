@@ -23,6 +23,18 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 
+    # Proxy public backend uploads/assets
+    location /public/ {
+        proxy_pass ${BACKEND_URL}/public/;
+        proxy_http_version 1.1;
+        proxy_ssl_server_name on;
+        proxy_set_header Host $proxy_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+
     # Static assets caching
     location ~* \.(?:ico|css|js|gif|jpe?g|png|woff2?|eot|ttf|svg|otf)$ {
         expires 6M;
