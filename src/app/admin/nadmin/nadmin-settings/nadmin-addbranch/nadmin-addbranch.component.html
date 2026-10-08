@@ -35,10 +35,10 @@
                       <label><b>Shop Name</b></label>
                       <p-dropdown
                         [options]="userShops"
-                        selected
                         [style]="{ width: '100%' }"
                         name="userShop"
                         [(ngModel)]="userShop"
+                        placeholder="Select Shop"
                         required
                       >
                       </p-dropdown>
@@ -47,10 +47,10 @@
                       <label><b>Shop Category</b></label>
                       <p-dropdown
                         [options]="shopCategories"
-                        selected
                         [style]="{ width: '100%' }"
                         name="shopCategory"
                         [(ngModel)]="shopCategory"
+                        placeholder="Select Shop Category"
                         required
                       >
                       </p-dropdown>

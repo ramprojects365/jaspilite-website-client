@@ -22,16 +22,19 @@
                                         <div class="col-sm-6 b-r">
                                             <div class="form-group">
                                                 <label><b>Shop Name</b></label>
-                                                <p-dropdown disabled [options]="userShops" selected
+                                                <p-dropdown disabled [options]="userShops"
                                                     [style]="{'width':'100%'}" name="userShop" [(ngModel)]="userShop"
+                                                    placeholder="Select Shop"
                                                     required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="form-group">
                                                 <label><b>Shop Category</b></label>
-                                                <p-dropdown [options]="shopCategories" selected
+                                                <p-dropdown [options]="shopCategories"
                                                     [style]="{'width':'100%'}" name="shopCategory"
-                                                    [(ngModel)]="shopCategory" required>
+                                                    [(ngModel)]="shopCategory"
+                                                    placeholder="Select Shop Category"
+                                                    required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="form-group">

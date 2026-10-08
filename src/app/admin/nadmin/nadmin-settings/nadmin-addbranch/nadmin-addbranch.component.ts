@@ -25,10 +25,10 @@ export class NadminAddbranchComponent implements OnInit {
   private geoCoder;
   // private theme: any;
 
-  userShops = [];
-  //shopCategories = [];
-  userShop: string;
-  shopCategory: string;
+  userShops: any[] = [];
+  shopCategories: any[] = [];
+  userShop: string = null;
+  shopCategory: string = null;
   currencies = [];
   countryCodes = [];
   currency: string;
@@ -82,7 +82,7 @@ export class NadminAddbranchComponent implements OnInit {
       // MouseEvent code
       this.initGoogleServices();
       this.getShops();
-      this.shopCategories();
+      this.getShopCategories();
     }
 
   }
@@ -90,27 +90,48 @@ export class NadminAddbranchComponent implements OnInit {
     console.log(event.value);
   }
   getShops() {
-    const adminId = this.adminLoginService.adminUser.getValue().adminId;
+    const adminUser = this.adminLoginService.adminUser.getValue();
+    const adminId = adminUser ? adminUser.adminId : null;
     this.nadminSettingsService.getAllUsersShops(adminId)
       .subscribe(
         shops => {
-          this.userShops = shops.payload.shops.map(item => {
+          const list = shops?.payload?.shops || [];
+          this.userShops = list.map(item => {
             return { label: item.shop_name, value: item.shop_id };
           });
-          this.userShop = this.userShops[0].value;
-          // console.log(this.userShops);
-        });
+          if (this.userShops.length > 0) {
+            this.userShop = this.userShops[0].value;
+          } else {
+            this.userShop = null;
+          }
+        },
+        err => {
+          console.error('Error fetching shops:', err);
+          this.userShops = [];
+          this.userShop = null;
+        }
+      );
   }
-  shopCategories(){
+  getShopCategories() {
     this.nadminSettingsService.getShopCategories()
-    .subscribe(
-      categories => {
-        this.shopCategories = categories.payload.categories.map(item => {
-          return { label: item.category_name, value: item.category_id };
-        });
-        this.shopCategory = this.shopCategories[0].value;
-        //console.log(JSON.stringify(categories.payload));
-      });
+      .subscribe(
+        categories => {
+          const list = categories?.payload?.categories || [];
+          this.shopCategories = list.map(item => {
+            return { label: item.category_name, value: item.category_id };
+          });
+          if (this.shopCategories.length > 0) {
+            this.shopCategory = this.shopCategories[0].value;
+          } else {
+            this.shopCategory = null;
+          }
+        },
+        err => {
+          console.error('Error fetching shop categories:', err);
+          this.shopCategories = [];
+          this.shopCategory = null;
+        }
+      );
   }
   initGoogleServices() {
     this.zoom = 15;

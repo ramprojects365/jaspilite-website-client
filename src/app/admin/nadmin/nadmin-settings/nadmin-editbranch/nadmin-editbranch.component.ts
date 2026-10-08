@@ -21,7 +21,8 @@ export class NadminEditbranchComponent implements OnInit {
   public zoom: number;
   private geoCoder;
 
-  userShops = [];
+  userShops: any[] = [];
+  shopCategories: any[] = [];
   userShop: string;
   shopCategory: string;
   currencies = [];
@@ -77,31 +78,46 @@ export class NadminEditbranchComponent implements OnInit {
       // MouseEvent code
       this.getBranchDetails();
       this.getShops();
-      this.shopCategories();
+      this.getShopCategories();
     }
   }
   getShops() {
-    const adminId = this.adminLoginService.adminUser.getValue().adminId;
+    const adminUser = this.adminLoginService.adminUser.getValue();
+    const adminId = adminUser ? adminUser.adminId : null;
     this.nadminSettingsService.getAllUsersShops(adminId)
       .subscribe(
         shops => {
-          this.userShops = shops.payload.shops.map(item => {
+          const list = shops?.payload?.shops || [];
+          this.userShops = list.map(item => {
             return { label: item.shop_name, value: item.shop_id };
           });
-          // this.userShop = this.userShops[0].value;
-          // console.log(this.userShops);
-        });
+          if (!this.userShop && this.userShops.length > 0) {
+            this.userShop = this.userShops[0].value;
+          }
+        },
+        err => {
+          console.error('Error fetching shops:', err);
+          this.userShops = [];
+        }
+      );
   }
-  shopCategories() {
+  getShopCategories() {
     this.nadminSettingsService.getShopCategories()
       .subscribe(
         categories => {
-          this.shopCategories = categories.payload.categories.map(item => {
+          const list = categories?.payload?.categories || [];
+          this.shopCategories = list.map(item => {
             return { label: item.category_name, value: item.category_id };
           });
-          //this.shopCategory = this.shopCategories[0].value;
-          //console.log(JSON.stringify(categories.payload));
-        });
+          if (!this.shopCategory && this.shopCategories.length > 0) {
+            this.shopCategory = this.shopCategories[0].value;
+          }
+        },
+        err => {
+          console.error('Error fetching shop categories:', err);
+          this.shopCategories = [];
+        }
+      );
   }
   getBranchDetails() {
     this.nadminSettingsService.getBranchDetails(this.branchId)
