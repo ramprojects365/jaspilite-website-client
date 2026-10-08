@@ -68,10 +68,7 @@ export class NadminEditbranchComponent implements OnInit {
     this.branchDetails = {};
     this.uploadedImage = '';
     this.currencies = [
-      { label: 'BND', value: 'BND' },
-      { label: 'INR', value: 'INR' },
-      { label: 'RM', value: 'RM' },
-      { label: 'USD', value: 'USD' },
+      { label: 'MYR (Malaysian Ringgit)', value: 'MYR' },
     ];
     this.branchId = this.route.snapshot.paramMap.get('branch');
     if (isPlatformBrowser(this.platformId)) {
@@ -105,7 +102,17 @@ export class NadminEditbranchComponent implements OnInit {
     this.nadminSettingsService.getShopCategories()
       .subscribe(
         categories => {
-          const list = categories?.payload?.categories || [];
+          let list = categories?.payload?.categories || [];
+          if (list.length === 0) {
+            list = [
+              { category_id: 1, category_name: 'Groceries' },
+              { category_id: 2, category_name: 'Restaurants' },
+              { category_id: 3, category_name: 'Beauty' },
+              { category_id: 4, category_name: 'Electronics' },
+              { category_id: 5, category_name: 'Charity' },
+              { category_id: 6, category_name: 'Jewellery' }
+            ];
+          }
           this.shopCategories = list.map(item => {
             return { label: item.category_name, value: item.category_id };
           });
@@ -115,7 +122,14 @@ export class NadminEditbranchComponent implements OnInit {
         },
         err => {
           console.error('Error fetching shop categories:', err);
-          this.shopCategories = [];
+          this.shopCategories = [
+            { label: 'Groceries', value: 1 },
+            { label: 'Restaurants', value: 2 },
+            { label: 'Beauty', value: 3 },
+            { label: 'Electronics', value: 4 },
+            { label: 'Charity', value: 5 },
+            { label: 'Jewellery', value: 6 }
+          ];
         }
       );
   }
@@ -127,7 +141,7 @@ export class NadminEditbranchComponent implements OnInit {
           //console.log('branch details -------'+JSON.stringify(this.branchDetails));
           this.userShop = this.branchDetails.shop_id;
           this.shopCategory = this.branchDetails.branch_cat_id;
-          this.selectedCurrency = this.branchDetails.currency;
+          this.selectedCurrency = this.branchDetails.currency === 'RM' ? 'MYR' : (this.branchDetails.currency || 'MYR');
           this.opening_time = new Date('01-01-2019 ' + this.branchDetails.open_time);
           this.closing_time = new Date('01-01-2019 ' + this.branchDetails.close_time);
           this.theme = { themes: this.branchDetails.home_screen_theme.toString() };
