@@ -71,15 +71,16 @@
                                 <div class="form-group">
                                     <label>Change Image</label><br>
                                     <input
+                                        #padminEditFileInput
                                         id="padminEditProductFileInput"
                                         type="file"
                                         accept="image/*"
                                         (change)="onFileSelected($event, editFileUpload)"
                                         class="custom-file-input-hidden"
                                     >
-                                    <label for="padminEditProductFileInput" class="custom-choose-btn">
+                                    <button type="button" class="custom-choose-btn" (click)="triggerFileInput(padminEditFileInput, 'padminEditProductFileInput')">
                                         <i class="fa fa-folder-open"></i> Choose Image
-                                    </label>
+                                    </button>
                                     <p-fileUpload #editFileUpload mode="basic" name="file[]" customUpload="true"
                                         (uploadHandler)="uploadImage($event, editFileUpload)" accept="image/*" [auto]="true"
                                         maxFileSize="5000000" style="display: none;">
@@ -173,15 +174,16 @@
                                 <div class="form-group">
                                     <label>Upload (400 X 400 size)</label><br>
                                     <input
+                                        #padminAddFileInput
                                         id="padminAddProductFileInput"
                                         type="file"
                                         accept="image/*"
                                         (change)="onFileSelected($event, addFileUpload)"
                                         class="custom-file-input-hidden"
                                     >
-                                    <label for="padminAddProductFileInput" class="custom-choose-btn">
+                                    <button type="button" class="custom-choose-btn" (click)="triggerFileInput(padminAddFileInput, 'padminAddProductFileInput')">
                                         <i class="fa fa-folder-open"></i> Choose Image
-                                    </label>
+                                    </button>
                                     <p-fileUpload #addFileUpload mode="basic" name="file[]" customUpload="true"
                                         (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*" [auto]="true"
                                         maxFileSize="5000000" style="display: none;">

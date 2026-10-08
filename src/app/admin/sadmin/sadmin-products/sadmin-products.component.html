@@ -71,15 +71,16 @@
                                     <div class="form-group">
                                         <label>Change Image</label><br>
                                         <input
+                                            #sadminEditFileInput
                                             id="sadminEditProductFileInput"
                                             type="file"
                                             accept="image/*"
                                             (change)="onFileSelected($event, editFileUpload)"
                                             class="custom-file-input-hidden"
                                         >
-                                        <label for="sadminEditProductFileInput" class="custom-choose-btn">
+                                        <button type="button" class="custom-choose-btn" (click)="triggerFileInput(sadminEditFileInput, 'sadminEditProductFileInput')">
                                             <i class="fa fa-folder-open"></i> Choose Image
-                                        </label>
+                                        </button>
                                         <p-fileUpload #editFileUpload mode="basic" name="file[]" customUpload="true"
                                             (uploadHandler)="uploadImage($event, editFileUpload)" accept="image/*" [auto]="true"
                                             maxFileSize="5000000" style="display: none;">
@@ -173,15 +174,16 @@
                                     <div class="form-group">
                                         <label>Upload (400 X 400 size)</label><br>
                                         <input
+                                            #sadminAddFileInput
                                             id="sadminAddProductFileInput"
                                             type="file"
                                             accept="image/*"
                                             (change)="onFileSelected($event, addFileUpload)"
                                             class="custom-file-input-hidden"
                                         >
-                                        <label for="sadminAddProductFileInput" class="custom-choose-btn">
+                                        <button type="button" class="custom-choose-btn" (click)="triggerFileInput(sadminAddFileInput, 'sadminAddProductFileInput')">
                                             <i class="fa fa-folder-open"></i> Choose Image
-                                        </label>
+                                        </button>
                                         <p-fileUpload #addFileUpload mode="basic" name="file[]" customUpload="true"
                                             (uploadHandler)="uploadImage($event, addFileUpload)" accept="image/*" [auto]="true"
                                             maxFileSize="5000000" style="display: none;">

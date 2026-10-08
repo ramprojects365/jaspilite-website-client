@@ -178,6 +178,17 @@ export class PadminProductsComponent implements OnInit {
     this.showEditorDialog();
   }
 
+  triggerFileInput(fileInput?: HTMLInputElement, id?: string) {
+    if (fileInput) {
+      fileInput.click();
+    } else if (id) {
+      const el = document.getElementById(id) as HTMLInputElement;
+      if (el) {
+        el.click();
+      }
+    }
+  }
+
   onFileSelected(event: any, fileUpload?: any) {
     const input = event.target as HTMLInputElement;
     if (input && input.files && input.files.length > 0) {

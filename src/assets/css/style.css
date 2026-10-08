@@ -15,10 +15,6 @@
 body {
   font-size: 13px !important;
 }
-body .ui-dropdown {
-  border: 1px solid #e5e6e7 !important;
-  min-width: 1.5em !important;
-}
 .welcom-textarea {
   border: 1px solid #e5e6e7 !important;
   padding-left: 10px;
@@ -139,16 +135,6 @@ body .ui-dropdown {
 .table-search:focus {
   outline: none;
 }
-.container ::ng-deep p-calendar .ui-datepicker table td {
-  padding: 1px !important;
-}
-.container ::ng-deep p-calendar .ui-datepicker .ui-timepicker {
-  padding: 2px 0 0 0 !important;
-}
-.ui-datepicker table td {
-  padding: 0.1em !important;
-  font-size: 9px !important;
-}
 .themeColorGreen {
   color: #28a745;
 }
@@ -181,17 +167,6 @@ body .ui-dropdown {
 .ui-widget {
   box-sizing: border-box;
   /* overflow-x: auto; */
-}
-.ui-dropdown-panel,
-.p-dropdown-panel,
-.p-multiselect-panel {
-  position: absolute !important;
-  background: #ffffff !important;
-  border: 1px solid #d1d5db !important;
-  border-radius: 6px !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18) !important;
-  z-index: 11000 !important;
-  height: auto;
 }
 .showHand {
   cursor: pointer;
