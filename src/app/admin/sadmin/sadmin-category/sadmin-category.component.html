@@ -2,123 +2,168 @@
     <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 
-<p-dialog appendTo="body" header="Edit Categories" [(visible)]="displayCategoryAdder" [modal]="true" [responsive]="true"
-    [style]="{width: '650px', minWidth: '200px'}" [minY]="70" [closable]="false" [maximizable]="true"
+<!-- Add Category Dialog -->
+<p-dialog appendTo="body" header="Add New Category" [(visible)]="displayCategoryAdder" [modal]="true" [responsive]="true"
+    [style]="{width: '540px', minWidth: '280px'}" [minY]="70" [closable]="false" [maximizable]="false"
     [baseZIndex]="10000">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox animated fadeInRight">
-                <form role="form" (ngSubmit)="addNewCategory(faddcat)" #faddcat="ngForm">
-                    <div class="ibox-content">
-                        <div class="row">
-                            <div class="col-sm-6 b-r">
-                                <div class="form-group">
-                                    <label>Category Name</label>
-                                    <input pInputText type="text" placeholder="Enter category name" class="form-control"
-                                        ngModel name="name" #name="ngModel" required>
-                                    <span *ngIf="!name.valid && name.touched" style="color:#ffa500">Please enter full
-                                        name.</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div style="color:silver; margin:1em;">
-                                    Please check if the category you are trying to enter already exists or not.
-                                    Categories
-                                    once
-                                    entered cannot be deleted.
-                                </div>
-                                <div class="form-group">
-                                    <button pButton type="submit" [disabled]="!faddcat.valid" label="Add Category"
-                                        class="float-right ui-button-raised"></button>
-                                    <button (click)="cancelCategoryAdder(faddcat)" pButton type="button" label="Cancel"
-                                        class="float-right ui-button-raised cancelBtn"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+    <div class="cat-modal-body">
+        <form role="form" (ngSubmit)="addNewCategory(faddcat)" #faddcat="ngForm">
+            <div class="cat-modal-intro">
+                <div class="cat-modal-icon-badge">
+                    <i class="fa fa-tags"></i>
+                </div>
+                <div>
+                    <h4 class="cat-modal-title">New Store Category</h4>
+                    <p class="cat-modal-sub">Create a category to organize merchant items and app browsing</p>
+                </div>
             </div>
-        </div>
 
+            <div class="cat-form-group">
+                <label class="cat-field-label">Category Name <span class="required-star">*</span></label>
+                <div class="cat-input-wrap">
+                    <i class="fa fa-folder-open cat-input-icon"></i>
+                    <input pInputText type="text" placeholder="e.g. Fresh Produce, Dairy, Bakery" class="cat-text-input"
+                        ngModel name="name" #name="ngModel" required>
+                </div>
+                <span *ngIf="!name.valid && name.touched" class="cat-field-err">
+                    <i class="fa fa-exclamation-circle"></i> Please enter category name.
+                </span>
+            </div>
+
+            <div class="cat-info-banner">
+                <i class="fa fa-info-circle cat-info-icon"></i>
+                <div class="cat-info-text">
+                    <strong>Catalog Classification</strong>
+                    <span>New categories immediately become available when merchants register branches and add catalog products.</span>
+                </div>
+            </div>
+
+            <div class="cat-modal-actions">
+                <button (click)="cancelCategoryAdder(faddcat)" pButton type="button" label="Cancel"
+                    class="cat-btn-cancel"></button>
+                <button pButton type="submit" [disabled]="!faddcat.valid" label="Create Category"
+                    class="cat-btn-submit ui-button-raised"></button>
+            </div>
+        </form>
     </div>
 </p-dialog>
 
+<!-- Main Categories Card -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="ibox animated fadeInRight">
-            <div class="ibox-title">
-                <h5>Existing Categories</h5>
-                <button (click)="showdisplayCategoryAdder()" style="margin-top: -0.6em;" pButton type="submit"
-                    label="Add Category" class="float-right ui-button-raised"></button>
+        <div class="ibox animated fadeInRight cat-card">
+            <div class="ibox-title cat-ibox-header">
+                <div class="cat-title-block">
+                    <div class="cat-title-icon">
+                        <i class="fa fa-th-large"></i>
+                    </div>
+                    <div>
+                        <h4 class="cat-heading">Shop & Product Categories</h4>
+                        <span class="cat-subheading">Manage catalog categories, classification tags, and store filters</span>
+                    </div>
+                </div>
+                <div class="cat-header-actions">
+                    <span class="cat-total-pill">
+                        <i class="fa fa-folder"></i> {{ categories?.length || 0 }} Categories
+                    </span>
+                    <button (click)="showdisplayCategoryAdder()" pButton type="button"
+                        label="Add Category" class="ui-button-raised cat-add-btn"></button>
+                </div>
             </div>
-            <div class="ibox-content">
+            <div class="ibox-content cat-ibox-content">
                 <p-table #dt [columns]="cols" [value]="categories" dataKey="category_id" editMode="row"
-                    [paginator]="true" [rows]="10" [resizableColumns]="true" [responsive]="true">
+                    [paginator]="true" [rows]="15" [rowsPerPageOptions]="[10, 15, 25, 50]" [resizableColumns]="true" [responsive]="true">
                     <ng-template pTemplate="caption">
                         <div class="admin-table-search-row">
-                            <div class="admin-table-search-actions"></div>
+                            <div class="admin-table-search-actions">
+                                <span class="cat-filter-hint">
+                                    <i class="fa fa-filter"></i> Catalog Taxonomy
+                                </span>
+                            </div>
                             <div class="admin-table-search-wrapper">
                                 <i class="fa fa-search search-icon"></i>
-                                <input type="text" pInputText placeholder="Search categories..."
+                                <input type="text" pInputText placeholder="Search categories by name or tag..."
                                     (input)="dt.filterGlobal($event.target.value, 'contains')" class="table-search">
                             </div>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="width:4em">#</th>
-                            <th [pSortableColumn]="'category_name'">Name
-                                <p-sortIcon [field]="'category_name'" ariaLabel="Activate to sort"
-                                    ariaLabelDesc="Activate to sort in descending order"
-                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            <th style="width: 4.5em; text-align: center;">#</th>
+                            <th style="width: 8em; text-align: center;" [pSortableColumn]="'category_id'">ID
+                                <p-sortIcon [field]="'category_id'" ariaLabel="Sort by ID"></p-sortIcon>
                             </th>
-                            <th [pSortableColumn]="'category_icon'">Icon
-                                <p-sortIcon [field]="'category_icon'" ariaLabel="Activate to sort"
-                                    ariaLabelDesc="Activate to sort in descending order"
-                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            <th [pSortableColumn]="'category_name'">Category Name
+                                <p-sortIcon [field]="'category_name'" ariaLabel="Sort by Name"></p-sortIcon>
                             </th>
-                            <th style="width:8em"></th>
+                            <th style="width: 14em;" [pSortableColumn]="'category_icon'">Icon / Tag
+                                <p-sortIcon [field]="'category_icon'" ariaLabel="Sort by Icon"></p-sortIcon>
+                            </th>
+                            <th style="width: 9em; text-align: center;">Actions</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
-                        <tr [pEditableRow]="rowData">
-                            <td>
-                                {{ri + 1}}
+                        <tr [pEditableRow]="rowData" class="cat-table-row">
+                            <td style="text-align: center;">
+                                <span class="cat-index-badge">{{ ri + 1 }}</span>
+                            </td>
+                            <td style="text-align: center;">
+                                <span class="cat-id-badge">#{{ rowData.category_id }}</span>
                             </td>
                             <td>
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="text" [(ngModel)]="rowData.category_name" required>
+                                        <div class="cat-inline-edit-wrap">
+                                            <input pInputText type="text" [(ngModel)]="rowData.category_name" class="cat-inline-input" required>
+                                        </div>
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{rowData.category_name}}
+                                        <div class="cat-name-cell">
+                                            <div class="cat-cell-avatar">
+                                                <i class="fa fa-tag"></i>
+                                            </div>
+                                            <span class="cat-cell-label">{{ rowData.category_name }}</span>
+                                        </div>
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td>
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="text" [(ngModel)]="rowData.category_icon" required>
+                                        <input pInputText type="text" [(ngModel)]="rowData.category_icon" class="cat-inline-input" placeholder="Tag / icon">
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{rowData.category_icon}}
+                                        <span class="cat-tag-chip">
+                                            <i class="fa fa-bookmark-o"></i> {{ rowData.category_icon || 'Default' }}
+                                        </span>
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
 
-                            <td style="text-align:center">
-                                <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
-                                    class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
-                                <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
-                                    class="ui-button-success" style="margin-right: .5em"
-                                    (click)="onRowEditSave(rowData)"></button>
-                                <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
-                                    class="cancelBtn" (click)="onRowEditCancel(rowData, ri)"></button>                          
+                            <td style="text-align: center;">
+                                <div class="cat-action-group">
+                                    <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                                        class="ui-button-info cat-action-btn" (click)="onRowEditInit(rowData)" title="Edit category"></button>
+                                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
+                                        class="ui-button-success cat-action-btn cat-btn-save" (click)="onRowEditSave(rowData)" title="Save changes"></button>
+                                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
+                                        class="cat-action-btn cat-btn-cancel-edit" (click)="onRowEditCancel(rowData, ri)" title="Cancel edit"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 3rem 1rem; color: #64748b;">
+                                <i class="fa fa-tags" style="font-size: 2.5rem; margin-bottom: 0.75rem; display: block; opacity: 0.35;"></i>
+                                <span style="font-weight: 600; font-size: 1.05rem; color: #334155;">No categories found</span>
+                                <div style="font-size: 0.85rem; margin-top: 0.3rem; color: #94a3b8;">
+                                    Try adjusting your search query or click "Add Category" to create a new one.
+                                </div>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
-
             </div>
         </div>
     </div>

@@ -34,6 +34,7 @@ export class SadminCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
+      { field: 'category_id', header: 'ID' },
       { field: 'category_name', header: 'Name' },
       { field: 'category_icon', header: 'Icon' },
     ];

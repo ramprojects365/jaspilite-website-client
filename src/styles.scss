@@ -1128,3 +1128,440 @@ h1, h2, h3, h4, h5, h6, .brand-font {
     pointer-events: none !important;
   }
 }
+
+/* ==========================================================================
+   Modern Dropdown Design System (PrimeNG p-dropdown / ui-dropdown)
+   ========================================================================== */
+
+.ui-dropdown,
+.p-dropdown {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 9px !important;
+  min-height: 40px !important;
+  height: 40px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  position: relative !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  outline: none !important;
+}
+
+.ui-dropdown:hover,
+.p-dropdown:hover {
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+}
+
+.ui-dropdown.ui-state-focus,
+.p-dropdown.p-focus,
+.ui-dropdown:focus-within,
+.p-dropdown:focus-within {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  outline: none !important;
+}
+
+.ui-dropdown .ui-dropdown-label,
+.p-dropdown .p-dropdown-label {
+  padding: 8px 14px !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #1e293b !important;
+  line-height: 22px !important;
+  background: transparent !important;
+  border: none !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex: 1 1 auto;
+}
+
+.ui-dropdown .ui-dropdown-label.ui-placeholder,
+.p-dropdown .p-dropdown-label.p-placeholder {
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
+}
+
+.ui-dropdown .ui-dropdown-trigger,
+.p-dropdown .p-dropdown-trigger {
+  width: 36px !important;
+  height: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  color: #64748b !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+.ui-dropdown .ui-dropdown-trigger .ui-dropdown-trigger-icon,
+.p-dropdown .p-dropdown-trigger .p-dropdown-trigger-icon {
+  font-size: 11px !important;
+  color: #64748b !important;
+  transition: transform 0.2s ease !important;
+}
+
+.ui-dropdown.ui-dropdown-open .ui-dropdown-trigger-icon,
+.p-dropdown.p-dropdown-open .p-dropdown-trigger-icon {
+  transform: rotate(180deg) !important;
+  color: #10b981 !important;
+}
+
+/* Dropdown Overlay Panel */
+.ui-dropdown-panel,
+.p-dropdown-panel {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.14), 0 6px 14px -4px rgba(0, 0, 0, 0.06) !important;
+  margin-top: 6px !important;
+  z-index: 10005 !important;
+  overflow: hidden !important;
+  animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ui-dropdown-filter-container,
+.p-dropdown-filter-container {
+  padding: 10px 12px !important;
+  background: #f8fafc !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  position: relative !important;
+}
+
+.ui-dropdown-filter,
+.p-dropdown-filter {
+  width: 100% !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  padding: 6px 12px 6px 30px !important;
+  font-size: 13px !important;
+  color: #1e293b !important;
+  background: #ffffff !important;
+  outline: none !important;
+
+  &:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.18) !important;
+  }
+}
+
+.ui-dropdown-filter-icon,
+.p-dropdown-filter-icon {
+  position: absolute !important;
+  left: 20px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+}
+
+.ui-dropdown-items-wrapper,
+.p-dropdown-items-wrapper {
+  max-height: 240px !important;
+  padding: 6px !important;
+  overflow-y: auto !important;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+}
+
+.ui-dropdown-items,
+.p-dropdown-items {
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+
+.ui-dropdown-item,
+.p-dropdown-item {
+  padding: 9px 14px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #334155 !important;
+  border-radius: 8px !important;
+  margin-bottom: 2px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.ui-dropdown-item:hover,
+.p-dropdown-item:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.ui-dropdown-item.ui-state-highlight,
+.p-dropdown-item.p-highlight {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  color: #065f46 !important;
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   Modern Date Picker & Calendar System (PrimeNG p-calendar / ui-calendar)
+   ========================================================================== */
+
+.ui-calendar,
+.p-calendar {
+  display: inline-flex !important;
+  align-items: stretch !important;
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 9px !important;
+}
+
+.ui-calendar .ui-inputtext,
+.p-calendar .p-inputtext {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 9px !important;
+  padding: 8px 14px !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #1e293b !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  width: 100% !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  box-sizing: border-box !important;
+
+  &:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18) !important;
+    outline: none !important;
+  }
+}
+
+/* When calendar has an icon trigger button attached */
+.ui-calendar.ui-calendar-w-btn .ui-inputtext,
+.p-calendar.p-calendar-w-btn .p-inputtext {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: none !important;
+}
+
+.ui-calendar .ui-datepicker-trigger,
+.ui-calendar .ui-calendar-button,
+.p-calendar .p-datepicker-trigger {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: 1.5px solid #10b981 !important;
+  color: #ffffff !important;
+  border-top-right-radius: 9px !important;
+  border-bottom-right-radius: 9px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  width: 42px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.25) !important;
+
+  &:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    border-color: #059669 !important;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35) !important;
+  }
+
+  .pi,
+  .fa {
+    font-size: 13px !important;
+    color: #ffffff !important;
+  }
+}
+
+/* Datepicker Popup Overlay */
+.ui-datepicker,
+.p-datepicker {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.14), 0 8px 16px -4px rgba(0, 0, 0, 0.06) !important;
+  padding: 14px 16px !important;
+  margin-top: 6px !important;
+  z-index: 10010 !important;
+  min-width: 290px !important;
+  animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.ui-datepicker-header,
+.p-datepicker-header {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding: 2px 4px 12px 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+  position: relative !important;
+}
+
+.ui-datepicker-title,
+.p-datepicker-title {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  flex: 1 1 auto;
+}
+
+/* Month and Year Select Navigators */
+.ui-datepicker-title select,
+.p-datepicker-title select {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 7px !important;
+  padding: 4px 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  cursor: pointer !important;
+  outline: none !important;
+  margin: 0 3px !important;
+  transition: all 0.15s ease !important;
+
+  &:hover {
+    border-color: #cbd5e1 !important;
+    background: #ffffff !important;
+  }
+
+  &:focus {
+    border-color: #10b981 !important;
+  }
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next,
+.p-datepicker-prev,
+.p-datepicker-next {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
+  color: #475569 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  top: auto !important;
+  position: static !important;
+
+  &:hover {
+    background: #f1f5f9 !important;
+    color: #10b981 !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  .pi {
+    font-size: 11px !important;
+  }
+}
+
+/* Calendar Day Grid */
+.ui-datepicker-calendar,
+.p-datepicker-calendar {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 2px !important;
+  margin: 0 !important;
+}
+
+.ui-datepicker-calendar th,
+.p-datepicker-calendar th {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #94a3b8 !important;
+  text-transform: uppercase !important;
+  padding: 6px 0 !important;
+  text-align: center !important;
+  border: none !important;
+}
+
+.ui-datepicker-calendar td,
+.p-datepicker-calendar td {
+  padding: 1px !important;
+  border: none !important;
+  text-align: center !important;
+}
+
+.ui-datepicker-calendar td a,
+.ui-datepicker-calendar td span,
+.p-datepicker-calendar td a,
+.p-datepicker-calendar td span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #334155 !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+  border: none !important;
+  margin: 0 auto;
+}
+
+.ui-datepicker-calendar td a:hover,
+.p-datepicker-calendar td a:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Selected Date in Calendar */
+.ui-datepicker-calendar td a.ui-state-active,
+.p-datepicker-calendar td a.p-highlight,
+.ui-datepicker-calendar td.ui-datepicker-current-day a {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35) !important;
+}
+
+/* Today's Date */
+.ui-datepicker-calendar td.ui-datepicker-today a,
+.p-datepicker-calendar td.p-datepicker-today a {
+  border: 1.5px solid #10b981 !important;
+  color: #059669 !important;
+  font-weight: 700 !important;
+}
+
