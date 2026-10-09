@@ -1435,6 +1435,7 @@ body .ui-datepicker {
   z-index: 12000 !important;
   min-width: 320px !important;
   box-sizing: border-box !important;
+  pointer-events: auto !important;
   animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
@@ -1631,6 +1632,7 @@ body .p-datepicker-day,
   border: 1.5px solid transparent !important;
   margin: 0 auto !important;
   cursor: pointer !important;
+  pointer-events: auto !important;
   background: transparent !important;
 
   &:hover {
@@ -1709,6 +1711,114 @@ body .p-datepicker-year-selected {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
   color: #ffffff !important;
   font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   Modern Time Picker UI / UX (PrimeNG 18 & Legacy)
+   ========================================================================== */
+
+.p-datepicker-timeonly,
+.p-datepicker-panel.p-datepicker-timeonly,
+body .p-datepicker-panel.p-datepicker-timeonly,
+body .p-datepicker-timeonly {
+  min-width: 220px !important;
+  width: auto !important;
+  max-width: 260px !important;
+  padding: 16px 18px !important;
+  border-radius: 14px !important;
+}
+
+.p-datepicker-time-picker,
+.p-timepicker,
+body .p-datepicker-time-picker,
+body .p-timepicker {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 8px 4px !important;
+
+  .p-datepicker-hour-picker,
+  .p-datepicker-minute-picker,
+  .p-datepicker-second-picker,
+  .p-hour-picker,
+  .p-minute-picker,
+  .p-second-picker,
+  & > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+
+    span {
+      font-size: 1.6rem !important;
+      font-weight: 700 !important;
+      color: #0f172a !important;
+      min-width: 44px !important;
+      text-align: center !important;
+      padding: 4px 6px !important;
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 8px !important;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+      user-select: none !important;
+      line-height: 1.2 !important;
+    }
+
+    button,
+    .p-datepicker-increment-button,
+    .p-datepicker-decrement-button,
+    .p-link {
+      width: 40px !important;
+      height: 32px !important;
+      border-radius: 8px !important;
+      border: 1px solid #e2e8f0 !important;
+      background: #ffffff !important;
+      color: #334155 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      transition: all 0.15s ease !important;
+      padding: 0 !important;
+      outline: none !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+
+      &:hover {
+        background: #1ab394 !important;
+        border-color: #1ab394 !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 10px rgba(26, 179, 148, 0.25) !important;
+        transform: translateY(-1px) !important;
+      }
+
+      &:active {
+        transform: translateY(0) !important;
+      }
+
+      svg, i, .p-icon, .pi, .fa {
+        width: 13px !important;
+        height: 13px !important;
+        font-size: 13px !important;
+        fill: currentColor !important;
+        stroke: currentColor !important;
+      }
+    }
+  }
+
+  .p-datepicker-separator,
+  .p-separator {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: #94a3b8 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    user-select: none !important;
+    margin-bottom: 2px !important;
+    padding: 0 2px !important;
+  }
 }
 
 /* ==========================================================================

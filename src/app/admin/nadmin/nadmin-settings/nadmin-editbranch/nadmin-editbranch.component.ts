@@ -142,8 +142,8 @@ export class NadminEditbranchComponent implements OnInit {
           this.userShop = this.branchDetails.shop_id;
           this.shopCategory = this.branchDetails.branch_cat_id;
           this.selectedCurrency = this.branchDetails.currency === 'RM' ? 'MYR' : (this.branchDetails.currency || 'MYR');
-          this.opening_time = new Date('01-01-2019 ' + this.branchDetails.open_time);
-          this.closing_time = new Date('01-01-2019 ' + this.branchDetails.close_time);
+          this.opening_time = this.parseTimeToDate(this.branchDetails.open_time);
+          this.closing_time = this.parseTimeToDate(this.branchDetails.close_time);
           this.theme = { themes: this.branchDetails.home_screen_theme.toString() };
           this.isPosEnabled = this.branchDetails.isPosEnabled;
           this.track_stock = this.branchDetails.track_stock;
@@ -152,6 +152,22 @@ export class NadminEditbranchComponent implements OnInit {
           this.longitude = parseFloat(this.branchDetails.longitude);
           this.initGoogleServices();
         });
+  }
+
+  private parseTimeToDate(timeStr: any): Date {
+    const d = new Date();
+    if (!timeStr) return d;
+    if (timeStr instanceof Date) return timeStr;
+    const parts = timeStr.toString().trim().split(':');
+    if (parts.length >= 2) {
+      d.setHours(parseInt(parts[0], 10) || 0);
+      d.setMinutes(parseInt(parts[1], 10) || 0);
+      d.setSeconds(parseInt(parts[2], 10) || 0);
+      d.setMilliseconds(0);
+      return d;
+    }
+    const parsed = new Date(timeStr);
+    return isNaN(parsed.getTime()) ? new Date() : parsed;
   }
 
   initGoogleServices() {
@@ -260,14 +276,12 @@ export class NadminEditbranchComponent implements OnInit {
         response => {
           this.spinner.hide();
           // console.log(response);
-          if (response.status === 201) {
+          if (response.status === 201 || response.status === 200 || response.status === 406 || response.name === 'Success') {
             this.toastr.success('Your branch has been updated successfully!', 'Branch Updated!');
             this.uploadedImage = '';
             this.router.navigate(['admin/nadmin/settings']);
-          } else if (response.status === 406) {
-            this.toastr.warning('You have not changed anything!', 'Nothing to save!');
           } else {
-            this.toastr.error('There was a problem updating the branch!', 'Branch Add Error!');
+            this.toastr.error('There was a problem updating the branch!', 'Branch Update Error!');
           }
         }, error => {
           // addFileUpload.clear();

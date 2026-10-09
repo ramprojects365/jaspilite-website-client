@@ -32,17 +32,17 @@
                         <div class="form-group col-lg-3">
                             <label>Start Date</label>
                             <div>
-                                <p-calendar [(ngModel)]="costingStartDate"  dateFormat="dd/mm/yy" name="costingStartDate"
-                                    [showIcon]="true" [maxDate]="todayDate" [monthNavigator]="true"
-                                    [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                                <p-calendar [(ngModel)]="costingStartDate" dateFormat="dd/mm/yy" name="costingStartDate"
+                                    [showIcon]="true" [appendTo]="'body'" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                                    placeholder="DD/MM/YYYY" required></p-calendar>
                             </div>
                         </div>
                         <div class="form-group col-lg-3">
                             <label>End Date</label>
                             <div>
-                                <p-calendar [(ngModel)]="costingEndDate"  dateFormat="dd/mm/yy" name="costingEndDate"
-                                    [showIcon]="true" [maxDate]="todayDate" [monthNavigator]="true"
-                                    [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                                <p-calendar [(ngModel)]="costingEndDate" dateFormat="dd/mm/yy" name="costingEndDate"
+                                    [showIcon]="true" [appendTo]="'body'" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                                    placeholder="DD/MM/YYYY" required></p-calendar>
                             </div>
                         </div>
                     </div>

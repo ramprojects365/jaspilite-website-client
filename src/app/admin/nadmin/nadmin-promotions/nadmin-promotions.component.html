@@ -54,8 +54,8 @@
                                 <label>Start Date</label>
                                 <div>
                                     <p-calendar [(ngModel)]="newStartDate" dateFormat="dd/mm/yy" name="eStartDate"
-                                        #eStartDate="ngModel" [showIcon]="true" [monthNavigator]="true"
-                                        [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                                        #eStartDate="ngModel" [showIcon]="true" [appendTo]="'body'"
+                                        [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +64,8 @@
                                 <label>End Date</label>
                                 <div>
                                     <p-calendar [(ngModel)]="newEndDate" dateFormat="dd/mm/yy" name="eEndDate"
-                                        #eEndDate="ngModel" [showIcon]="true" [monthNavigator]="true"
-                                        [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                                        #eEndDate="ngModel" [showIcon]="true" [appendTo]="'body'"
+                                        [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
                                 </div>
                             </div>
                         </div>

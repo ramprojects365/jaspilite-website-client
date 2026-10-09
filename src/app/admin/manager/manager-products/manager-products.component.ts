@@ -215,23 +215,19 @@ export class ManagerProductsComponent implements OnInit {
     this.spinner.show();
     this.managerProductsService.updateShopItem(modifiedProduct, branchesToAdd)
       .subscribe(response => {
-        // console.log(response);
         this.spinner.hide();
-        if (response.status === 201) {
+        if (response.status === 201 || response.status === 200 || response.status === 406 || response.name === 'Success') {
           this.toastr.success('Your edit has been saved!', 'Save Successful!');
           this.displayProductAdder = false;
           this.displaySelectBranchForAddUpdt = false;
           this.getShopItems(this.userBranch);
-        } else if (response.status === 406) {
-          this.toastr.warning('You have not changed anything!', 'Nothing to save!');
         } else {
-          // console.log(response);
-          this.toastr.error('Your edit has not been saved or you have no edits!', 'Save User Failed!');
+          this.toastr.error('Your edit has not been saved!', 'Save Failed!');
         }
       }, error => {
         this.getShopItems(this.userBranch);
         this.spinner.hide();
-        this.toastr.error(error.error.message, 'Error!');
+        this.toastr.error(error.error?.message || 'Error updating product', 'Error!');
       });
   }
 
@@ -239,21 +235,17 @@ export class ManagerProductsComponent implements OnInit {
     this.spinner.show();
     this.managerProductsService.updateShopItemAvailability(product, this.userBranch, value)
       .subscribe(response => {
-        // console.log(response);
         this.spinner.hide();
-        if (response.status === 201) {
-          this.toastr.success('Your edit has been saved!', 'Save Successful!');
+        if (response.status === 201 || response.status === 200 || response.status === 406 || response.name === 'Success') {
+          this.toastr.success('Availability updated successfully!', 'Save Successful!');
           this.getShopItems(this.userBranch);
-        } else if (response.status === 406) {
-          this.toastr.warning('You have not changed anything!', 'Nothing to save!');
         } else {
-          // console.log(response);
-          this.toastr.error('Your edit has not been saved or you have no edits!', 'Save User Failed!');
+          this.toastr.error('Failed to update availability!', 'Update Failed!');
         }
       }, error => {
         this.getShopItems(this.userBranch);
         this.spinner.hide();
-        this.toastr.error(error.error.message, 'Error!');
+        this.toastr.error(error.error?.message || 'Error updating availability', 'Error!');
       });
   }
 
@@ -261,21 +253,17 @@ export class ManagerProductsComponent implements OnInit {
     this.spinner.show();
     this.managerProductsService.updateShopItemHidded(product, this.userBranch, value)
       .subscribe(response => {
-        // console.log(response);
         this.spinner.hide();
-        if (response.status === 201) {
-          this.toastr.success('Your edit has been saved!', 'Save Successful!');
+        if (response.status === 201 || response.status === 200 || response.status === 406 || response.name === 'Success') {
+          this.toastr.success('Visibility updated successfully!', 'Save Successful!');
           this.getShopItems(this.userBranch);
-        } else if (response.status === 406) {
-          this.toastr.warning('You have not changed anything!', 'Nothing to save!');
         } else {
-          // console.log(response);
-          this.toastr.error('Your edit has not been saved or you have no edits!', 'Save User Failed!');
+          this.toastr.error('Failed to update visibility!', 'Update Failed!');
         }
       }, error => {
         this.getShopItems(this.userBranch);
         this.spinner.hide();
-        this.toastr.error(error.error.message, 'Error!');
+        this.toastr.error(error.error?.message || 'Error updating visibility', 'Error!');
       });
   }
 

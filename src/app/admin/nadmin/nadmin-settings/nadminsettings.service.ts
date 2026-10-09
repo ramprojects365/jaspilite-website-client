@@ -8,6 +8,28 @@ export interface AdminSettingsResponse {
     payload?: any;
 }
 
+function formatTime(val: any): string {
+    if (!val) return '09:00:00';
+    if (val instanceof Date) {
+        if (isNaN(val.getTime())) return '09:00:00';
+        const h = String(val.getHours()).padStart(2, '0');
+        const m = String(val.getMinutes()).padStart(2, '0');
+        const s = String(val.getSeconds()).padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    }
+    if (typeof val === 'string') {
+        const str = val.trim();
+        const parts = str.split(':');
+        if (parts.length >= 2) {
+            const h = String(parseInt(parts[0], 10) || 0).padStart(2, '0');
+            const m = String(parseInt(parts[1], 10) || 0).padStart(2, '0');
+            const s = parts[2] ? String(parseInt(parts[2], 10) || 0).padStart(2, '0') : '00';
+            return `${h}:${m}:${s}`;
+        }
+    }
+    return String(val);
+}
+
 @Injectable()
 export class NadminSettingsService {
 
@@ -68,8 +90,8 @@ export class NadminSettingsService {
                 currency: branch.currency,
                 maximum_distance: branch.maxdistance,
                 minimum_sale: branch.minamount,
-                open_time: new Date(branch.openingtime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false }),
-                close_time: new Date(branch.closingtime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false }),
+                open_time: formatTime(branch.openingtime),
+                close_time: formatTime(branch.closingtime),
                 isAdminDelivery: branch.isAdminDelivery,
                 isPosEnabled: branch.isPosEnabled,
                 track_stock: branch.track_stock,
@@ -101,8 +123,8 @@ export class NadminSettingsService {
                 currency: branch.selectedCurrency,
                 maximum_distance: branch.maxdistance,
                 minimum_sale: branch.minamount,
-                open_time: new Date(branch.openingtime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false }),
-                close_time: new Date(branch.closingtime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false }),
+                open_time: formatTime(branch.openingtime),
+                close_time: formatTime(branch.closingtime),
                 isAdminDelivery: branch.isAdminDelivery,
                 isPosEnabled: branch.isPosEnabled,
                 track_stock: branch.track_stock,

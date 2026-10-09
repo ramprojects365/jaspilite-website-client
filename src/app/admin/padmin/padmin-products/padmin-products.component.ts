@@ -260,7 +260,7 @@ export class PadminProductsComponent implements OnInit {
       .subscribe(
         response => {
           this.spinner.hide();
-          if (response.status === 201 || response.status === 200) {
+          if (response.status === 201 || response.status === 200 || response.status === 406 || response.name === 'Success') {
             this.toastr.success('Your edit has been saved!', 'Save Successful!');
             if (editFileUpload && editFileUpload.clear) {
               editFileUpload.clear();
@@ -270,8 +270,6 @@ export class PadminProductsComponent implements OnInit {
             this.uploadedImage = '';
             this.displayEditor = false;
             this.loadProducts();
-          } else if (response.status === 406) {
-            this.toastr.warning('You have not changed anything!', 'Nothing to save!');
           } else {
             this.toastr.error('There was a problem updating the product!', 'Product Update Error!');
           }

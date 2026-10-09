@@ -117,14 +117,14 @@
             <label>Start Date</label>
             <div>
               <p-calendar [(ngModel)]="vStartDate" dateFormat="dd/mm/yy" name="vStartDate" [showIcon]="true"
-                [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                [appendTo]="'body'" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
             </div>
           </div>
           <div class="col-md-4 form-group">
             <label>End Date</label>
             <div>
               <p-calendar [(ngModel)]="vEndDate" dateFormat="dd/mm/yy" name="vEndDate" [showIcon]="true"
-                [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2030"></p-calendar>
+                [appendTo]="'body'" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
             </div>
           </div>
           <!-- <div class="col-md-4 form-group" style="margin-bottom: 55px;">

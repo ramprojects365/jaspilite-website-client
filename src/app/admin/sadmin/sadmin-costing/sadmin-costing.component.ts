@@ -25,9 +25,9 @@ export class SadminCostingComponent implements OnInit {
   excelData = [];
   userBranch: string;
   costingStartDate: Date;
-  costingStartDateForPrint: Date;
+  costingStartDateForPrint: any;
   costingEndDate: Date;
-  costingEndDateForPrint: Date;
+  costingEndDateForPrint: any;
   displayInvoiceModal = false;
   sales = [];
   todayDate = new Date();
@@ -69,12 +69,12 @@ export class SadminCostingComponent implements OnInit {
     this.jaspiliteAmount = 0;
     this.fees = 0;
     this.printBtnEnabled = false;
-    //this.shopPercentage = 0.00;
     this.costingStartDate = new Date();
     this.costingStartDateForPrint = new Date();
     this.costingEndDate = new Date();
     this.costingEndDateForPrint = new Date();
-    this.todayDate.setDate(this.todayDate.getDate());
+    this.todayDate = new Date();
+    this.todayDate.setHours(23, 59, 59, 999);
     // Live production: Start empty, load real data only
     this.userShops = [];
     this.userShop = null;
@@ -163,22 +163,24 @@ export class SadminCostingComponent implements OnInit {
 
     this.shopPercentage = value.shopPercentage;
 
-    var startDate = value.costingStartDate;
-    var endDate = value.costingEndDate;
+    const rawStartDate = value.costingStartDate instanceof Date ? new Date(value.costingStartDate.getTime()) : new Date();
+    const rawEndDate = value.costingEndDate instanceof Date ? new Date(value.costingEndDate.getTime()) : new Date();
 
-    startDate.setDate(startDate.getDate() + 1);
-    this.costingStartDate = startDate.toISOString().slice(0, 10);
-    this.costingStartDateForPrint = this.costingStartDate;
+    const startForQuery = new Date(rawStartDate.getTime());
+    startForQuery.setDate(startForQuery.getDate() + 1);
+    const startStr = startForQuery.toISOString().slice(0, 10);
+    this.costingStartDateForPrint = startStr;
 
-    endDate.setDate(endDate.getDate() + 2);
-    this.costingEndDate = endDate.toISOString().slice(0, 10);
-    endDate.setDate(endDate.getDate() - 1);
-    this.costingEndDateForPrint = endDate.toISOString().slice(0, 10);
+    const endForQuery = new Date(rawEndDate.getTime());
+    endForQuery.setDate(endForQuery.getDate() + 2);
+    const endStr = endForQuery.toISOString().slice(0, 10);
+    endForQuery.setDate(endForQuery.getDate() - 1);
+    this.costingEndDateForPrint = endForQuery.toISOString().slice(0, 10);
 
     this.SadmincostingService.getSales(
       value.userBranch,
-      this.costingStartDate,
-      this.costingEndDate,
+      startStr,
+      endStr,
     ).subscribe((sales) => {
       //console.log('sales in costing page ' + sales.payload.sales);
       this.sales = sales.payload.sales;
