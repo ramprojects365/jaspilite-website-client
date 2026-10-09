@@ -229,19 +229,17 @@
                     </div>
                     <div class="form-group">
                       <label><b>Shop Opening Time (24 Hours Clock)</b></label>
-                      <p-calendar
+                      <p-dropdown
+                        [options]="timeOptions"
+                        [filter]="true"
+                        filterPlaceholder="Search opening time..."
                         [style]="{ width: '100%' }"
-                        [inputStyle]="{ width: '100%' }"
-                        [timeOnly]="true"
-                        hourFormat="24"
-                        [showIcon]="true"
-                        icon="pi pi-clock"
-                        placeholder="Select Opening Time (e.g. 09:00)"
-                        ngModel
+                        [(ngModel)]="opening_time"
                         name="openingtime"
                         #openingtime="ngModel"
+                        placeholder="Select Opening Time"
                         required
-                      ></p-calendar>
+                      ></p-dropdown>
                       <span
                         *ngIf="!openingtime.valid && openingtime.touched"
                         style="color: #ffa500"
@@ -250,19 +248,17 @@
                     </div>
                     <div class="form-group">
                       <label><b>Shop Closing Time (24 Hours Clock)</b></label>
-                      <p-calendar
+                      <p-dropdown
+                        [options]="timeOptions"
+                        [filter]="true"
+                        filterPlaceholder="Search closing time..."
                         [style]="{ width: '100%' }"
-                        [inputStyle]="{ width: '100%' }"
-                        [timeOnly]="true"
-                        hourFormat="24"
-                        [showIcon]="true"
-                        icon="pi pi-clock"
-                        placeholder="Select Closing Time (e.g. 22:00)"
-                        ngModel
+                        [(ngModel)]="closing_time"
                         name="closingtime"
                         #closingtime="ngModel"
+                        placeholder="Select Closing Time"
                         required
-                      ></p-calendar>
+                      ></p-dropdown>
                       <span
                         *ngIf="!closingtime.valid && closingtime.touched"
                         style="color: #ffa500"

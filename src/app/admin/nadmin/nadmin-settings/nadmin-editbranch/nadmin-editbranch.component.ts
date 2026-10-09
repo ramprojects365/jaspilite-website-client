@@ -27,6 +27,7 @@ export class NadminEditbranchComponent implements OnInit {
   shopCategory: string;
   currencies = [];
   selectedCurrency = "";
+  timeOptions: any[] = [];
   opening_time: any;
   closing_time: any;
   uploadedImage: string;
@@ -71,12 +72,47 @@ export class NadminEditbranchComponent implements OnInit {
       { label: 'MYR (Malaysian Ringgit)', value: 'MYR' },
     ];
     this.branchId = this.route.snapshot.paramMap.get('branch');
+    this.timeOptions = this.generateTimeOptions();
     if (isPlatformBrowser(this.platformId)) {
       // MouseEvent code
       this.getBranchDetails();
       this.getShops();
       this.getShopCategories();
     }
+  }
+
+  generateTimeOptions() {
+    const options = [];
+    for (let h = 0; h < 24; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
+        const val = `${hh}:${mm}`;
+        const period = h < 12 ? 'AM' : 'PM';
+        const displayH = h % 12 === 0 ? 12 : h % 12;
+        const displayHH = String(displayH).padStart(2, '0');
+        options.push({
+          label: `${val} (${displayHH}:${mm} ${period})`,
+          value: val
+        });
+      }
+    }
+    return options;
+  }
+
+  formatTimeForDropdown(timeStr: any, fallback: string): string {
+    if (!timeStr) return fallback;
+    const parts = timeStr.toString().trim().split(':');
+    if (parts.length >= 2) {
+      const hh = String(parseInt(parts[0], 10) || 0).padStart(2, '0');
+      const mm = String(parseInt(parts[1], 10) || 0).padStart(2, '0');
+      const val = `${hh}:${mm}`;
+      if (!this.timeOptions.some(o => o.value === val)) {
+        this.timeOptions.unshift({ label: `${val} (${hh}:${mm})`, value: val });
+      }
+      return val;
+    }
+    return fallback;
   }
   getShops() {
     const adminUser = this.adminLoginService.adminUser.getValue();
@@ -142,8 +178,8 @@ export class NadminEditbranchComponent implements OnInit {
           this.userShop = this.branchDetails.shop_id;
           this.shopCategory = this.branchDetails.branch_cat_id;
           this.selectedCurrency = this.branchDetails.currency === 'RM' ? 'MYR' : (this.branchDetails.currency || 'MYR');
-          this.opening_time = this.parseTimeToDate(this.branchDetails.open_time);
-          this.closing_time = this.parseTimeToDate(this.branchDetails.close_time);
+          this.opening_time = this.formatTimeForDropdown(this.branchDetails.open_time, '09:00');
+          this.closing_time = this.formatTimeForDropdown(this.branchDetails.close_time, '22:00');
           this.theme = { themes: this.branchDetails.home_screen_theme.toString() };
           this.isPosEnabled = this.branchDetails.isPosEnabled;
           this.track_stock = this.branchDetails.track_stock;

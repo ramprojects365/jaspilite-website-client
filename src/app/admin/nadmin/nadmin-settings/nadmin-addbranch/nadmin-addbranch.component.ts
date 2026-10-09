@@ -40,6 +40,10 @@ export class NadminAddbranchComponent implements OnInit {
 
   theme = { themes: '1' };
 
+  timeOptions = [];
+  opening_time = '09:00';
+  closing_time = '22:00';
+
   @ViewChild('search', { static: false })
   public searchElementRef: ElementRef;
 
@@ -75,6 +79,9 @@ export class NadminAddbranchComponent implements OnInit {
     ];
     this.currency = 'MYR';
     this.countryCode = '+60';
+    this.timeOptions = this.generateTimeOptions();
+    this.opening_time = '09:00';
+    this.closing_time = '22:00';
     if (isPlatformBrowser(this.platformId)) {
       // MouseEvent code
       this.initGoogleServices();
@@ -82,6 +89,25 @@ export class NadminAddbranchComponent implements OnInit {
       this.getShopCategories();
     }
 
+  }
+
+  generateTimeOptions() {
+    const options = [];
+    for (let h = 0; h < 24; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
+        const val = `${hh}:${mm}`;
+        const period = h < 12 ? 'AM' : 'PM';
+        const displayH = h % 12 === 0 ? 12 : h % 12;
+        const displayHH = String(displayH).padStart(2, '0');
+        options.push({
+          label: `${val} (${displayHH}:${mm} ${period})`,
+          value: val
+        });
+      }
+    }
+    return options;
   }
   changeCode(event) {
     console.log(event.value);
